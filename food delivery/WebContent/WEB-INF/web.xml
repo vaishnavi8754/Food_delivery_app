@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0"
+         metadata-complete="true">
+    
+    <display-name>FoodExpress - Online Food Delivery</display-name>
+    
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    
+    <!-- 
+    -->
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.fooddelivery.controller.user.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.fooddelivery.controller.user.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>com.fooddelivery.controller.user.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>OrderServlet</servlet-name>
+        <servlet-class>com.fooddelivery.controller.user.OrderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderServlet</servlet-name>
+        <url-pattern>/orders</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderServlet</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>com.fooddelivery.controller.common.HomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HomeServlet</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RestaurantServlet</servlet-name>
+        <servlet-class>com.fooddelivery.controller.common.RestaurantServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RestaurantServlet</servlet-name>
+        <url-pattern>/restaurants</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RestaurantServlet</servlet-name>
+        <url-pattern>/restaurant</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>MenuServlet</servlet-name>
+        <servlet-class>com.fooddelivery.controller.common.MenuServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MenuServlet</servlet-name>
+        <url-pattern>/menu</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>CartServlet</servlet-name>
+        <servlet-class>com.fooddelivery.controller.common.CartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/cart/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/cart/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/cart/remove</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartServlet</servlet-name>
+        <url-pattern>/cart/clear</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <servlet-class>com.fooddelivery.controller.admin.AdminLoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <url-pattern>/admin/login</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <servlet-class>com.fooddelivery.controller.admin.AdminDashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminDashboardServlet</servlet-name>
+        <url-pattern>/admin/dashboard</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ManageRestaurantServlet</servlet-name>
+        <servlet-class>com.fooddelivery.controller.admin.ManageRestaurantServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManageRestaurantServlet</servlet-name>
+        <url-pattern>/admin/restaurants</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageRestaurantServlet</servlet-name>
+        <url-pattern>/admin/restaurants/delete</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ManageFoodServlet</servlet-name>
+        <servlet-class>com.fooddelivery.controller.admin.ManageFoodServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManageFoodServlet</servlet-name>
+        <url-pattern>/admin/food</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageFoodServlet</servlet-name>
+        <url-pattern>/admin/food/delete</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ManageOrderServlet</servlet-name>
+        <servlet-class>com.fooddelivery.controller.admin.ManageOrderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManageOrderServlet</servlet-name>
+        <url-pattern>/admin/orders</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageOrderServlet</servlet-name>
+        <url-pattern>/admin/orders/update</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ManageUserServlet</servlet-name>
+        <servlet-class>com.fooddelivery.controller.admin.ManageUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManageUserServlet</servlet-name>
+        <url-pattern>/admin/users</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageUserServlet</servlet-name>
+        <url-pattern>/admin/users/delete</url-pattern>
+    </servlet-mapping>
+    <!-- 
+    -->
+    
+</web-app>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | FoodExpress</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-branding">
+            <div class="branding-content">
+                <div class="brand-logo">
+                    <div class="brand-logo-icon">🍕</div>
+                    <span class="brand-logo-text">FoodExpress</span>
+                </div>
+                <h1 class="branding-title">Join the Food<br>Revolution 🚀</h1>
+                <p class="branding-subtitle">Create your free account and unlock a world of culinary delights.</p>
+                <ul class="branding-features">
+                    <li>Exclusive first-order discounts</li>
+                    <li>Personalized recommendations</li>
+                    <li>Save your favorite restaurants</li>
+                    <li>Easy reorder from history</li>
+                </ul>
+            </div>
+        </div>
+        <div class="auth-form-section">
+            <div class="auth-form-wrapper fade-in">
+                <div class="auth-form-header">
+                    <h2>Create Account 🎉</h2>
+                    <p>Fill in your details to get started</p>
+                </div>
+                <div class="auth-card">
+                    <form action="#" method="POST" id="registerForm">
+                        <div class="form-group">
+                            <label class="form-label" for="fullName">Full Name</label>
+                            <div class="form-input-wrapper">
+                                <input type="text" id="fullName" name="fullName" class="form-input"
+                                    placeholder="Enter your full name" required>
+                                <span class="form-input-icon">👤</span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="email">Email Address</label>
+                                <div class="form-input-wrapper">
+                                    <input type="email" id="email" name="email" class="form-input"
+                                        placeholder="your@email.com" required>
+                                    <span class="form-input-icon">📧</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="phone">Phone Number</label>
+                                <div class="form-input-wrapper">
+                                    <input type="tel" id="phone" name="phone" class="form-input"
+                                        placeholder="10-digit number" required maxlength="10">
+                                    <span class="form-input-icon">📱</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="address">Delivery Address <span
+                                    style="color:#9ca3af;font-weight:400">(Optional)</span></label>
+                            <div class="form-input-wrapper">
+                                <input type="text" id="address" name="address" class="form-input"
+                                    placeholder="Enter your delivery address">
+                                <span class="form-input-icon">📍</span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="password">Password</label>
+                                <div class="form-input-wrapper">
+                                    <input type="password" id="password" name="password" class="form-input"
+                                        placeholder="Min. 6 characters" required minlength="6">
+                                    <span class="form-input-icon">🔒</span>
+                                    <span class="form-input-right-icon"
+                                        onclick="togglePassword('password', this)">👁️</span>
+                                </div>
+                                <div class="password-strength" id="passwordStrength">
+                                    <div class="password-strength-bar">
+                                        <div class="password-strength-fill"></div>
+                                    </div>
+                                    <span class="password-strength-text"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="confirmPassword">Confirm Password</label>
+                                <div class="form-input-wrapper">
+                                    <input type="password" id="confirmPassword" name="confirmPassword"
+                                        class="form-input" placeholder="Repeat password" required>
+                                    <span class="form-input-icon">🔐</span>
+                                    <span class="form-input-right-icon"
+                                        onclick="togglePassword('confirmPassword', this)">👁️</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-checkbox-wrapper">
+                                <input type="checkbox" id="terms" name="terms" class="form-checkbox" required>
+                                <label for="terms" class="form-checkbox-label">I agree to the <a href="#">Terms</a> and
+                                    <a href="#">Privacy Policy</a></label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="registerBtn"><span>Create
+                                Account</span><span>→</span></button>
+                    </form>
+                    <div class="social-divider"><span>Or sign up with</span></div>
+                    <div class="social-buttons">
+                        <button type="button" class="btn-social"><span>🔵</span><span>Google</span></button>
+                        <button type="button" class="btn-social"><span>📘</span><span>Facebook</span></button>
+                    </div>
+                </div>
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="login.html">Sign In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function togglePassword(inputId, iconElement) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') { input.type = 'text'; iconElement.textContent = '🙈'; }
+            else { input.type = 'password'; iconElement.textContent = '👁️'; }
+        }
+        document.getElementById('password').addEventListener('input', function () {
+            const password = this.value;
+            const indicator = document.getElementById('passwordStrength');
+            let score = 0;
+            if (password.length >= 6) score++;
+            if (password.length >= 8) score++;
+            if (/[A-Z]/.test(password)) score++;
+            if (/[0-9]/.test(password)) score++;
+            if (/[^a-zA-Z0-9]/.test(password)) score++;
+            if (score <= 2) indicator.className = 'password-strength strength-weak';
+            else if (score <= 3) indicator.className = 'password-strength strength-medium';
+            else indicator.className = 'password-strength strength-strong';
+        });
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (document.getElementById('password').value !== document.getElementById('confirmPassword').value) {
+                alert('Passwords do not match!'); return;
+            }
+            alert('Registration requires Apache Tomcat server!');
+        });
+    </script>
+</body>
+
+</html>

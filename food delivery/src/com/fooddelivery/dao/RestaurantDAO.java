@@ -114,6 +114,148 @@ public class RestaurantDAO {
         r9.setImageUrl("https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800");
         mocks.add(r9);
 
+        Restaurant r10 = new Restaurant();
+        r10.setRestaurantId(10);
+        r10.setName("Sangeetha Veg Restaurant");
+        r10.setCuisineType("South Indian");
+        r10.setRating(4.6);
+        r10.setAddress("12 Gandhi Road, Adyar, Chennai");
+        r10.setPhone("9876501234");
+        r10.setImageUrl("https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800");
+        mocks.add(r10);
+
+        Restaurant r11 = new Restaurant();
+        r11.setRestaurantId(11);
+        r11.setName("Anjappar Chettinad Restaurant");
+        r11.setCuisineType("Chettinad");
+        r11.setRating(4.4);
+        r11.setAddress("45 Anna Salai, Chennai");
+        r11.setPhone("9840123456");
+        r11.setImageUrl("https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?w=800");
+        mocks.add(r11);
+
+        Restaurant r12 = new Restaurant();
+        r12.setRestaurantId(12);
+        r12.setName("Nagarjuna Chimney");
+        r12.setCuisineType("Andhra");
+        r12.setRating(4.7);
+        r12.setAddress("Residency Road, Bangalore");
+        r12.setPhone("8023456789");
+        r12.setImageUrl("https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=800");
+        mocks.add(r12);
+
+        Restaurant r13 = new Restaurant();
+        r13.setRestaurantId(13);
+        r13.setName("Malabar Cafe");
+        r13.setCuisineType("Kerala");
+        r13.setRating(4.5);
+        r13.setAddress("MG Road, Kochi");
+        r13.setPhone("9447012345");
+        r13.setImageUrl("https://images.unsplash.com/photo-1567337710282-00832b415979?w=800");
+        mocks.add(r13);
+
+        Restaurant r14 = new Restaurant();
+        r14.setRestaurantId(14);
+        r14.setName("Vidyarthi Bhavan");
+        r14.setCuisineType("Karnataka");
+        r14.setRating(4.8);
+        r14.setAddress("Gandhi Bazaar, Basavanagudi, Bangalore");
+        r14.setPhone("8026677451");
+        r14.setImageUrl("https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=800");
+        mocks.add(r14);
+
+        Restaurant r15 = new Restaurant();
+        r15.setRestaurantId(15);
+        r15.setName("Rayalaseema Ruchulu");
+        r15.setCuisineType("Telugu");
+        r15.setRating(4.3);
+        r15.setAddress("Jubilee Hills, Hyderabad");
+        r15.setPhone("4023556789");
+        r15.setImageUrl("https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=800");
+        mocks.add(r15);
+
+        Restaurant r16 = new Restaurant();
+        r16.setRestaurantId(16);
+        r16.setName("Karavalli Seafood");
+        r16.setCuisineType("Mangalorean");
+        r16.setRating(4.6);
+        r16.setAddress("Brigade Road, Bangalore");
+        r16.setPhone("8025585858");
+        r16.setImageUrl("https://images.unsplash.com/photo-1765265432607-cdc1060294ba?w=800");
+        mocks.add(r16);
+
+        Restaurant r17 = new Restaurant();
+        r17.setRestaurantId(17);
+        r17.setName("Murugan Idli Shop");
+        r17.setCuisineType("Tamil");
+        r17.setRating(4.7);
+        r17.setAddress("15 North Chitrai Street, Madurai");
+        r17.setPhone("4522341234");
+        r17.setImageUrl("https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800");
+        mocks.add(r17);
+
+        Restaurant r18 = new Restaurant();
+        r18.setRestaurantId(18);
+        r18.setName("Thalassery Kitchen");
+        r18.setCuisineType("Moplah");
+        r18.setRating(4.4);
+        r18.setAddress("Railway Station Road, Thalassery");
+        r18.setPhone("4902322334");
+        r18.setImageUrl("https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?w=800");
+        mocks.add(r18);
+
+        Restaurant r19 = new Restaurant();
+        r19.setRestaurantId(19);
+        r19.setName("Paradise Biryani Point");
+        r19.setCuisineType("Hyderabadi");
+        r19.setRating(4.5);
+        r19.setAddress("Hitech City, Hyderabad");
+        r19.setPhone("4023411122");
+        r19.setImageUrl("https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=800");
+        mocks.add(r19);
+
+        Restaurant r20 = new Restaurant();
+        r20.setRestaurantId(20);
+        r20.setName("The Cake Studio");
+        r20.setCuisineType("Cakes & Desserts");
+        r20.setRating(4.7);
+        r20.setAddress("Indiranagar, Bangalore");
+        r20.setPhone("8041235566");
+        r20.setImageUrl("https://images.unsplash.com/photo-1739132124985-6c9277e268b5?w=800");
+        mocks.add(r20);
+
+        Restaurant r21 = new Restaurant();
+        r21.setRestaurantId(21);
+        r21.setName("Sweet Temptations");
+        r21.setCuisineType("Bakery");
+        r21.setRating(4.6);
+        r21.setAddress("Nungambakkam, Chennai");
+        r21.setPhone("4428223344");
+        r21.setImageUrl("https://images.unsplash.com/photo-1648596799000-646ec880d4e7?w=800");
+        mocks.add(r21);
+
+        Restaurant r22 = new Restaurant();
+        r22.setRestaurantId(22);
+        r22.setName("The Tea House");
+        r22.setCuisineType("Beverages & Tea");
+        r22.setRating(4.8);
+        r22.setAddress("Banjara Hills, Hyderabad");
+        r22.setPhone("4023112233");
+        r22.setImageUrl("https://images.unsplash.com/photo-1765809330985-a59b80931d12?w=800");
+        mocks.add(r22);
+
+        Restaurant r23 = new Restaurant();
+        r23.setRestaurantId(23);
+        r23.setName("Namma Karnataka");
+        r23.setCuisineType("Karnataka, Bath");
+        r23.setRating(4.5);
+        r23.setAddress("Jayanagar, Bangalore");
+        r23.setPhone("8026633445");
+        r23.setImageUrl("https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800"); // Standard South Indian
+                                                                                               // meal image to
+                                                                                               // represent variety
+        mocks.add(r23);
+
         return mocks;
     }
 
@@ -170,11 +312,27 @@ public class RestaurantDAO {
     }
 
     public List<Restaurant> searchRestaurants(String keyword) {
-        String sql = "SELECT * FROM restaurant WHERE (name LIKE ? OR cuisine_type LIKE ?) AND is_active = TRUE";
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return getAllRestaurants();
+        }
+
+        Connection conn = DBConnection.getConnection();
         List<Restaurant> restaurants = new ArrayList<>();
-        try (Connection conn = DBConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
-            String pattern = "%" + keyword + "%";
+
+        if (conn == null) {
+            String lowerKeyword = keyword.toLowerCase().trim();
+            for (Restaurant r : getMockRestaurants()) {
+                if (r.getName().toLowerCase().contains(lowerKeyword) ||
+                        r.getCuisineType().toLowerCase().contains(lowerKeyword)) {
+                    restaurants.add(r);
+                }
+            }
+            return restaurants;
+        }
+
+        String sql = "SELECT * FROM restaurant WHERE (name LIKE ? OR cuisine_type LIKE ?) AND is_active = TRUE";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            String pattern = "%" + keyword.trim() + "%";
             stmt.setString(1, pattern);
             stmt.setString(2, pattern);
             ResultSet rs = stmt.executeQuery();
@@ -183,14 +341,19 @@ public class RestaurantDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBConnection.closeConnection(conn);
         }
         return restaurants;
     }
 
     public boolean addRestaurant(Restaurant r) {
         String sql = "INSERT INTO restaurant (name, description, address, phone, email, image_url, cuisine_type, rating) VALUES (?,?,?,?,?,?,?,?)";
-        try (Connection conn = DBConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = DBConnection.getConnection();
+        if (conn == null)
+            return false;
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, r.getName());
             stmt.setString(2, r.getDescription());
             stmt.setString(3, r.getAddress());
@@ -202,14 +365,19 @@ public class RestaurantDAO {
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBConnection.closeConnection(conn);
         }
         return false;
     }
 
     public boolean updateRestaurant(Restaurant r) {
         String sql = "UPDATE restaurant SET name=?, description=?, address=?, phone=?, cuisine_type=?, is_active=? WHERE restaurant_id=?";
-        try (Connection conn = DBConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = DBConnection.getConnection();
+        if (conn == null)
+            return false;
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, r.getName());
             stmt.setString(2, r.getDescription());
             stmt.setString(3, r.getAddress());
@@ -220,18 +388,25 @@ public class RestaurantDAO {
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBConnection.closeConnection(conn);
         }
         return false;
     }
 
     public boolean deleteRestaurant(int id) {
         String sql = "DELETE FROM restaurant WHERE restaurant_id = ?";
-        try (Connection conn = DBConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = DBConnection.getConnection();
+        if (conn == null)
+            return false;
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBConnection.closeConnection(conn);
         }
         return false;
     }
@@ -241,11 +416,11 @@ public class RestaurantDAO {
         List<String> cuisines = new ArrayList<>();
         Connection conn = DBConnection.getConnection();
         if (conn == null) {
-            cuisines.add("American");
-            cuisines.add("Italian");
-            cuisines.add("Indian");
-            cuisines.add("Chinese");
-            cuisines.add("Mexican");
+            for (Restaurant r : getMockRestaurants()) {
+                if (!cuisines.contains(r.getCuisineType())) {
+                    cuisines.add(r.getCuisineType());
+                }
+            }
             return cuisines;
         }
         try (PreparedStatement stmt = conn.prepareStatement(sql);

@@ -154,7 +154,7 @@
 
                         <!-- Footer -->
                         <div class="auth-footer">
-                            <p>Don't have an account? <a href="${pageContext.request.contextPath}/register">Create
+                            <p>Don't have an account? <a href="${pageContext.request.contextPath}/signup">Create
                                     Account</a></p>
                         </div>
                     </div>

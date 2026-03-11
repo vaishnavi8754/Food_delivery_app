@@ -32,6 +32,12 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // Check for authentication required message
+        String auth = request.getParameter("auth");
+        if ("required".equals(auth)) {
+            request.setAttribute("error", "Please login to continue.");
+        }
+
         // Check if user is already logged in
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("user") != null) {

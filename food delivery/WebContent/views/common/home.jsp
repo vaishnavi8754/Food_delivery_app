@@ -49,7 +49,7 @@
                             </c:when>
                             <c:otherwise>
                                 <a href="${pageContext.request.contextPath}/login" class="btn btn-outline">Login</a>
-                                <a href="${pageContext.request.contextPath}/register" class="btn btn-primary-sm">Sign
+                                <a href="${pageContext.request.contextPath}/signup" class="btn btn-primary-sm">Sign
                                     Up</a>
                             </c:otherwise>
                         </c:choose>
@@ -122,21 +122,21 @@
                     <div class="scroller-item"
                         onclick="location.href='${pageContext.request.contextPath}/restaurants?search=bath'">
                         <div class="scroller-image">
-                            <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=200" alt="Bath">
+                            <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=200" alt="Bath">
                         </div>
                         <span>Bath</span>
                     </div>
                     <div class="scroller-item"
                         onclick="location.href='${pageContext.request.contextPath}/restaurants?search=tea'">
                         <div class="scroller-image">
-                            <img src="${pageContext.request.contextPath}/images/tea.png" alt="Tea">
+                            <img src="https://images.unsplash.com/photo-1594631252845-29fc4586c566?w=200" alt="Tea">
                         </div>
                         <span>Tea</span>
                     </div>
                     <div class="scroller-item"
                         onclick="location.href='${pageContext.request.contextPath}/restaurants?search=pongal'">
                         <div class="scroller-image">
-                            <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=200" alt="Pongal">
+                            <img src="https://images.unsplash.com/photo-1621658537360-dfcb008fe19f?w=200" alt="Pongal">
                         </div>
                         <span>Pongal</span>
                     </div>

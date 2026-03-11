@@ -25,11 +25,28 @@
                         <div class="nav-links">
                             <a href="${pageContext.request.contextPath}/home" class="nav-link">Home</a>
                             <a href="${pageContext.request.contextPath}/restaurants" class="nav-link">Restaurants</a>
+                            <a href="${pageContext.request.contextPath}/cart" class="nav-link active">
+                                🛒 Cart
+                                <c:if test="${not empty sessionScope.cart}">
+                                    <span class="cart-badge">${sessionScope.cart.size()}</span>
+                                </c:if>
+                            </a>
                         </div>
                         <div class="nav-auth">
-                            <c:if test="${not empty sessionScope.user}">
-                                <a href="${pageContext.request.contextPath}/logout" class="btn btn-outline">Logout</a>
-                            </c:if>
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.user}">
+                                    <span class="user-greeting">Hi, ${sessionScope.userName}</span>
+                                    <a href="${pageContext.request.contextPath}/orders" class="btn btn-outline">My
+                                        Orders</a>
+                                    <a href="${pageContext.request.contextPath}/logout"
+                                        class="btn btn-outline">Logout</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${pageContext.request.contextPath}/login" class="btn btn-outline">Login</a>
+                                    <a href="${pageContext.request.contextPath}/signup" class="btn btn-primary-sm">Sign
+                                        Up</a>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </nav>
@@ -94,22 +111,31 @@
                                         </div>
                                         <div class="summary-row">
                                             <span>Delivery Fee</span>
-                                            <span>₹40.00</span>
+                                            <span>₹20.00</span>
                                         </div>
                                         <div class="summary-row total">
                                             <span>Total</span>
                                             <span>₹
-                                                <fmt:formatNumber value="${cartTotal + 40}" pattern="#,##0.00" />
+                                                <fmt:formatNumber value="${cartTotal + 20}" pattern="#,##0.00" />
                                             </span>
                                         </div>
+                                        <div class="payment-methods-summary">
+                                            <p class="summary-label">Available Payment Options:</p>
+                                            <div class="payment-icons">
+                                                <span title="Cash on Delivery">💵 COD</span>
+                                                <span title="Credit/Debit Card">💳 Card</span>
+                                                <span title="UPI">📱 UPI</span>
+                                            </div>
+                                        </div>
+
                                         <c:choose>
                                             <c:when test="${not empty sessionScope.user}">
                                                 <a href="${pageContext.request.contextPath}/checkout"
-                                                    class="btn btn-primary btn-block">Proceed to Checkout</a>
+                                                    class="btn btn-primary btn-block">Proceed to Payment</a>
                                             </c:when>
                                             <c:otherwise>
                                                 <a href="${pageContext.request.contextPath}/login"
-                                                    class="btn btn-primary btn-block">Login to Checkout</a>
+                                                    class="btn btn-primary btn-block">Login to Order</a>
                                             </c:otherwise>
                                         </c:choose>
                                         <form action="${pageContext.request.contextPath}/cart/clear" method="POST">

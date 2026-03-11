@@ -22,9 +22,31 @@
                             <span class="logo-icon">🍕</span>
                             <span class="logo-text">FoodExpress</span>
                         </a>
+                        <div class="nav-links">
+                            <a href="${pageContext.request.contextPath}/home" class="nav-link">Home</a>
+                            <a href="${pageContext.request.contextPath}/restaurants" class="nav-link">Restaurants</a>
+                            <a href="${pageContext.request.contextPath}/cart" class="nav-link cart-link">
+                                🛒 Cart
+                                <c:if test="${not empty sessionScope.cart}">
+                                    <span class="cart-badge">${sessionScope.cart.size()}</span>
+                                </c:if>
+                            </a>
+                        </div>
                         <div class="nav-auth">
-                            <a href="${pageContext.request.contextPath}/orders" class="btn btn-outline">← Back to
-                                Orders</a>
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.user}">
+                                    <span class="user-greeting">Hi, ${sessionScope.userName}</span>
+                                    <a href="${pageContext.request.contextPath}/orders" class="btn btn-outline">My
+                                        Orders</a>
+                                    <a href="${pageContext.request.contextPath}/logout"
+                                        class="btn btn-outline">Logout</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${pageContext.request.contextPath}/login" class="btn btn-outline">Login</a>
+                                    <a href="${pageContext.request.contextPath}/signup" class="btn btn-primary-sm">Sign
+                                        Up</a>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </nav>

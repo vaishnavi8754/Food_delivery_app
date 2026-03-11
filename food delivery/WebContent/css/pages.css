@@ -779,11 +779,34 @@
     border-bottom: 1px solid var(--gray-100);
 }
 
-.summary-row.total {
-    border-bottom: none;
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: var(--primary-600);
+.payment-methods-summary {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+    border: 1px dashed var(--gray-300);
+}
+
+.summary-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gray-600);
+    margin-bottom: 0.75rem;
+}
+
+.payment-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.payment-icons span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gray-700);
+    background: white;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
 }
 
 /* Checkout */

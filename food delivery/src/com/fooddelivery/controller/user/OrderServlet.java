@@ -8,24 +8,27 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/orders", "/checkout", "/order/place"})
+@WebServlet(urlPatterns = { "/orders", "/checkout", "/order/place" })
 public class OrderServlet extends HttpServlet {
     private OrderDAO orderDAO;
-    
+
     @Override
-    public void init() { orderDAO = new OrderDAO(); }
-    
+    public void init() {
+        orderDAO = new OrderDAO();
+    }
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login?auth=required");
             return;
         }
-        
+
         String path = request.getServletPath();
         User user = (User) session.getAttribute("user");
-        
+
         if ("/checkout".equals(path)) {
             @SuppressWarnings("unchecked")
             List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
@@ -36,6 +39,7 @@ public class OrderServlet extends HttpServlet {
             double total = cart.stream().mapToDouble(CartItem::getSubtotal).sum();
             request.setAttribute("cartItems", cart);
             request.setAttribute("cartTotal", total);
+            request.setAttribute("deliveryFee", 20.0);
             request.setAttribute("user", user);
             request.getRequestDispatcher("/views/user/checkout.jsp").forward(request, response);
         } else {
@@ -51,40 +55,41 @@ public class OrderServlet extends HttpServlet {
             }
         }
     }
-    
+
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login?auth=required");
             return;
         }
-        
+
         User user = (User) session.getAttribute("user");
         @SuppressWarnings("unchecked")
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
-        
+
         if (cart == null || cart.isEmpty()) {
             response.sendRedirect(request.getContextPath() + "/cart");
             return;
         }
-        
+
         // Get form data
         String address = request.getParameter("address");
         String paymentMethod = request.getParameter("paymentMethod");
         String instructions = request.getParameter("instructions");
-        
+
         // Create order
         Order order = new Order();
         order.setUserId(user.getUserId());
         order.setRestaurantId(cart.get(0).getRestaurantId());
-        order.setTotalAmount(cart.stream().mapToDouble(CartItem::getSubtotal).sum());
+        order.setTotalAmount(cart.stream().mapToDouble(CartItem::getSubtotal).sum() + 20.0);
         order.setDeliveryAddress(address);
         order.setPaymentMethod(paymentMethod);
         order.setSpecialInstructions(instructions);
-        
+
         int orderId = orderDAO.createOrder(order, cart);
-        
+
         if (orderId > 0) {
             session.removeAttribute("cart");
             response.sendRedirect(request.getContextPath() + "/orders?id=" + orderId + "&success=true");

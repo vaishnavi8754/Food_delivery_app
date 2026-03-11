@@ -16,7 +16,6 @@
             </head>
 
             <body>
-                <!-- Navigation -->
                 <nav class="navbar">
                     <div class="nav-container">
                         <a href="${pageContext.request.contextPath}/home" class="nav-logo">
@@ -34,14 +33,20 @@
                             </a>
                         </div>
                         <div class="nav-auth">
-                            <c:if test="${not empty sessionScope.user}">
-                                <a href="${pageContext.request.contextPath}/orders" class="btn btn-outline">My
-                                    Orders</a>
-                                <a href="${pageContext.request.contextPath}/logout" class="btn btn-outline">Logout</a>
-                            </c:if>
-                            <c:if test="${empty sessionScope.user}">
-                                <a href="${pageContext.request.contextPath}/login" class="btn btn-outline">Login</a>
-                            </c:if>
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.user}">
+                                    <span class="user-greeting">Hi, ${sessionScope.userName}</span>
+                                    <a href="${pageContext.request.contextPath}/orders" class="btn btn-outline">My
+                                        Orders</a>
+                                    <a href="${pageContext.request.contextPath}/logout"
+                                        class="btn btn-outline">Logout</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${pageContext.request.contextPath}/login" class="btn btn-outline">Login</a>
+                                    <a href="${pageContext.request.contextPath}/signup" class="btn btn-primary-sm">Sign
+                                        Up</a>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </nav>

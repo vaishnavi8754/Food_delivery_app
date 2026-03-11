@@ -97,6 +97,9 @@
                                                     <div class="dot"></div>
                                                 </div>
                                             </div>
+                                            <c:if test="${item.bestseller}">
+                                                <div class="bestseller-tag">🔥 Bestseller</div>
+                                            </c:if>
                                             <h3 class="item-name">${item.name}</h3>
                                             <div class="item-rating">
                                                 <c:if test="${item.rating > 0}">

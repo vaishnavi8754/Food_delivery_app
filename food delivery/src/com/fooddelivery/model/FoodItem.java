@@ -20,6 +20,7 @@ public class FoodItem {
     private Timestamp updatedAt;
     private double rating;
     private int ratingCount;
+    private boolean isBestseller;
 
     public FoodItem() {
     }
@@ -144,5 +145,13 @@ public class FoodItem {
 
     public void setRatingCount(int ratingCount) {
         this.ratingCount = ratingCount;
+    }
+
+    public boolean isBestseller() {
+        return isBestseller;
+    }
+
+    public void setBestseller(boolean bestseller) {
+        isBestseller = bestseller;
     }
 }

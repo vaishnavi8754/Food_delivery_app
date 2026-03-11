@@ -1067,34 +1067,74 @@ public class FoodItemDAO {
                                                 "https://images.unsplash.com/photo-1515696423086-05c72eb845f6?w=400");
                                 break;
                         case 20: // The Cake Studio
-                                addMock(mocks, restaurantId, 2001, "Belgian Chocolate Cake", 350, "Desserts", true,
+                                addMock(mocks, restaurantId, 2001, "Belgian Chocolate Cake", 350, "Cakes", true,
                                                 "Rich layered cake with premium Belgian chocolate ganache", 4.9, 450,
-                                                "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400");
-                                addMock(mocks, restaurantId, 2002, "Blueberry Cheesecake", 280, "Desserts", true,
-                                                "Creamy New York style cheesecake with fresh blueberry compote", 4.8,
-                                                320,
-                                                "https://images.unsplash.com/photo-1695088957420-c3b97d1f1138?w=400");
-                                addMock(mocks, restaurantId, 2003, "Red Velvet Pastry", 120, "Desserts", true,
-                                                "Classic crimson cake with smooth cream cheese frosting", 4.7, 280,
-                                                "https://images.unsplash.com/photo-1586788680434-30d324b2d46f?w=400");
-                                addMock(mocks, restaurantId, 2004, "Fresh Fruit Gateau", 320, "Desserts", true,
-                                                "Light sponge cake with fresh seasonal fruits and whipped cream", 4.6,
-                                                210,
-                                                "https://images.unsplash.com/photo-1535141192574-5d4897c825a0?w=400");
+                                                "https://images.unsplash.com/photo-1602683504046-cf7e90664396?w=400", true);
+                                addMock(mocks, restaurantId, 2002, "Chocolate Truffle Cake", 320, "Cakes", true,
+                                                "Rich dark chocolate truffle cake layered with smooth chocolate cream", 4.8, 390,
+                                                "https://images.unsplash.com/photo-1625103709948-30e94496e632?w=400", false);
+                                addMock(mocks, restaurantId, 2003, "Red Velvet Cake", 300, "Cakes", true,
+                                                "Classic red velvet sponge with cream cheese frosting", 4.7, 340,
+                                                "https://images.unsplash.com/photo-1586788680434-30d324b2d46f?w=400", false);
+                                addMock(mocks, restaurantId, 2004, "Black Forest Cake", 290, "Cakes", true,
+                                                "Chocolate sponge layered with whipped cream and cherries", 4.6, 410,
+                                                "https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=400", false);
+                                addMock(mocks, restaurantId, 2005, "Butterscotch Cake", 270, "Cakes", true,
+                                                "Soft vanilla sponge with butterscotch cream and crunchy praline", 4.7, 370,
+                                                "https://images.unsplash.com/photo-1595080622896-844ff207e639?w=400", false);
+                                addMock(mocks, restaurantId, 2006, "Chocolate Lava Cake", 180, "Cakes", true,
+                                                "Warm chocolate cake with a gooey molten center", 4.9, 520,
+                                                "https://images.unsplash.com/photo-1511911063855-2bf39afa5b2e?w=400", true);
+                                addMock(mocks, restaurantId, 2007, "Tiramisu Dessert Cup", 240, "Dessert Cups", true,
+                                                "Italian coffee-flavored dessert layered with mascarpone cream", 4.8, 260,
+                                                "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=400", false);
+                                addMock(mocks, restaurantId, 2008, "Strawberry Cheesecake", 280, "Cheesecakes", true,
+                                                "Creamy cheesecake topped with fresh strawberry glaze", 4.7, 310,
+                                                "https://images.unsplash.com/photo-1553882299-9601a48ebe6a?w=400", false);
+                                addMock(mocks, restaurantId, 2009, "Ferrero Rocher Cake", 360, "Cakes", true,
+                                                "Chocolate hazelnut cake inspired by Ferrero Rocher flavors", 4.9, 430,
+                                                "https://images.unsplash.com/photo-1599939569628-4b16b47c3e8d?w=400", false);
+                                addMock(mocks, restaurantId, 2010, "Chocolate Brownie with Ice Cream", 220, "Brownies", true,
+                                                "Warm chocolate brownie served with vanilla ice cream", 4.8, 350,
+                                                "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=400", false);
+                                addMock(mocks, restaurantId, 2011, "Mango Mousse Cake", 260, "Cakes", true,
+                                                "Light mango mousse layered with soft sponge cake", 4.6, 280,
+                                                "https://images.unsplash.com/photo-1619728750848-dc71cd7471ae?w=400", false);
+                                addMock(mocks, restaurantId, 2012, "KitKat Chocolate Cake", 330, "Cakes", true,
+                                                "Chocolate cake surrounded by KitKat bars and chocolate gems", 4.8, 300,
+                                                "https://images.unsplash.com/photo-1590869173972-7868b37913ab?w=400", false);
+                                addMock(mocks, restaurantId, 2013, "Caramel Custard", 160, "Dessert Cups", true,
+                                                "Smooth baked custard topped with rich caramel syrup", 4.5, 210,
+                                                "https://images.unsplash.com/photo-1541782064729-b752e929ebbc?w=400", false);
+                                addMock(mocks, restaurantId, 2014, "Blueberry Cheesecake", 280, "Cheesecakes", true,
+                                                "Creamy New York style cheesecake with fresh blueberry compote", 4.8, 320,
+                                                "https://images.unsplash.com/photo-1695088957420-c3b97d1f1138?w=400", false);
                                 break;
                         case 21: // Sweet Temptations
-                                addMock(mocks, restaurantId, 2101, "Chocolate Muffin", 80, "Snacks", true,
-                                                "Soft and moist chocolate muffin with gooey center", 4.5, 180,
-                                                "https://images.unsplash.com/photo-1582295624795-36da0749007e?w=400");
-                                addMock(mocks, restaurantId, 2102, "Apple Pie", 150, "Desserts", true,
+                                addMock(mocks, restaurantId, 2101, "Triple Chocolate Muffin", 85, "Cakes", true,
+                                                "Soft and moist chocolate muffin with Belgian chocolate chunks", 4.5, 180,
+                                                "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400", true);
+                                addMock(mocks, restaurantId, 2102, "Warm Apple Pie", 150, "Cakes", true,
                                                 "Traditional crusty pie with cinnamon spiced apple filling", 4.7, 250,
-                                                "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?w=400");
-                                addMock(mocks, restaurantId, 2103, "Plum Cake", 220, "Desserts", true,
+                                                "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?w=400", false);
+                                addMock(mocks, restaurantId, 2103, "Classic Plum Cake", 220, "Cakes", true,
                                                 "Rich fruit cake soaked with juices and premium dry fruits", 4.6, 320,
-                                                "https://images.unsplash.com/photo-1512414776104-742a597a8cb4?w=400");
-                                addMock(mocks, restaurantId, 2104, "Pineapple Pastry", 95, "Desserts", true,
+                                                "https://images.unsplash.com/photo-1512414776104-742a597a8cb4?w=400", false);
+                                addMock(mocks, restaurantId, 2104, "Pineapple Pastry", 95, "Cakes", true,
                                                 "Tropical pineapple flavored cake with buttery cream", 4.4, 190,
-                                                "https://images.unsplash.com/photo-1582295624795-36da0749007e?w=400");
+                                                "https://images.unsplash.com/photo-1621303837483-3642781498eb?w=400", false);
+                                addMock(mocks, restaurantId, 2105, "Choco Chip Brownie", 110, "Brownies", true,
+                                                "Chewy brownie loaded with dark chocolate chips", 4.8, 310,
+                                                "https://images.unsplash.com/photo-1563245391-744db72be3f5?w=400", true);
+                                addMock(mocks, restaurantId, 2106, "Vanilla Bean Cupcake", 70, "Cakes", true,
+                                                "Light vanilla sponge topped with silky buttercream frosting", 4.6, 215,
+                                                "https://images.unsplash.com/photo-1519869325930-281384150729?w=400", false);
+                                addMock(mocks, restaurantId, 2107, "Mixed Berry Tart", 130, "Desserts", true,
+                                                "Buttery tart shell filled with custard and fresh berries", 4.7, 140,
+                                                "https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=400", false);
+                                addMock(mocks, restaurantId, 2108, "Classic Choco Chip Cookie", 45, "Snacks", true,
+                                                "Crispy on the edges and soft in the middle", 4.5, 420,
+                                                "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400", false);
                                 break;
                         case 22: // The Tea House
                                 addMock(mocks, restaurantId, 2201, "Masala Chai", 40, "Beverages", true,
@@ -1161,6 +1201,10 @@ public class FoodItemDAO {
                 categoryOrder.put("Rice Bowls", 22);
                 categoryOrder.put("Small Bites", 23);
                 categoryOrder.put("Desserts", 24);
+                categoryOrder.put("Cakes", 25);
+                categoryOrder.put("Cheesecakes", 26);
+                categoryOrder.put("Brownies", 27);
+                categoryOrder.put("Dessert Cups", 28);
 
                 mocks.sort((a, b) -> {
                         int orderA = categoryOrder.getOrDefault(a.getCategory(), 99);
@@ -1175,6 +1219,11 @@ public class FoodItemDAO {
 
         private void addMock(List<FoodItem> list, int resId, int foodId, String name, double price, String category,
                         boolean isVeg, String description, double rating, int ratingCount, String url) {
+                addMock(list, resId, foodId, name, price, category, isVeg, description, rating, ratingCount, url, false);
+        }
+
+        private void addMock(List<FoodItem> list, int resId, int foodId, String name, double price, String category,
+                        boolean isVeg, String description, double rating, int ratingCount, String url, boolean isBestseller) {
                 FoodItem f = new FoodItem();
                 f.setFoodId(foodId);
                 f.setRestaurantId(resId);

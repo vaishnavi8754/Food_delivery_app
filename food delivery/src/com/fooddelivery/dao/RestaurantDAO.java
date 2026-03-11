@@ -38,7 +38,7 @@ public class RestaurantDAO {
         r1.setName("The Burger Joint");
         r1.setCuisineType("American");
         r1.setRating(4.8);
-        r1.setAddress("45 Gourmet Avenue, Downtown");
+        r1.setAddress("45 Gourmet Avenue, Indiranagar, Bangalore");
         r1.setImageUrl("https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800");
         mocks.add(r1);
 
@@ -47,7 +47,7 @@ public class RestaurantDAO {
         r2.setName("Artisan Pizza Co.");
         r2.setCuisineType("Italian");
         r2.setRating(4.6);
-        r2.setAddress("12 Woodfire Lane, Westside");
+        r2.setAddress("12 Woodfire Lane, Koramangala, Bangalore");
         r2.setImageUrl("https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800");
         mocks.add(r2);
 
@@ -56,7 +56,7 @@ public class RestaurantDAO {
         r3.setName("Spice Garden");
         r3.setCuisineType("Indian");
         r3.setRating(4.7);
-        r3.setAddress("88 Curry Road, East End");
+        r3.setAddress("88 Curry Road, HSR Layout, Bangalore");
         r3.setImageUrl("https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800");
         mocks.add(r3);
 
@@ -65,7 +65,7 @@ public class RestaurantDAO {
         r4.setName("Golden Dragon");
         r4.setCuisineType("Chinese");
         r4.setRating(4.5);
-        r4.setAddress("22 Silk Street, Chinatown");
+        r4.setAddress("22 Silk Street, Whitefield, Bangalore");
         r4.setImageUrl("https://images.unsplash.com/photo-1585032226651-759b368d7246?w=800");
         mocks.add(r4);
 
@@ -74,7 +74,7 @@ public class RestaurantDAO {
         r5.setName("Urban Sushi");
         r5.setCuisineType("Japanese");
         r5.setRating(4.9);
-        r5.setAddress("10 Sakura Lane, Eastside");
+        r5.setAddress("10 Sakura Lane, Jayanagar, Bangalore");
         r5.setImageUrl("https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800");
         mocks.add(r5);
 
@@ -83,7 +83,7 @@ public class RestaurantDAO {
         r6.setName("Taco Town");
         r6.setCuisineType("Mexican");
         r6.setRating(4.4);
-        r6.setAddress("45 Fiesta Square, Southside");
+        r6.setAddress("45 Fiesta Square, JP Nagar, Bangalore");
         r6.setImageUrl("https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800");
         mocks.add(r6);
 
@@ -92,7 +92,7 @@ public class RestaurantDAO {
         r7.setName("The French Bistro");
         r7.setCuisineType("French");
         r7.setRating(4.7);
-        r7.setAddress("12 Eiffel Street, Midtown");
+        r7.setAddress("12 Eiffel Street, Lavelle Road, Bangalore");
         r7.setImageUrl("https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800");
         mocks.add(r7);
 
@@ -101,7 +101,7 @@ public class RestaurantDAO {
         r8.setName("Steakhouse Prime");
         r8.setCuisineType("American");
         r8.setRating(4.6);
-        r8.setAddress("99 Grill Road, West End");
+        r8.setAddress("99 Grill Road, Malleshwaram, Bangalore");
         r8.setImageUrl("https://images.unsplash.com/photo-1544025162-d76694265947?w=800");
         mocks.add(r8);
 
@@ -110,7 +110,7 @@ public class RestaurantDAO {
         r9.setName("Healthy Greens");
         r9.setCuisineType("Healthy");
         r9.setRating(4.5);
-        r9.setAddress("5 Vegan Valley, Northside");
+        r9.setAddress("5 Vegan Valley, Sadashivanagar, Bangalore");
         r9.setImageUrl("https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800");
         mocks.add(r9);
 
@@ -119,7 +119,7 @@ public class RestaurantDAO {
         r10.setName("Sangeetha Veg Restaurant");
         r10.setCuisineType("South Indian");
         r10.setRating(4.6);
-        r10.setAddress("12 Gandhi Road, Adyar, Chennai");
+        r10.setAddress("12 Gandhi Road, Jayanagar, Bangalore");
         r10.setPhone("9876501234");
         r10.setImageUrl("https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800");
         mocks.add(r10);
@@ -129,7 +129,7 @@ public class RestaurantDAO {
         r11.setName("Anjappar Chettinad Restaurant");
         r11.setCuisineType("Chettinad");
         r11.setRating(4.4);
-        r11.setAddress("45 Anna Salai, Chennai");
+        r11.setAddress("45 Residency Road, Bangalore");
         r11.setPhone("9840123456");
         r11.setImageUrl("https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?w=800");
         mocks.add(r11);
@@ -149,7 +149,7 @@ public class RestaurantDAO {
         r13.setName("Malabar Cafe");
         r13.setCuisineType("Kerala");
         r13.setRating(4.5);
-        r13.setAddress("MG Road, Kochi");
+        r13.setAddress("MG Road, Bangalore");
         r13.setPhone("9447012345");
         r13.setImageUrl("https://images.unsplash.com/photo-1567337710282-00832b415979?w=800");
         mocks.add(r13);
@@ -169,7 +169,7 @@ public class RestaurantDAO {
         r15.setName("Rayalaseema Ruchulu");
         r15.setCuisineType("Telugu");
         r15.setRating(4.3);
-        r15.setAddress("Jubilee Hills, Hyderabad");
+        r15.setAddress("Indiranagar, Bangalore");
         r15.setPhone("4023556789");
         r15.setImageUrl("https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=800");
         mocks.add(r15);
@@ -189,7 +189,7 @@ public class RestaurantDAO {
         r17.setName("Murugan Idli Shop");
         r17.setCuisineType("Tamil");
         r17.setRating(4.7);
-        r17.setAddress("15 North Chitrai Street, Madurai");
+        r17.setAddress("Commercial Street, Bangalore");
         r17.setPhone("4522341234");
         r17.setImageUrl("https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800");
         mocks.add(r17);
@@ -199,7 +199,7 @@ public class RestaurantDAO {
         r18.setName("Thalassery Kitchen");
         r18.setCuisineType("Moplah");
         r18.setRating(4.4);
-        r18.setAddress("Railway Station Road, Thalassery");
+        r18.setAddress("Majestic Station Road, Bangalore");
         r18.setPhone("4902322334");
         r18.setImageUrl("https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?w=800");
         mocks.add(r18);
@@ -209,7 +209,7 @@ public class RestaurantDAO {
         r19.setName("Paradise Biryani Point");
         r19.setCuisineType("Hyderabadi");
         r19.setRating(4.5);
-        r19.setAddress("Hitech City, Hyderabad");
+        r19.setAddress("Electronic City, Bangalore");
         r19.setPhone("4023411122");
         r19.setImageUrl("https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=800");
         mocks.add(r19);
@@ -229,7 +229,7 @@ public class RestaurantDAO {
         r21.setName("Sweet Temptations");
         r21.setCuisineType("Bakery");
         r21.setRating(4.6);
-        r21.setAddress("Nungambakkam, Chennai");
+        r21.setAddress("Koramangala, Bangalore");
         r21.setPhone("4428223344");
         r21.setImageUrl("https://images.unsplash.com/photo-1648596799000-646ec880d4e7?w=800");
         mocks.add(r21);
@@ -239,7 +239,7 @@ public class RestaurantDAO {
         r22.setName("The Tea House");
         r22.setCuisineType("Beverages & Tea");
         r22.setRating(4.8);
-        r22.setAddress("Banjara Hills, Hyderabad");
+        r22.setAddress("Cunningham Road, Bangalore");
         r22.setPhone("4023112233");
         r22.setImageUrl("https://images.unsplash.com/photo-1765809330985-a59b80931d12?w=800");
         mocks.add(r22);
@@ -453,14 +453,18 @@ public class RestaurantDAO {
                     "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=100&h=100&fit=crop"));
             stats.add(new com.fooddelivery.model.Cuisine("Chinese", 10, 50,
                     "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=100&h=100&fit=crop"));
-            stats.add(new com.fooddelivery.model.Cuisine("Japanese", 5, 25,
-                    "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=100&h=100&fit=crop"));
+            stats.add(new com.fooddelivery.model.Cuisine("South Indian", 18, 85,
+                    "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=100&h=100&fit=crop"));
             stats.add(new com.fooddelivery.model.Cuisine("Mexican", 8, 30,
                     "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=100&h=100&fit=crop"));
-            stats.add(new com.fooddelivery.model.Cuisine("French", 4, 18,
-                    "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=100&h=100&fit=crop"));
+            stats.add(new com.fooddelivery.model.Cuisine("Andhra", 6, 28,
+                    "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=100&h=100&fit=crop"));
+            stats.add(new com.fooddelivery.model.Cuisine("Japanese", 5, 25,
+                    "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=100&h=100&fit=crop"));
             stats.add(new com.fooddelivery.model.Cuisine("Healthy", 6, 22,
                     "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=100&h=100&fit=crop"));
+            stats.add(new com.fooddelivery.model.Cuisine("Beverages", 12, 40,
+                    "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=100&h=100&fit=crop"));
             return stats;
         }
         try (PreparedStatement stmt = conn.prepareStatement(sql);

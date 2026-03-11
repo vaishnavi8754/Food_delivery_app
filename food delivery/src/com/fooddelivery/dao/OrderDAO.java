@@ -46,58 +46,64 @@ public class OrderDAO {
     }
 
     public int createOrder(Order order, List<CartItem> cartItems) {
-        String orderSql = "INSERT INTO `order` (user_id, restaurant_id, total_amount, delivery_address, status, payment_method, special_instructions) VALUES (?,?,?,?,?,?,?)";
-        String detailSql = "INSERT INTO order_details (order_id, food_id, quantity, unit_price, subtotal) VALUES (?,?,?,?,?)";
-
+        // DEMO BYPASS: Check if we should use memory storage
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
-            
-            // DEMO BYPASS: If DB connection fails, simulate order placement
-            if (conn == null) {
-                System.out.println("LOG FROM COPY: Order temporarily placed in memory");
-                order.setOrderId(nextDemoOrderId++);
-                order.setStatus("pending");
-                order.setPaymentStatus("pending");
-                order.setOrderDate(new java.sql.Timestamp(System.currentTimeMillis()));
-                demoOrders.add(order);
-                return order.getOrderId();
-            }
-            
+        } catch (Exception e) {
+            System.err.println("Database connection attempt failed: " + e.getMessage());
+        }
+
+        if (conn == null) {
+            System.out.println("LOG FROM COPY (DEFENSIVE): Order temporarily placed in memory");
+            order.setOrderId(nextDemoOrderId++);
+            order.setStatus("pending");
+            order.setPaymentStatus("pending");
+            order.setOrderDate(new java.sql.Timestamp(System.currentTimeMillis()));
+            demoOrders.add(order);
+            return order.getOrderId();
+        }
+
+        String orderSql = "INSERT INTO `order` (user_id, restaurant_id, total_amount, delivery_address, status, payment_method, special_instructions) VALUES (?,?,?,?,?,?,?)";
+        String detailSql = "INSERT INTO order_details (order_id, food_id, quantity, unit_price, subtotal) VALUES (?,?,?,?,?)";
+
+        try {
             conn.setAutoCommit(false);
 
             // Insert order
-            PreparedStatement orderStmt = conn.prepareStatement(orderSql, Statement.RETURN_GENERATED_KEYS);
-            orderStmt.setInt(1, order.getUserId());
-            orderStmt.setInt(2, order.getRestaurantId());
-            orderStmt.setDouble(3, order.getTotalAmount());
-            orderStmt.setString(4, order.getDeliveryAddress());
-            orderStmt.setString(5, "pending");
-            orderStmt.setString(6, order.getPaymentMethod());
-            orderStmt.setString(7, order.getSpecialInstructions());
-            orderStmt.executeUpdate();
+            try (PreparedStatement orderStmt = conn.prepareStatement(orderSql, Statement.RETURN_GENERATED_KEYS)) {
+                orderStmt.setInt(1, order.getUserId());
+                orderStmt.setInt(2, order.getRestaurantId());
+                orderStmt.setDouble(3, order.getTotalAmount());
+                orderStmt.setString(4, order.getDeliveryAddress());
+                orderStmt.setString(5, "pending");
+                orderStmt.setString(6, order.getPaymentMethod());
+                orderStmt.setString(7, order.getSpecialInstructions());
+                orderStmt.executeUpdate();
 
-            ResultSet rs = orderStmt.getGeneratedKeys();
-            int orderId = 0;
-            if (rs.next()) {
-                orderId = rs.getInt(1);
+                try (ResultSet rs = orderStmt.getGeneratedKeys()) {
+                    int orderId = 0;
+                    if (rs.next()) {
+                        orderId = rs.getInt(1);
+                    }
+
+                    // Insert order details
+                    try (PreparedStatement detailStmt = conn.prepareStatement(detailSql)) {
+                        for (CartItem item : cartItems) {
+                            detailStmt.setInt(1, orderId);
+                            detailStmt.setInt(2, item.getFoodId());
+                            detailStmt.setInt(3, item.getQuantity());
+                            detailStmt.setDouble(4, item.getPrice());
+                            detailStmt.setDouble(5, item.getSubtotal());
+                            detailStmt.addBatch();
+                        }
+                        detailStmt.executeBatch();
+                    }
+
+                    conn.commit();
+                    return orderId;
+                }
             }
-
-            // Insert order details
-            PreparedStatement detailStmt = conn.prepareStatement(detailSql);
-            for (CartItem item : cartItems) {
-                detailStmt.setInt(1, orderId);
-                detailStmt.setInt(2, item.getFoodId());
-                detailStmt.setInt(3, item.getQuantity());
-                detailStmt.setDouble(4, item.getPrice());
-                detailStmt.setDouble(5, item.getSubtotal());
-                detailStmt.addBatch();
-            }
-            detailStmt.executeBatch();
-
-            conn.commit();
-            return orderId;
-
         } catch (SQLException e) {
             try {
                 if (conn != null)
@@ -107,11 +113,12 @@ public class OrderDAO {
             e.printStackTrace();
         } finally {
             try {
-                if (conn != null)
+                if (conn != null) {
                     conn.setAutoCommit(true);
+                    DBConnection.closeConnection(conn);
+                }
             } catch (SQLException e) {
             }
-            DBConnection.closeConnection(conn);
         }
         return 0;
     }

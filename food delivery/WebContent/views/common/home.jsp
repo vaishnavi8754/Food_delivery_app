@@ -49,7 +49,7 @@
 
                     <div class="location-selector" id="openLocationModal">
                         <span class="location-icon">📍</span>
-                        <span class="location-text" id="currentLocationText">Setup your precise location</span>
+                        <span class="location-text" id="currentLocationText">Bangalore, India</span>
                         <span class="location-arrow">▼</span>
                     </div>
 
@@ -146,21 +146,22 @@
                     <div class="scroller-item"
                         onclick="location.href='${pageContext.request.contextPath}/restaurants?search=bath'">
                         <div class="scroller-image">
-                            <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=200" alt="Bath">
+                            <!-- Corrected: South Indian Bath (Upma/Chow-Chow Bath) -->
+                            <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=200&h=200&fit=crop" alt="Bath">
                         </div>
                         <span>Bath</span>
                     </div>
                     <div class="scroller-item"
                         onclick="location.href='${pageContext.request.contextPath}/restaurants?search=tea'">
                         <div class="scroller-image">
-                            <img src="https://images.unsplash.com/photo-1594631252845-29fc4586c566?w=200" alt="Tea">
+                            <img src="${pageContext.request.contextPath}/images/tea.png" alt="Tea">
                         </div>
                         <span>Tea</span>
                     </div>
                     <div class="scroller-item"
                         onclick="location.href='${pageContext.request.contextPath}/restaurants?search=pongal'">
                         <div class="scroller-image">
-                            <img src="https://images.unsplash.com/photo-1621658537360-dfcb008fe19f?w=200" alt="Pongal">
+                            <img src="https://images.unsplash.com/photo-1621658537360-dfcb008fe19f?w=200&h=200&fit=crop" alt="Pongal">
                         </div>
                         <span>Pongal</span>
                     </div>
@@ -202,6 +203,10 @@
                                                 <c:when test="${cuisineLower == 'american'}">
                                                     <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=100&h=100&fit=crop"
                                                         alt="American">
+                                                </c:when>
+                                                <c:when test="${cuisineLower == 'beverages'}">
+                                                    <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=100&h=100&fit=crop"
+                                                        alt="Beverages">
                                                 </c:when>
                                                 <c:otherwise>
                                                     <div class="cuisine-placeholder">🍽️</div>
@@ -339,7 +344,7 @@
                 async function updateHomeAddress(lat, lng) {
                     modalAddressBox.value = "🔍 Finding address...";
                     try {
-                        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+                        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=\${lat}&lon=\${lng}`);
                         const data = await response.json();
                         if (data && data.display_name) {
                             selectedAddress = data.display_name;
@@ -421,7 +426,7 @@
 
                     searchTimeout = setTimeout(async () => {
                         try {
-                            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`);
+                            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=\${encodeURIComponent(query)}&limit=5`);
                             const data = await response.json();
                             displaySearchResults(data);
                         } catch (error) {
@@ -440,7 +445,7 @@
                     results.forEach(result => {
                         const item = document.createElement('div');
                         item.className = 'search-result-item';
-                        item.innerHTML = `📍 <span>${result.display_name}</span>`;
+                        item.innerHTML = `📍 <span>\${result.display_name}</span>`;
                         item.addEventListener('click', () => {
                             const lat = parseFloat(result.lat);
                             const lon = parseFloat(result.lon);

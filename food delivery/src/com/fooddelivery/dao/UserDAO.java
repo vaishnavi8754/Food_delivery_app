@@ -40,7 +40,7 @@ public class UserDAO {
      * Constructor - Initialize database connection
      */
     public UserDAO() {
-        this.connection = DBConnection.getConnection();
+        // Connection is retrieved per method call
     }
 
     /**

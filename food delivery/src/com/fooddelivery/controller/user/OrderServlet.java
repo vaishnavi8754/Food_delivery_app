@@ -11,10 +11,12 @@ import java.util.List;
 @WebServlet(urlPatterns = { "/orders", "/checkout", "/order/place" })
 public class OrderServlet extends HttpServlet {
     private OrderDAO orderDAO;
+    private com.fooddelivery.dao.UserDAO userDAO;
 
     @Override
     public void init() {
         orderDAO = new OrderDAO();
+        userDAO = new com.fooddelivery.dao.UserDAO();
     }
 
     @Override
@@ -75,9 +77,31 @@ public class OrderServlet extends HttpServlet {
         }
 
         // Get form data
+        String fullName = request.getParameter("fullName");
+        String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         String paymentMethod = request.getParameter("paymentMethod");
         String instructions = request.getParameter("instructions");
+
+        // Update user profile if changed
+        boolean profileChanged = false;
+        if (fullName != null && !fullName.equals(user.getFullName())) {
+            user.setFullName(fullName);
+            session.setAttribute("userName", fullName);
+            profileChanged = true;
+        }
+        if (phone != null && !phone.equals(user.getPhone())) {
+            user.setPhone(phone);
+            profileChanged = true;
+        }
+        if (address != null && !address.equals(user.getAddress())) {
+            user.setAddress(address);
+            profileChanged = true;
+        }
+
+        if (profileChanged) {
+            userDAO.updateUser(user);
+        }
 
         // Create order
         Order order = new Order();

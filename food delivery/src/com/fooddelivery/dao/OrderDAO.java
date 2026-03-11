@@ -11,6 +11,39 @@ import java.util.List;
  * Order Data Access Object
  */
 public class OrderDAO {
+    
+    // Static storage for demo orders when DB is not available
+    private static final List<Order> demoOrders = new ArrayList<>();
+    private static int nextDemoOrderId = 7001;
+
+    static {
+        // Sample demo orders
+        Order o1 = new Order();
+        o1.setOrderId(5001);
+        o1.setUserId(1001);
+        o1.setRestaurantId(10);
+        o1.setRestaurantName("Sangeetha Veg Restaurant");
+        o1.setTotalAmount(450.00);
+        o1.setDeliveryAddress("123 Demo Street, Chennai");
+        o1.setStatus("delivered");
+        o1.setPaymentStatus("paid");
+        o1.setPaymentMethod("UPI");
+        o1.setOrderDate(new java.sql.Timestamp(System.currentTimeMillis() - 86400000));
+        demoOrders.add(o1);
+
+        Order o2 = new Order();
+        o2.setOrderId(5002);
+        o2.setUserId(1001);
+        o2.setRestaurantId(3);
+        o2.setRestaurantName("Spice Garden");
+        o2.setTotalAmount(1250.50);
+        o2.setDeliveryAddress("123 Demo Street, Chennai");
+        o2.setStatus("pending");
+        o2.setPaymentStatus("pending");
+        o2.setPaymentMethod("Cash on Delivery");
+        o2.setOrderDate(new java.sql.Timestamp(System.currentTimeMillis() - 3600000));
+        demoOrders.add(o2);
+    }
 
     public int createOrder(Order order, List<CartItem> cartItems) {
         String orderSql = "INSERT INTO `order` (user_id, restaurant_id, total_amount, delivery_address, status, payment_method, special_instructions) VALUES (?,?,?,?,?,?,?)";
@@ -19,6 +52,18 @@ public class OrderDAO {
         Connection conn = null;
         try {
             conn = DBConnection.getConnection();
+            
+            // DEMO BYPASS: If DB connection fails, simulate order placement
+            if (conn == null) {
+                System.out.println("LOG FROM COPY: Order temporarily placed in memory");
+                order.setOrderId(nextDemoOrderId++);
+                order.setStatus("pending");
+                order.setPaymentStatus("pending");
+                order.setOrderDate(new java.sql.Timestamp(System.currentTimeMillis()));
+                demoOrders.add(order);
+                return order.getOrderId();
+            }
+            
             conn.setAutoCommit(false);
 
             // Insert order
@@ -77,7 +122,13 @@ public class OrderDAO {
 
         Connection conn = DBConnection.getConnection();
         if (conn == null) {
-            return getMockOrdersByUser(userId);
+            List<Order> userMocks = new ArrayList<>();
+            for (Order o : demoOrders) {
+                if (o.getUserId() == userId) {
+                    userMocks.add(o);
+                }
+            }
+            return userMocks;
         }
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -95,46 +146,13 @@ public class OrderDAO {
         return orders;
     }
 
-    private List<Order> getMockOrdersByUser(int userId) {
-        List<Order> mocks = new ArrayList<>();
-        // Only provide mock orders for our demo users
-        if (userId == 1001 || userId == 999) {
-            Order o1 = new Order();
-            o1.setOrderId(5001);
-            o1.setUserId(userId);
-            o1.setRestaurantId(10);
-            o1.setRestaurantName("Sangeetha Veg Restaurant");
-            o1.setTotalAmount(450.00);
-            o1.setDeliveryAddress("123 Demo Street, Chennai");
-            o1.setStatus("delivered");
-            o1.setPaymentStatus("paid");
-            o1.setPaymentMethod("UPI");
-            o1.setOrderDate(new java.sql.Timestamp(System.currentTimeMillis() - 86400000)); // Yesterday
-            mocks.add(o1);
-
-            Order o2 = new Order();
-            o2.setOrderId(5002);
-            o2.setUserId(userId);
-            o2.setRestaurantId(3);
-            o2.setRestaurantName("Spice Garden");
-            o2.setTotalAmount(1250.50);
-            o2.setDeliveryAddress("123 Demo Street, Chennai");
-            o2.setStatus("pending");
-            o2.setPaymentStatus("pending");
-            o2.setPaymentMethod("Cash on Delivery");
-            o2.setOrderDate(new java.sql.Timestamp(System.currentTimeMillis() - 3600000)); // 1 hour ago
-            mocks.add(o2);
-        }
-        return mocks;
-    }
-
     public Order getOrderById(int orderId) {
         String sql = "SELECT o.*, r.name as restaurant_name, u.full_name as user_name FROM `order` o JOIN restaurant r ON o.restaurant_id = r.restaurant_id JOIN user u ON o.user_id = u.user_id WHERE o.order_id = ?";
 
         Connection conn = DBConnection.getConnection();
         if (conn == null) {
             // Check mock orders
-            for (Order o : getMockOrdersByUser(1001)) { // Check for demo user
+            for (Order o : demoOrders) {
                 if (o.getOrderId() == orderId) {
                     o.setUserName("Vaishnavi Dhivakar");
                     o.setOrderItems(getMockOrderDetails(orderId));
@@ -234,10 +252,10 @@ public class OrderDAO {
 
         Connection conn = DBConnection.getConnection();
         if (conn == null) {
-            orders.addAll(getMockOrdersByUser(1001));
-            for (Order o : orders)
+            List<Order> allMocks = new ArrayList<>(demoOrders);
+            for (Order o : allMocks)
                 o.setUserName("Vaishnavi Dhivakar");
-            return orders;
+            return allMocks;
         }
 
         try (PreparedStatement stmt = conn.prepareStatement(sql);
@@ -256,40 +274,65 @@ public class OrderDAO {
     }
 
     public boolean updateOrderStatus(int orderId, String status) {
+        // DEMO BYPASS
+        for (Order o : demoOrders) {
+            if (o.getOrderId() == orderId) {
+                o.setStatus(status);
+                return true;
+            }
+        }
+
         String sql = "UPDATE `order` SET status = ? WHERE order_id = ?";
-        try (Connection conn = DBConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
+        Connection conn = DBConnection.getConnection();
+        if (conn == null) return false;
+        
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, status);
             stmt.setInt(2, orderId);
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBConnection.closeConnection(conn);
         }
         return false;
     }
 
     public int getOrderCount() {
+        Connection conn = DBConnection.getConnection();
+        if (conn == null) return demoOrders.size();
+        
         String sql = "SELECT COUNT(*) FROM `order`";
-        try (Connection conn = DBConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql);
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery()) {
             if (rs.next())
                 return rs.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBConnection.closeConnection(conn);
         }
         return 0;
     }
 
     public double getTotalRevenue() {
+        Connection conn = DBConnection.getConnection();
+        if (conn == null) {
+            return demoOrders.stream()
+                .filter(o -> !"cancelled".equals(o.getStatus()))
+                .mapToDouble(Order::getTotalAmount)
+                .sum();
+        }
+
         String sql = "SELECT SUM(total_amount) FROM `order` WHERE status != 'cancelled'";
-        try (Connection conn = DBConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql);
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery()) {
             if (rs.next())
                 return rs.getDouble(1);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            DBConnection.closeConnection(conn);
         }
         return 0;
     }

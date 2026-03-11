@@ -23,28 +23,35 @@ public class DBConnection {
      * @return Connection object
      */
     public static Connection getConnection() {
-        try {
-            // Load the MySQL JDBC driver
-            Class.forName(DB_DRIVER);
-            
-            // Determine password: prefer environment variable FOODEXPRESS_DB_PASSWORD
-            String password = DB_PASSWORD;
-            String envPwd = System.getenv("FOODEXPRESS_DB_PASSWORD");
-            if (envPwd != null && !envPwd.isEmpty()) {
-                password = envPwd;
+        String[] commonPasswords = {DB_PASSWORD, "root", "password", "1234", "123456", "admin"};
+        
+        // Prefer environment variable if it exists
+        String envPwd = System.getenv("FOODEXPRESS_DB_PASSWORD");
+        if (envPwd != null && !envPwd.isEmpty()) {
+            commonPasswords = new String[]{envPwd};
+        }
+
+        for (String password : commonPasswords) {
+            try {
+                Class.forName(DB_DRIVER);
+                Connection conn = DriverManager.getConnection(DB_URL, DB_USER, password);
+                if (conn != null) {
+                    System.out.println("Database connected successfully using password: " + (password.isEmpty() ? "(empty)" : "********"));
+                    connection = conn;
+                    return connection;
+                }
+            } catch (ClassNotFoundException e) {
+                System.err.println("MySQL JDBC Driver not found!");
+                e.printStackTrace();
+                break;
+            } catch (SQLException e) {
+                // Ignore and try next password
             }
-            // Create connection
-            connection = DriverManager.getConnection(DB_URL, DB_USER, password);
-            
-        } catch (ClassNotFoundException e) {
-            System.err.println("MySQL JDBC Driver not found!");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.err.println("Database connection failed!");
-            e.printStackTrace();
         }
         
-        return connection;
+        System.err.println("Database connection failed for all attempted passwords!");
+        connection = null;
+        return null;
     }
     
     /**

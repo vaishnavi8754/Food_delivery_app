@@ -12,6 +12,30 @@
                 rel="stylesheet">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pages.css">
+            <!-- Leaflet Map Dependencies -->
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+            <style>
+                .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+                .modal-content { background: white; width: 90%; max-width: 600px; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-2xl); position: relative; animation: modalIn 0.3s ease-out; }
+                @keyframes modalIn { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+                .modal-header { padding: 1.5rem; border-bottom: 1px solid var(--gray-100); display: flex; justify-content: space-between; align-items: center; }
+                .modal-header h3 { font-family: 'Outfit', sans-serif; font-size: 1.25rem; }
+                .close-modal { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-400); }
+                .modal-body { padding: 1.5rem; }
+                #homeMap { height: 350px; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid var(--gray-200); }
+                .modal-footer { padding: 1rem 1.5rem; background: var(--gray-50); display: flex; justify-content: flex-end; gap: 1rem; }
+                .selected-address-box { margin-bottom: 1rem; padding: 1rem; background: var(--primary-50); border-radius: 10px; font-size: 0.9rem; color: var(--gray-700); border-left: 4px solid var(--primary-500); }
+                .address-textarea { width: 100%; border: none; background: transparent; font-family: inherit; font-size: 0.9rem; color: var(--gray-800); resize: none; outline: none; }
+                .map-search-container { position: relative; margin-bottom: 1rem; }
+                .map-search-input { width: 100%; padding: 0.875rem 1rem 0.875rem 2.5rem; border: 1px solid var(--gray-200); border-radius: 12px; font-size: 0.95rem; transition: all 0.2s; }
+                .map-search-input:focus { outline: none; border-color: var(--primary-500); box-shadow: 0 0 0 4px var(--primary-50); }
+                .search-icon-inside { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--gray-400); font-size: 0.9rem; }
+                .search-results-dropdown { position: absolute; top: 100%; left: 0; width: 100%; background: white; border-radius: 12px; box-shadow: var(--shadow-xl); z-index: 2100; margin-top: 0.5rem; max-height: 250px; overflow-y: auto; display: none; border: 1px solid var(--gray-100); }
+                .search-result-item { padding: 0.75rem 1rem; cursor: pointer; border-bottom: 1px solid var(--gray-50); font-size: 0.9rem; display: flex; align-items: flex-start; gap: 0.75rem; }
+                .search-result-item:hover { background: var(--primary-25); }
+                .search-result-item i { margin-top: 2px; color: var(--gray-400); }
+            </style>
         </head>
 
         <body>
@@ -23,9 +47,9 @@
                         <span class="logo-text">FoodExpress</span>
                     </a>
 
-                    <div class="location-selector" onclick="alert('Location selection coming soon!')">
+                    <div class="location-selector" id="openLocationModal">
                         <span class="location-icon">📍</span>
-                        <span class="location-text">Setup your precise location</span>
+                        <span class="location-text" id="currentLocationText">Setup your precise location</span>
                         <span class="location-arrow">▼</span>
                     </div>
 
@@ -244,6 +268,201 @@
                     </div>
                 </div>
             </footer>
+
+            <!-- Location Picker Modal -->
+            <div class="modal-overlay" id="locationModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Select Delivery Location</h3>
+                        <button class="close-modal" id="closeLocationModal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="map-search-container">
+                            <span class="search-icon-inside">🔍</span>
+                            <input type="text" id="mapSearchInput" class="map-search-input" placeholder="Type your area or building name...">
+                            <div id="searchResultsDropdown" class="search-results-dropdown"></div>
+                        </div>
+                        <div class="selected-address-box">
+                            <textarea id="modalAddressBox" class="address-textarea" rows="2" placeholder="Searching for address..."></textarea>
+                        </div>
+                        <div id="homeMap"></div>
+                        <div class="map-controls">
+                            <button type="button" class="btn btn-outline" id="btnHomeLocateMe">
+                                🎯 Use Current Location
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" id="btnConfirmLocation">Confirm Location</button>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                let homeMap;
+                let homeMarker;
+                let selectedAddress = "";
+                const locationModal = document.getElementById('locationModal');
+                const openLocationModal = document.getElementById('openLocationModal');
+                const closeLocationModal = document.getElementById('closeLocationModal');
+                const btnHomeLocateMe = document.getElementById('btnHomeLocateMe');
+                const btnConfirmLocation = document.getElementById('btnConfirmLocation');
+                const modalAddressBox = document.getElementById('modalAddressBox');
+                const currentLocationText = document.getElementById('currentLocationText');
+
+                function initHomeMap(lat = 12.9716, lng = 77.5946) {
+                    if (homeMap) {
+                        homeMap.setView([lat, lng], 13);
+                        homeMarker.setLatLng([lat, lng]);
+                        return;
+                    }
+                    
+                    homeMap = L.map('homeMap').setView([lat, lng], 13);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap contributors'
+                    }).addTo(homeMap);
+
+                    homeMarker = L.marker([lat, lng], { draggable: true }).addTo(homeMap);
+                    
+                    homeMarker.on('dragend', function(e) {
+                        updateHomeAddress(homeMarker.getLatLng().lat, homeMarker.getLatLng().lng);
+                    });
+
+                    homeMap.on('click', function(e) {
+                        homeMarker.setLatLng(e.latlng);
+                        updateHomeAddress(e.latlng.lat, e.latlng.lng);
+                    });
+                    
+                    updateHomeAddress(lat, lng);
+                }
+
+                async function updateHomeAddress(lat, lng) {
+                    modalAddressBox.value = "🔍 Finding address...";
+                    try {
+                        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+                        const data = await response.json();
+                        if (data && data.display_name) {
+                            selectedAddress = data.display_name;
+                            modalAddressBox.value = selectedAddress;
+                        } else {
+                            modalAddressBox.value = "";
+                            modalAddressBox.placeholder = "Address not found. Please type manually.";
+                        }
+                    } catch (error) {
+                        modalAddressBox.value = "";
+                        modalAddressBox.placeholder = "Error fetching address. Please type manually.";
+                    }
+                }
+
+                openLocationModal.addEventListener('click', () => {
+                    locationModal.style.display = 'flex';
+                    setTimeout(() => {
+                        initHomeMap();
+                        homeMap.invalidateSize();
+                    }, 100);
+                });
+
+                closeLocationModal.addEventListener('click', () => {
+                    locationModal.style.display = 'none';
+                });
+
+                window.addEventListener('click', (e) => {
+                    if (e.target === locationModal) locationModal.style.display = 'none';
+                });
+
+                btnHomeLocateMe.addEventListener('click', () => {
+                    if (navigator.geolocation) {
+                        modalAddressBox.value = "🛰️ Connecting to GPS...";
+                        navigator.geolocation.getCurrentPosition((pos) => {
+                            const lat = pos.coords.latitude;
+                            const lng = pos.coords.longitude;
+                            homeMap.setView([lat, lng], 16);
+                            homeMarker.setLatLng([lat, lng]);
+                            updateHomeAddress(lat, lng);
+                        }, () => {
+                            modalAddressBox.value = "";
+                            modalAddressBox.placeholder = "Unable to access location. Please search manually.";
+                        });
+                    }
+                });
+
+                btnConfirmLocation.addEventListener('click', () => {
+                    const currentVal = modalAddressBox.value.trim();
+                    if (currentVal && !currentVal.startsWith('🔍') && !currentVal.startsWith('🛰️')) {
+                        selectedAddress = currentVal;
+                        const shortAddress = selectedAddress.split(',').slice(0, 2).join(',');
+                        currentLocationText.textContent = shortAddress;
+                        // Store in session storage for persistence across pages
+                        sessionStorage.setItem('deliveryLocation', selectedAddress);
+                        locationModal.style.display = 'none';
+                    } else if (!currentVal) {
+                        alert("Please select a location on the map or type an address.");
+                    }
+                });
+
+                // Load saved location if exists
+                const savedLocation = sessionStorage.getItem('deliveryLocation');
+                if (savedLocation) {
+                    currentLocationText.textContent = savedLocation.split(',').slice(0, 2).join(',');
+                }
+
+                // Map Search Implementation
+                const mapSearchInput = document.getElementById('mapSearchInput');
+                const searchResultsDropdown = document.getElementById('searchResultsDropdown');
+                let searchTimeout;
+
+                mapSearchInput.addEventListener('input', () => {
+                    clearTimeout(searchTimeout);
+                    const query = mapSearchInput.value.trim();
+                    if (query.length < 3) {
+                        searchResultsDropdown.style.display = 'none';
+                        return;
+                    }
+
+                    searchTimeout = setTimeout(async () => {
+                        try {
+                            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`);
+                            const data = await response.json();
+                            displaySearchResults(data);
+                        } catch (error) {
+                            console.error("Search error:", error);
+                        }
+                    }, 500);
+                });
+
+                function displaySearchResults(results) {
+                    searchResultsDropdown.innerHTML = '';
+                    if (results.length === 0) {
+                        searchResultsDropdown.style.display = 'none';
+                        return;
+                    }
+
+                    results.forEach(result => {
+                        const item = document.createElement('div');
+                        item.className = 'search-result-item';
+                        item.innerHTML = `📍 <span>${result.display_name}</span>`;
+                        item.addEventListener('click', () => {
+                            const lat = parseFloat(result.lat);
+                            const lon = parseFloat(result.lon);
+                            homeMap.setView([lat, lon], 16);
+                            homeMarker.setLatLng([lat, lon]);
+                            selectedAddress = result.display_name;
+                            modalAddressBox.value = selectedAddress;
+                            searchResultsDropdown.style.display = 'none';
+                            mapSearchInput.value = '';
+                        });
+                        searchResultsDropdown.appendChild(item);
+                    });
+                    searchResultsDropdown.style.display = 'block';
+                }
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!mapSearchInput.contains(e.target) && !searchResultsDropdown.contains(e.target)) {
+                        searchResultsDropdown.style.display = 'none';
+                    }
+                });
+            </script>
         </body>
 
         </html>

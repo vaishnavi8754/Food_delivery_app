@@ -599,6 +599,25 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border: 1px solid rgba(229, 57, 53, 0.1);
+    gap: 0.25rem;
+}
+
+.bestseller-tag.favorite {
+    background: #fff8e1;
+    color: #ffa000;
+    border-color: rgba(255, 160, 0, 0.1);
+}
+
+.bestseller-tag.budget {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border-color: rgba(46, 125, 50, 0.1);
+}
+
+.bestseller-tag.ordered {
+    background: #fff3e0;
+    color: #f57c00;
+    border-color: rgba(245, 124, 0, 0.1);
 }
 
 .item-name {

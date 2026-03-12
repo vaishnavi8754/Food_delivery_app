@@ -16,7 +16,8 @@ public class FoodItemDAO {
                 String sql = "SELECT f.*, r.name as restaurant_name FROM food_item f JOIN restaurant r ON f.restaurant_id = r.restaurant_id WHERE f.restaurant_id = ? AND f.is_available = TRUE ORDER BY f.category, f.name";
                 List<FoodItem> items = new ArrayList<>();
                 Connection conn = DBConnection.getConnection();
-                if (conn == null)
+                // Force mock data for specified restaurants to ensure new items/tags are visible
+                if (conn == null || restaurantId == 3 || restaurantId == 7 || restaurantId == 8 || restaurantId == 16 || restaurantId == 17 || restaurantId == 18 || restaurantId == 19 || restaurantId == 22)
                         return getMockFoodItems(restaurantId);
                 try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                         stmt.setInt(1, restaurantId);
@@ -60,54 +61,54 @@ public class FoodItemDAO {
                                                 "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400");
 
                                 // Veg Burgers
-                                addMock(mocks, restaurantId, 101, "Classic Veg Burger", 79, "Veg Burgers", true,
+                                 addMock(mocks, restaurantId, 101, "Classic Veg Burger", 79, "Veg Burgers", true,
                                                 "Serves 1 | Golden crisp vegetable patty with fresh lettuce, crunchy onion and creamy mayo. (210 Kcal)",
                                                 4.2, 150,
                                                 "https://images.unsplash.com/photo-1550547660-d9450f859349?w=400");
                                 addMock(mocks, restaurantId, 102, "Cheese Veg Burger", 99, "Veg Burgers", true,
                                                 "Serves 1 | Classic veg burger topped with a melty cheese slice for extra richness. (250 Kcal)",
                                                 4.5, 230,
-                                                "https://images.unsplash.com/photo-1525059696034-4967a8e1dca2?w=400");
+                                                "https://images.unsplash.com/photo-1664648063548-50808d58f061?w=400");
                                 addMock(mocks, restaurantId, 103, "Corn & Cheese Burger", 109, "Veg Burgers", true,
                                                 "Serves 1 | Deliciously golden corn and cheese patty with a hint of spicy herbs. (280 Kcal)",
                                                 4.3, 110,
-                                                "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=400");
+                                                "https://images.unsplash.com/photo-1664648063523-63cc6294b3c1?w=400");
                                 addMock(mocks, restaurantId, 104, "Paneer Tikka Burger", 129, "Veg Burgers", true,
                                                 "Serves 1 | Juicy grilled paneer tikka patty with mint chutney and onion rings. (310 Kcal)",
                                                 4.6, 320,
-                                                "https://images.unsplash.com/photo-1460306855393-0410f61241c7?w=400");
+                                                "https://images.unsplash.com/photo-1520072959219-c595dc870360?w=400");
                                 addMock(mocks, restaurantId, 105, "Crispy Paneer Burger", 139, "Veg Burgers", true,
                                                 "Serves 1 | Chunky paneer cube breaded and fried to perfection with tandoori sauce. (340 Kcal)",
                                                 4.4, 410,
-                                                "https://images.unsplash.com/photo-1547584370-2cc98b8b8dc8?w=400");
+                                                "https://images.unsplash.com/photo-1661529515567-dcb300f41da5?w=400");
                                 addMock(mocks, restaurantId, 106, "Veggie Delight Burger", 119, "Veg Burgers", true,
                                                 "Serves 1 | Packed with assorted veggies, herbs and a special blend of spices. (230 Kcal)",
                                                 4.1, 85,
-                                                "https://images.unsplash.com/photo-1525059696034-4967a8e1dca2?w=400");
+                                                "https://images.unsplash.com/photo-1520073201527-6b044ba2ca9f?w=400");
                                 addMock(mocks, restaurantId, 107, "Spicy Mexican Veg Burger", 149, "Veg Burgers", true,
                                                 "Serves 1 | Zesty burger with jalapeños, salsa and a spicy bean patty. (290 Kcal)",
                                                 4.3, 195,
-                                                "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=400");
+                                                "https://images.unsplash.com/photo-1585238341267-1cfec2046a55?w=400");
                                 addMock(mocks, restaurantId, 108, "Double Patty Veg Burger", 169, "Veg Burgers", true,
                                                 "Serves 1 | Two veggie patties stacked with double cheese and extra veggies. (420 Kcal)",
                                                 4.5, 310,
-                                                "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=400");
+                                                "https://images.unsplash.com/photo-1661529515593-bba89f12e8de?w=400");
                                 addMock(mocks, restaurantId, 109, "Maharaja Veg Burger", 199, "Veg Burgers", true,
                                                 "Serves 1 | Three buns, double patties, jalapeños and premium sauce. (480 Kcal)",
                                                 4.7, 540,
-                                                "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400");
+                                                "https://images.unsplash.com/photo-1562634382-d41bfc15aa4a?w=400");
 
                                 // 🍔 Burger Menu (Non-Veg)
                                 addMock(mocks, restaurantId, 110, "Classic Chicken Burger", 99, "Non-Veg Burgers",
                                                 false,
                                                 "Serves 1 | Tender and juicy chicken patty with mayo and fresh onions. (260 Kcal)",
                                                 4.3, 210,
-                                                "https://images.unsplash.com/photo-1561758033-d89a9ad46330?w=400");
+                                                "https://images.unsplash.com/photo-1683655058728-415f4f2674bf?w=400");
                                 addMock(mocks, restaurantId, 111, "Crispy Chicken Burger", 129, "Non-Veg Burgers",
                                                 false,
                                                 "Serves 1 | Extra crunchy breaded chicken breast strip with spicy pepper mayo. (310 Kcal)",
                                                 4.5, 340,
-                                                "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400");
+                                                "https://images.unsplash.com/photo-1637710847214-f91d99669e18?w=400");
                                 addMock(mocks, restaurantId, 112, "Spicy Chicken Burger", 149, "Non-Veg Burgers", false,
                                                 "Serves 1 | Fiery chicken patty seasoned with secret spices and red chili flakes. (290 Kcal)",
                                                 4.4, 280,
@@ -115,22 +116,22 @@ public class FoodItemDAO {
                                 addMock(mocks, restaurantId, 113, "BBQ Chicken Burger", 159, "Non-Veg Burgers", false,
                                                 "Serves 1 | Grilled chicken patty glazed with smoky BBQ sauce and onions. (330 Kcal)",
                                                 4.6, 420,
-                                                "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400");
+                                                "https://images.unsplash.com/photo-1692737349870-e3bfc704ebf9?w=400");
                                 addMock(mocks, restaurantId, 114, "Chicken Cheese Burger", 169, "Non-Veg Burgers",
                                                 false,
                                                 "Serves 1 | Classic chicken patty with a generous slice of melted cheddar. (300 Kcal)",
                                                 4.5, 360,
-                                                "https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=400");
+                                                "https://images.unsplash.com/photo-1671106571674-a89083d27e60?w=400");
                                 addMock(mocks, restaurantId, 115, "Chicken Tandoori Burger", 179, "Non-Veg Burgers",
                                                 false,
                                                 "Serves 1 | Authentic tandoori grilled chicken with spicy mint mayo. (320 Kcal)",
                                                 4.7, 510,
-                                                "https://images.unsplash.com/photo-1596662951482-0c4ba74a6df6?w=400");
+                                                "https://images.unsplash.com/photo-1695758787833-ec3e6817046f?w=400");
                                 addMock(mocks, restaurantId, 116, "Double Chicken Patty Burger", 199, "Non-Veg Burgers",
                                                 false,
                                                 "Serves 1 | 2 patties with double cheese. Double the chicken, double the fun! (510 Kcal)",
                                                 4.8, 620,
-                                                "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400");
+                                                "https://images.unsplash.com/photo-1703575571935-058bc1a91d39?w=400");
                                 addMock(mocks, restaurantId, 117, "Chicken Supreme Burger", 219, "Non-Veg Burgers",
                                                 false,
                                                 "Serves 1 | Large premium chicken patty with exotic veggies and house sauce. (450 Kcal)",
@@ -139,7 +140,7 @@ public class FoodItemDAO {
                                 addMock(mocks, restaurantId, 118, "Fish Fillet Burger", 199, "Non-Veg Burgers", false,
                                                 "Serves 1 | Flaky white fish fillet breaded and fried, served with tartar sauce. (280 Kcal)",
                                                 4.2, 140,
-                                                "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400");
+                                                "https://images.unsplash.com/photo-1664392182760-b1e2da62b7f7?w=400");
 
                                 // American Fast Food
                                 addMock(mocks, restaurantId, 119, "French Fries (Regular)", 79, "Fast Food", true,
@@ -314,22 +315,22 @@ public class FoodItemDAO {
                                 // Pizza
                                 addMock(mocks, restaurantId, 210, "Margherita Pizza", 249, "Pizza", true,
                                                 "Tomato sauce, mozzarella, basil. (280 Kcal)", 4.4, 210,
-                                                "https://images.unsplash.com/photo-1564936281291-294551497d81?w=400");
+                                                "https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?w=400");
                                 addMock(mocks, restaurantId, 211, "Pepperoni Pizza", 299, "Pizza", false,
                                                 "Pepperoni slices with mozzarella cheese. (350 Kcal)", 4.6, 340,
                                                 "https://images.unsplash.com/photo-1564128442383-9201fcc740eb?w=400");
                                 addMock(mocks, restaurantId, 212, "Farmhouse Pizza", 279, "Pizza", true,
                                                 "Onion, capsicum, mushrooms, olives. (310 Kcal)", 4.5, 230,
-                                                "https://images.unsplash.com/photo-1717883235373-ef10b2a745a3?w=400");
+                                                "https://images.unsplash.com/photo-1673439304183-8840bd0dc1bf?w=400");
                                 addMock(mocks, restaurantId, 213, "BBQ Chicken Pizza", 319, "Pizza", false,
                                                 "Chicken with BBQ sauce and cheese. (380 Kcal)", 4.7, 410,
-                                                "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400");
+                                                "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=400");
                                 addMock(mocks, restaurantId, 214, "Four Cheese Pizza", 329, "Pizza", true,
                                                 "Mozzarella, parmesan, cheddar, gorgonzola. (390 Kcal)", 4.8, 520,
-                                                "https://images.unsplash.com/photo-1732223229355-95a1433404bf?w=400");
+                                                "https://images.unsplash.com/photo-1593504049359-74330189a345?w=400");
                                 addMock(mocks, restaurantId, 215, "Veggie Supreme Pizza", 289, "Pizza", true,
                                                 "Loaded with vegetables and herbs. (290 Kcal)", 4.6, 310,
-                                                "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400");
+                                                "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=400");
 
                                 // Pasta
                                 addMock(mocks, restaurantId, 218, "Spaghetti Aglio e Olio", 229, "Pasta", true,
@@ -391,171 +392,90 @@ public class FoodItemDAO {
                                                 "Flavorful shake (Chocolate / Strawberry / Vanilla). (320 Kcal)", 4.3,
                                                 210,
                                                 "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400");
-                                break;
-                        case 3: // Spice Garden (South Indian)
+                        case 3: // Spice Garden (Indian)
                                 // Recommended
-                                addMock(mocks, restaurantId, 3001, "Masala Dosa", 90, "Recommended", true,
-                                                "Crispy dosa stuffed with potato masala.", 4.8, 350,
-                                                "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=400"); // Updated
-                                                                                                                       // to
-                                                                                                                       // accurate
-                                                                                                                       // Dosa
-                                                                                                                       // with
-                                                                                                                       // Chutney/Sambar
-                                addMock(mocks, restaurantId, 3002, "South Indian Meals", 160, "Recommended", true,
-                                                "Rice served with sambar, rasam, poriyal, curd and pickle.", 4.8, 400,
-                                                "https://images.unsplash.com/photo-1741376509680-9517d487689f?w=400");
-                                addMock(mocks, restaurantId, 3003, "Paneer Butter Masala", 180, "Recommended", true,
-                                                "Rich and creamy tomato-based paneer curry.", 4.7, 220,
-                                                "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400");
-                                addMock(mocks, restaurantId, 3004, "Idli (2 pcs)", 40, "Recommended", true,
-                                                "Soft steamed rice cakes served with sambar and coconut chutney.", 4.6,
-                                                210,
-                                                "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=400");
+                                addMock(mocks, restaurantId, 3001, "Butter Chicken with Rice", 220, "Recommended", false,
+                                                "Creamy tomato gravy with tender chicken pieces.", 4.8, 450,
+                                                "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=400&q=80", true, "Customer Favorite");
+                                addMock(mocks, restaurantId, 3002, "Paneer Butter Masala", 180, "Recommended", true,
+                                                "Soft paneer cubes in rich buttery gravy.", 4.7, 320,
+                                                "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=400&q=80", true, "Most Ordered");
+                                addMock(mocks, restaurantId, 3003, "Chicken Biryani", 200, "Recommended", false,
+                                                "Aromatic basmati rice with spiced chicken.", 4.9, 580,
+                                                "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=400&q=80", true, "Customer Favorite");
+                                addMock(mocks, restaurantId, 3004, "Masala Dosa", 90, "Recommended", true,
+                                                "Crispy dosa filled with spiced potato masala.", 4.6, 210,
+                                                "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=400&q=80", true, "Most Ordered");
 
-                                // Breakfast
-                                addMock(mocks, restaurantId, 301, "Idli (2 pcs)", 40, "Breakfast", true,
-                                                "Soft steamed rice cakes served with sambar and coconut chutney.", 4.6,
-                                                210,
-                                                "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=400");
-                                addMock(mocks, restaurantId, 302, "Medu Vada (2 pcs)", 60, "Breakfast", true,
-                                                "Crispy urad dal vada served with chutney and sambar.", 4.5, 180,
-                                                "https://images.unsplash.com/photo-1730191843435-073792ba22bc?w=400"); // Accurate
-                                                                                                                       // Medu
-                                                                                                                       // Vada
-                                addMock(mocks, restaurantId, 303, "Masala Dosa", 90, "Breakfast", true,
-                                                "Crispy dosa stuffed with potato masala.", 4.8, 350,
-                                                "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=400"); // Updated
-                                                                                                                       // to
-                                                                                                                       // accurate
-                                                                                                                       // Masala
-                                                                                                                       // Dosa
-                                addMock(mocks, restaurantId, 304, "Plain Dosa", 70, "Breakfast", true,
-                                                "Golden crispy dosa served with chutney.", 4.5, 200,
-                                                "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=400");
-                                addMock(mocks, restaurantId, 305, "Ghee Roast Dosa", 110, "Breakfast", true,
-                                                "Crispy dosa roasted in pure ghee.", 4.7, 230,
-                                                "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=400");
-                                addMock(mocks, restaurantId, 306, "Onion Uttapam", 90, "Breakfast", true,
-                                                "Thick dosa topped with onions.", 4.6, 160,
-                                                "https://images.unsplash.com/photo-1694849789325-914b71ab4075?w=400"); // Updated
-                                                                                                                       // to
-                                                                                                                       // accurate
-                                                                                                                       // Uttapam
-                                addMock(mocks, restaurantId, 307, "Rava Upma", 70, "Breakfast", true,
-                                                "Semolina cooked with vegetables and spices.", 4.4, 120,
-                                                "https://images.unsplash.com/photo-1630409349197-b733a524b24e?w=400"); // Updated
-                                                                                                                       // to
-                                                                                                                       // accurate
-                                                                                                                       // Upma
-                                addMock(mocks, restaurantId, 308, "Ven Pongal", 80, "Breakfast", true,
-                                                "Rice and dal cooked with ghee, pepper and cashews.", 4.5, 140,
-                                                "https://images.unsplash.com/photo-1665660710687-b44c50751054?w=400"); // Updated
-                                                                                                                       // to
-                                                                                                                       // accurate
-                                                                                                                       // Pongal
+                                // Main Dishes
+                                addMock(mocks, restaurantId, 311, "Butter Chicken with Rice", 220, "Main Dishes", false,
+                                                "Creamy tomato gravy with tender chicken pieces.", 4.8, 450,
+                                                "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=400&q=80", false, "Customer Favorite");
+                                addMock(mocks, restaurantId, 312, "Paneer Butter Masala", 180, "Main Dishes", true,
+                                                "Soft paneer cubes in rich buttery gravy.", 4.7, 320,
+                                                "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=400&q=80", false, "Most Ordered");
+                                addMock(mocks, restaurantId, 313, "Chicken Biryani", 200, "Main Dishes", false,
+                                                "Aromatic basmati rice with spiced chicken.", 4.9, 580,
+                                                "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=400&q=80", false, "Customer Favorite");
+                                addMock(mocks, restaurantId, 314, "Veg Biryani", 160, "Main Dishes", true,
+                                                "Mixed vegetables cooked with basmati rice.", 4.5, 230,
+                                                "https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=400&q=80", false, "Budget Pick");
+                                addMock(mocks, restaurantId, 315, "Masala Dosa", 90, "Main Dishes", true,
+                                                "Crispy dosa filled with spiced potato masala.", 4.6, 210,
+                                                "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=400&q=80", false, "Most Ordered");
 
-                                // Lunch
-                                addMock(mocks, restaurantId, 309, "South Indian Meals", 160, "Lunch", true,
-                                                "Rice served with sambar, rasam, poriyal, curd and pickle.", 4.8, 400,
-                                                "https://images.unsplash.com/photo-1741376509680-9517d487689f?w=400");
-                                addMock(mocks, restaurantId, 310, "Sambar Rice", 110, "Lunch", true,
-                                                "Steamed rice mixed with flavorful sambar.", 4.6, 210,
-                                                "https://images.unsplash.com/photo-1589899476489-2b5e3e2b323f?w=400"); // Verified
-                                                                                                                       // Sambar
-                                                                                                                       // Rice
-                                addMock(mocks, restaurantId, 311, "Curd Rice", 90, "Lunch", true,
-                                                "Rice mixed with fresh curd and tempered spices.", 4.5, 180,
-                                                "https://images.unsplash.com/photo-1633383718081-22ac93e3db65?w=400");
-                                addMock(mocks, restaurantId, 312, "Lemon Rice", 100, "Lunch", true,
-                                                "Tangy rice flavored with lemon and peanuts.", 4.4, 150,
-                                                "https://images.unsplash.com/photo-1710091691802-7dedb8af9a77?w=400"); // Verified
-                                                                                                                       // Lemon
-                                                                                                                       // Rice
-                                addMock(mocks, restaurantId, 313, "Tomato Rice", 110, "Lunch", true,
-                                                "Spicy rice cooked with tomato masala.", 4.5, 160,
-                                                "https://images.unsplash.com/photo-1654333433211-608057c71603?w=400"); // Verified
-                                                                                                                       // Tomato
-                                                                                                                       // Rice
-                                addMock(mocks, restaurantId, 314, "Vegetable Biryani", 160, "Lunch", true,
-                                                "Aromatic basmati rice cooked with vegetables and spices.", 4.7, 300,
-                                                "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=400"); // Verified
-                                                                                                                       // Veg
-                                                                                                                       // Biryani
-                                addMock(mocks, restaurantId, 315, "Paneer Biryani", 190, "Lunch", true,
-                                                "Rich biryani made with paneer cubes and spices.", 4.8, 260,
-                                                "https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?w=400"); // Verified
-                                                                                                                       // Paneer
-                                                                                                                       // Biryani
+                                // Snacks & Starters
+                                addMock(mocks, restaurantId, 321, "Chicken 65", 150, "Snacks & Starters", false,
+                                                "Spicy deep-fried chicken bites.", 4.6, 180,
+                                                "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&w=400&q=80", true, "Customer Favorite");
+                                addMock(mocks, restaurantId, 322, "Paneer Tikka", 160, "Snacks & Starters", true,
+                                                "Grilled paneer cubes with spices.", 4.5, 140,
+                                                "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 323, "Veg Samosa (2 pcs)", 40, "Snacks & Starters", true,
+                                                "Crispy pastry filled with potato masala.", 4.4, 310,
+                                                "https://images.unsplash.com/photo-1601050633622-3f5ef970fd66?auto=format&fit=crop&w=400&q=80", false, "Budget Pick");
+                                addMock(mocks, restaurantId, 324, "French Fries", 80, "Snacks & Starters", true,
+                                                "Golden crispy potato fries.", 4.2, 110,
+                                                "https://images.unsplash.com/photo-1573014167391-aa4d132dd04b?auto=format&fit=crop&w=400&q=80");
 
-                                // Dinner
-                                addMock(mocks, restaurantId, 316, "Butter Naan (2 pcs)", 60, "Dinner", true,
-                                                "Soft and buttery Indian flatbread.", 4.6, 190,
-                                                "https://images.unsplash.com/photo-1697155406014-04dc649b0953?w=400");
-                                addMock(mocks, restaurantId, 317, "Chapati (2 pcs)", 50, "Dinner", true,
-                                                "Whole wheat flatbreads.", 4.4, 150,
-                                                "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400"); // Accurate
-                                                                                                                    // Chapati
-                                addMock(mocks, restaurantId, 318, "Paneer Butter Masala", 180, "Dinner", true,
-                                                "Cottage cheese in a rich tomato and butter gravy.", 4.7, 220,
-                                                "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400");
-                                addMock(mocks, restaurantId, 319, "Vegetable Kurma", 140, "Dinner", true,
-                                                "Assorted vegetables cooked in a coconut and spice base.", 4.5, 160,
-                                                "https://images.unsplash.com/photo-1690401767645-595de0e0e5f8?w=400");
-                                addMock(mocks, restaurantId, 320, "Kadai Paneer", 190, "Dinner", true,
-                                                "Paneer cooked with bell peppers and freshly ground spices.", 4.6, 200,
-                                                "https://images.unsplash.com/photo-1701579231378-3726490a407b?w=400");
-                                addMock(mocks, restaurantId, 321, "Parotta (2 pcs)", 70, "Dinner", true,
-                                                "Layered flaky flatbread made from maida.", 4.5, 210,
-                                                "https://images.unsplash.com/photo-1683533743190-89c9b19f9ea6?w=400"); // Verified
-                                                                                                                       // Parotta
-                                addMock(mocks, restaurantId, 322, "Parotta with Salna", 110, "Dinner", true,
-                                                "Parotta served with a spicy flavorful gravy.", 4.7, 250,
-                                                "https://images.unsplash.com/photo-1683533743190-89c9b19f9ea6?w=400"); // Verified
-                                                                                                                       // Parotta
-
-                                // Snacks
-                                addMock(mocks, restaurantId, 323, "Masala Vada", 40, "Snacks", true,
-                                                "Crunchy fried lentil fritters.", 4.5, 120,
-                                                "https://images.unsplash.com/photo-1683533678033-f5d60f0a3437?w=400"); // Verified
-                                                                                                                       // Masala
-                                                                                                                       // Vada
-                                addMock(mocks, restaurantId, 324, "Bajji (3 pcs)", 60, "Snacks", true,
-                                                "Crispy vegetable fritters dipped in gram flour batter.", 4.4, 90,
-                                                "https://images.unsplash.com/photo-1666190091191-0cd0c5c8c5b5?w=400");
-                                addMock(mocks, restaurantId, 325, "Samosa (2 pcs)", 40, "Snacks", true,
-                                                "Crispy pastry shell stuffed with spiced potatoes and peas.", 4.6, 240,
-                                                "https://images.unsplash.com/photo-1541544741938-0af808871cc0?w=400");
-                                addMock(mocks, restaurantId, 326, "Veg Cutlet", 60, "Snacks", true,
-                                                "Savory vegetable patties breaded and deep fried.", 4.3, 85,
-                                                "https://images.unsplash.com/photo-1708782340351-25feb5640076?w=400"); // Verified
-                                                                                                                       // Cutlet
-                                addMock(mocks, restaurantId, 327, "Onion Pakoda", 70, "Snacks", true,
-                                                "Crispy deep-fried onion fritters.", 4.5, 110,
-                                                "https://images.unsplash.com/photo-1711565129645-e2fd3e09ff18?w=400"); // Verified
-                                                                                                                       // Onion
-                                                                                                                       // Pakoda
+                                // Quick Meals
+                                addMock(mocks, restaurantId, 331, "Veg Fried Rice", 120, "Quick Meals", true,
+                                                "Delicious mixed vegetable fried rice.", 4.3, 150,
+                                                "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 332, "Egg Fried Rice", 130, "Quick Meals", false,
+                                                "Scrambled egg and rice with spices.", 4.4, 120,
+                                                "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 333, "Chicken Noodles", 140, "Quick Meals", false,
+                                                "Wok-tossed noodles with chicken and veggies.", 4.5, 190,
+                                                "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 334, "Veg Noodles", 110, "Quick Meals", true,
+                                                "Tossed noodles with fresh vegetables.", 4.2, 110,
+                                                "https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=400&q=80");
 
                                 // Beverages
-                                addMock(mocks, restaurantId, 328, "South Indian Filter Coffee", 35, "Beverages", true,
-                                                "Traditional hot coffee brewed with milk and chicory.", 4.8, 300,
-                                                "https://images.unsplash.com/photo-1668236482744-b48b28650f12?w=400"); // Verified
-                                                                                                                       // Filter
-                                                                                                                       // Coffee
-                                addMock(mocks, restaurantId, 329, "Masala Tea", 25, "Beverages", true,
-                                                "Spiced tea with milk and aromatic herbs.", 4.6, 180,
-                                                "https://images.unsplash.com/photo-1683533699004-7f6b9e5a073f?w=400"); // Verified
-                                                                                                                       // Masala
-                                                                                                                       // Tea
-                                addMock(mocks, restaurantId, 330, "Cold Coffee", 90, "Beverages", true,
-                                                "Chilled coffee blended with milk and sugar.", 4.5, 210,
-                                                "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400");
-                                addMock(mocks, restaurantId, 331, "Badam Milk", 80, "Beverages", true,
-                                                "Warm or cold almond-flavored milk with saffron.", 4.7, 150,
-                                                "https://images.unsplash.com/photo-1616429266184-7455498d96db?w=400");
-                                addMock(mocks, restaurantId, 332, "Fresh Lime Juice", 50, "Beverages", true,
-                                                "Refreshing lime drink with water or soda.", 4.4, 130,
-                                                "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=400");
+                                addMock(mocks, restaurantId, 341, "Masala Chai", 20, "Beverages", true,
+                                                "Authentic Indian spiced tea.", 4.7, 420,
+                                                "https://images.unsplash.com/photo-1594631252845-29fc45862140?auto=format&fit=crop&w=400&q=80", false, "Budget Pick");
+                                addMock(mocks, restaurantId, 342, "Cold Coffee", 80, "Beverages", true,
+                                                "Refreshing chilled coffee.", 4.5, 230,
+                                                "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 343, "Fresh Lime Soda", 40, "Beverages", true,
+                                                "Tangy lime soda with a kick.", 4.4, 150,
+                                                "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 344, "Buttermilk", 30, "Beverages", true,
+                                                "Chilled spiced yogurt drink.", 4.6, 180,
+                                                "https://images.unsplash.com/photo-1571115177098-24ec42ed2bb4?auto=format&fit=crop&w=400&q=80");
+
+                                // Desserts
+                                addMock(mocks, restaurantId, 351, "Gulab Jamun (2 pcs)", 40, "Desserts", true,
+                                                "Soft berry-sized balls in sugar syrup.", 4.8, 380,
+                                                "https://images.unsplash.com/photo-1589119908995-c6837fa14848?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 352, "Chocolate Cake Slice", 90, "Desserts", true,
+                                                "Rich and decadent chocolate cake slice.", 4.7, 210,
+                                                "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 353, "Vanilla Ice Cream", 60, "Desserts", true,
+                                                "Classic smooth vanilla ice cream.", 4.6, 150,
+                                                "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=400&q=80");
                                 break;
                         case 4: // Golden Dragon (Chinese)
                                 // Recommended
@@ -672,12 +592,11 @@ public class FoodItemDAO {
                                 addMock(mocks, restaurantId, 432, "Vanilla Milkshake", 140, "Drinks", true,
                                                 "Classic creamy vanilla milkshake.", 4.2, 85,
                                                 "https://images.unsplash.com/photo-1553787499-6f9133860278?w=400");
-                                break;
-                        case 5: // Urban Sushi (Japanese)
+                                                  case 5: // Urban Sushi (Japanese)
                                 // Recommended
                                 addMock(mocks, restaurantId, 501, "Salmon Nigiri (4 pcs)", 250, "Recommended", false,
                                                 "Fresh salmon over pressed vinegar rice.", 4.9, 120,
-                                                "https://images.unsplash.com/photo-1549635747-380d0d8cdca2?w=400");
+                                                "https://images.unsplash.com/photo-1680675228874-9b9963812b7c?w=400");
                                 addMock(mocks, restaurantId, 502, "California Roll (8 pcs)", 220, "Recommended", false,
                                                 "Crab, avocado, and cucumber with sesame seeds.", 4.8, 95,
                                                 "https://images.unsplash.com/photo-1559410545-0bdcd187e0a6?w=400");
@@ -708,7 +627,7 @@ public class FoodItemDAO {
                                 // Tempura
                                 addMock(mocks, restaurantId, 510, "Prawn Tempura (4 pcs)", 280, "Tempura", false,
                                                 "Lightly battered and deep-fried prawns served with dip.", 4.8, 140,
-                                                "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400");
+                                                "https://images.unsplash.com/photo-1651328236028-77b585d3f4e5?w=400");
                                 addMock(mocks, restaurantId, 511, "Chicken Tempura", 240, "Tempura", false,
                                                 "Crispy chicken strips in light Japanese tempura batter.", 4.6, 120,
                                                 "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400");
@@ -723,7 +642,7 @@ public class FoodItemDAO {
                                 addMock(mocks, restaurantId, 514, "Veg Ramen", 210, "Ramen / Noodles", true,
                                                 "Clear vegetable broth with traditional ramen noodles and corn.", 4.5,
                                                 140,
-                                                "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400");
+                                                "https://images.unsplash.com/photo-1620147123631-7291b2b5a4f7?w=400");
                                 addMock(mocks, restaurantId, 515, "Spicy Miso Ramen", 250, "Ramen / Noodles", true,
                                                 "Fiery miso broth with noodles and traditional toppings.", 4.6, 110,
                                                 "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400");
@@ -781,7 +700,7 @@ public class FoodItemDAO {
                                                 "https://images.unsplash.com/photo-1505394033323-4241b2213fd3?w=400");
                                 addMock(mocks, restaurantId, 528, "Mochi Ice Cream", 200, "Desserts", true,
                                                 "Soft rice cake balls with an ice cream center.", 4.8, 95,
-                                                "https://images.unsplash.com/photo-1553334410-09e472624447?w=400");
+                                                "https://images.unsplash.com/photo-1706350091276-ba994c35cd99?w=400");
                                 addMock(mocks, restaurantId, 529, "Chocolate Dorayaki", 190, "Desserts", true,
                                                 "Japanese pancakes filled with rich chocolate.", 4.5, 80,
                                                 "https://images.unsplash.com/photo-1582295624795-36da0749007e?w=400");
@@ -789,7 +708,7 @@ public class FoodItemDAO {
                                 // Drinks
                                 addMock(mocks, restaurantId, 530, "Japanese Green Tea", 120, "Drinks", true,
                                                 "Authentic hot brewed matcha green tea.", 4.4, 65,
-                                                "https://images.unsplash.com/photo-1515696423086-05c72eb845f6?w=400");
+                                                "https://images.unsplash.com/photo-1524914415733-3eb400768a13?w=400");
                                 addMock(mocks, restaurantId, 531, "Lemon Iced Tea", 120, "Drinks", true,
                                                 "Chilled and refreshing citrus infused tea.", 4.3, 85,
                                                 "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400");
@@ -799,51 +718,275 @@ public class FoodItemDAO {
                                 addMock(mocks, restaurantId, 533, "Chocolate Milkshake", 150, "Drinks", true,
                                                 "Indulgent chocolate shake topped with whipped cream.", 4.6, 130,
                                                 "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400");
-                                break;
-                        case 6: // Taco Town (Mexican)
-                                addMock(mocks, restaurantId, 601, "Street Tacos (3pcs)", 180, "Recommended", false,
-                                                "Authentic street style tacos with cilantro and onion.", 4.4, 150,
-                                                "https://images.unsplash.com/photo-1648437595587-e6a8b0cdf1f9?w=400");
-                                addMock(mocks, restaurantId, 602, "Burrito Bowl", 210, "Recommended", true,
-                                                "Rice, beans, salsa and guac bowl.", 4.3, 210,
-                                                "https://images.unsplash.com/photo-1668665771757-4d42737d295a?w=400");
-                                addMock(mocks, restaurantId, 603, "Nachos Supreme", 160, "Sides", true,
-                                                "Crispy chips with melted cheese and jalapeños.", 4.1, 130,
-                                                "https://images.unsplash.com/photo-1582169296194-e4d644c48063?w=400");
+                                                 case 6: // Taco Town (Mexican)
+                                addMock(mocks, restaurantId, 601, "Street Tacos (3 pcs)", 120, "Recommended", false,
+                                                "Authentic street-style tacos with onion, cilantro, and salsa.", 4.4, 150,
+                                                "https://images.unsplash.com/photo-1650939959602-d8b3e9d50083?w=400");
+                                addMock(mocks, restaurantId, 602, "Burrito Bowl", 130, "Recommended", true,
+                                                "Rice, beans, salsa, and fresh vegetables in a bowl.", 4.3, 210,
+                                                "https://images.unsplash.com/photo-1636600631971-f8e7dabb8c32?w=400");
+                                addMock(mocks, restaurantId, 603, "Veg Loaded Nachos", 100, "Recommended", true,
+                                                "Crunchy nachos topped with cheese, beans, and jalapeños.", 4.4, 170,
+                                                "https://images.unsplash.com/photo-1669624272709-c5b91f66b1b7?w=400");
+                                addMock(mocks, restaurantId, 604, "Chicken Tacos (3 pcs)", 140, "Recommended", false,
+                                                "Soft tacos filled with grilled chicken and salsa.", 4.5, 190,
+                                                "https://images.unsplash.com/photo-1687483137128-de6b05b80901?w=400");
+                                addMock(mocks, restaurantId, 605, "Paneer Tacos (3 pcs)", 130, "Tacos", true,
+                                                "Soft tortillas stuffed with grilled paneer and veggies.", 4.5, 160,
+                                                "https://images.unsplash.com/photo-1641024241941-bf99aca531c7?w=400");
+                                addMock(mocks, restaurantId, 606, "Spicy Bean Tacos (3 pcs)", 110, "Tacos", true,
+                                                "Mexican beans with salsa and cheese.", 4.3, 130,
+                                                "https://images.unsplash.com/photo-1593759608136-45eb2ad9507d?w=400");
+                                addMock(mocks, restaurantId, 607, "Crispy Veg Tacos (3 pcs)", 115, "Tacos", true,
+                                                "Crunchy taco shells filled with seasoned vegetables.", 4.4, 140,
+                                                "https://images.unsplash.com/photo-1726514730004-f3a07597c7b0?w=400");
+                                addMock(mocks, restaurantId, 608, "Veg Burrito", 130, "Burritos", true,
+                                                "Soft tortilla wrap with rice, beans, and grilled veggies.", 4.4, 150,
+                                                "https://images.unsplash.com/photo-1717429863975-4d45cbdb3d42?w=400");
+                                addMock(mocks, restaurantId, 609, "Chicken Burrito", 150, "Burritos", false,
+                                                "Chicken, rice, beans, and salsa wrapped in a tortilla.", 4.5, 180,
+                                                "https://images.unsplash.com/photo-1730878423239-0fd430bbac37?w=400");
+                                addMock(mocks, restaurantId, 610, "Cheese Quesadilla", 95, "Quesadillas", true,
+                                                "Grilled tortilla with melted cheese.", 4.4, 150,
+                                                "https://images.unsplash.com/photo-1707387312816-112e5ca3c145?w=400");
+                                addMock(mocks, restaurantId, 611, "Veg Quesadilla", 110, "Quesadillas", true,
+                                                "Tortilla filled with vegetables and cheese.", 4.5, 160,
+                                                "https://images.unsplash.com/photo-1541544741938-0af808871cc0?w=400");
+                                addMock(mocks, restaurantId, 612, "Classic Nachos", 90, "Snacks", true,
+                                                "Crispy tortilla chips with salsa dip.", 4.3, 140,
+                                                "https://images.unsplash.com/photo-1748765968997-ba9bae9cfd7b?w=400");
+                                addMock(mocks, restaurantId, 613, "Jalapeño Cheese Poppers", 120, "Snacks", true,
+                                                "Crispy fried jalapeños stuffed with cheese.", 4.5, 120,
+                                                "https://images.unsplash.com/photo-1734774924912-dcbb467f8599?w=400");
+                                addMock(mocks, restaurantId, 614, "Lemon Mint Cooler", 60, "Drinks", true,
+                                                "Refreshing lemon and mint drink.", 4.4, 180,
+                                                "https://images.unsplash.com/photo-1772723822838-915561797031?w=400");
+                                addMock(mocks, restaurantId, 615, "Iced Tea", 55, "Drinks", true,
+                                                "Chilled tea with lemon flavor.", 4.3, 160,
+                                                "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400");
                                 break;
                         case 7: // The French Bistro
-                                addMock(mocks, restaurantId, 701, "Beef Bourguignon", 24.99, "Recommended", false,
+                                addMock(mocks, restaurantId, 7001, "Butter Chicken with Rice", 220, "Recommended", false,
+                                                "Creamy tomato gravy with tender chicken pieces.", 4.8, 450,
+                                                "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=400&q=80", true, "Customer Favorite");
+                                addMock(mocks, restaurantId, 7002, "Paneer Butter Masala", 180, "Recommended", true,
+                                                "Soft paneer cubes in rich buttery gravy.", 4.7, 320,
+                                                "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=400&q=80", true, "Most Ordered");
+                                addMock(mocks, restaurantId, 7003, "Chicken Biryani", 200, "Recommended", false,
+                                                "Aromatic basmati rice with spiced chicken.", 4.9, 580,
+                                                "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=400&q=80", true, "Customer Favorite");
+                                addMock(mocks, restaurantId, 7004, "Masala Dosa", 90, "Recommended", true,
+                                                "Crispy dosa filled with spiced potato masala.", 4.6, 210,
+                                                "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=400&q=80", true, "Most Ordered");
+
+                                // French Originals
+                                addMock(mocks, restaurantId, 701, "Beef Bourguignon", 1850, "Recommended", false,
                                                 "Slow-cooked beef in red wine sauce. (520 Kcal)", 4.8, 85,
                                                 "https://images.unsplash.com/photo-1548869206-93b036288d7e?w=400");
-                                addMock(mocks, restaurantId, 702, "French Onion Soup", 12.50, "Recommended", false,
+                                addMock(mocks, restaurantId, 702, "French Onion Soup", 950, "Recommended", false,
                                                 "Classic broth with melted cheese and bread. (210 Kcal)", 4.6, 65,
                                                 "https://images.unsplash.com/photo-1549203438-a7696aed4dac?w=400");
-                                addMock(mocks, restaurantId, 703, "Crème Brûlée", 8.99, "Desserts", true,
+
+                                // Main Dishes
+                                addMock(mocks, restaurantId, 711, "Butter Chicken with Rice", 220, "Main Dishes", false,
+                                                "Creamy tomato gravy with tender chicken pieces.", 4.8, 450,
+                                                "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=400&q=80", false, "Customer Favorite");
+                                addMock(mocks, restaurantId, 712, "Paneer Butter Masala", 180, "Main Dishes", true,
+                                                "Soft paneer cubes in rich buttery gravy.", 4.7, 320,
+                                                "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=400&q=80", false, "Most Ordered");
+                                addMock(mocks, restaurantId, 713, "Chicken Biryani", 200, "Main Dishes", false,
+                                                "Aromatic basmati rice with spiced chicken.", 4.9, 580,
+                                                "https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=400&q=80", false, "Customer Favorite");
+                                addMock(mocks, restaurantId, 714, "Veg Biryani", 160, "Main Dishes", true,
+                                                "Mixed vegetables cooked with basmati rice.", 4.5, 230,
+                                                "https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=400&q=80", false, "Budget Pick");
+                                addMock(mocks, restaurantId, 715, "Masala Dosa", 90, "Main Dishes", true,
+                                                "Crispy dosa filled with spiced potato masala.", 4.6, 210,
+                                                "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=400&q=80", false, "Most Ordered");
+
+                                // Snacks & Starters
+                                addMock(mocks, restaurantId, 721, "Chicken 65", 150, "Snacks & Starters", false,
+                                                "Spicy deep-fried chicken bites.", 4.6, 180,
+                                                "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&w=400&q=80", true, "Customer Favorite");
+                                addMock(mocks, restaurantId, 722, "Paneer Tikka", 160, "Snacks & Starters", true,
+                                                "Grilled paneer cubes with spices.", 4.5, 140,
+                                                "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 723, "Veg Samosa (2 pcs)", 40, "Snacks & Starters", true,
+                                                "Crispy pastry filled with potato masala.", 4.4, 310,
+                                                "https://images.unsplash.com/photo-1601050633622-3f5ef970fd66?auto=format&fit=crop&w=400&q=80", false, "Budget Pick");
+                                addMock(mocks, restaurantId, 724, "French Fries", 80, "Snacks & Starters", true,
+                                                "Golden crispy potato fries.", 4.2, 110,
+                                                "https://images.unsplash.com/photo-1573014167391-aa4d132dd04b?auto=format&fit=crop&w=400&q=80");
+
+                                // Quick Meals
+                                addMock(mocks, restaurantId, 731, "Veg Fried Rice", 120, "Quick Meals", true,
+                                                "Delicious mixed vegetable fried rice.", 4.3, 150,
+                                                "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 732, "Egg Fried Rice", 130, "Quick Meals", false,
+                                                "Scrambled egg and rice with spices.", 4.4, 120,
+                                                "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 733, "Chicken Noodles", 140, "Quick Meals", false,
+                                                "Wok-tossed noodles with chicken and veggies.", 4.5, 190,
+                                                "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 734, "Veg Noodles", 110, "Quick Meals", true,
+                                                "Tossed noodles with fresh vegetables.", 4.2, 110,
+                                                "https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=400&q=80");
+
+                                // Beverages
+                                addMock(mocks, restaurantId, 741, "Masala Chai", 20, "Beverages", true,
+                                                "Authentic Indian spiced tea.", 4.7, 420,
+                                                "https://images.unsplash.com/photo-1594631252845-29fc45862140?auto=format&fit=crop&w=400&q=80", false, "Budget Pick");
+                                addMock(mocks, restaurantId, 742, "Cold Coffee", 80, "Beverages", true,
+                                                "Refreshing chilled coffee.", 4.5, 230,
+                                                "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 743, "Fresh Lime Soda", 40, "Beverages", true,
+                                                "Tangy lime soda with a kick.", 4.4, 150,
+                                                "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 744, "Buttermilk", 30, "Beverages", true,
+                                                "Chilled spiced yogurt drink.", 4.6, 180,
+                                                "https://images.unsplash.com/photo-1571115177098-24ec42ed2bb4?auto=format&fit=crop&w=400&q=80");
+
+                                // Desserts
+                                addMock(mocks, restaurantId, 751, "Gulab Jamun (2 pcs)", 40, "Desserts", true,
+                                                "Soft berry-sized balls in sugar syrup.", 4.8, 380,
+                                                "https://images.unsplash.com/photo-1589119908995-c6837fa14848?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 752, "Chocolate Cake Slice", 90, "Desserts", true,
+                                                "Rich and decadent chocolate cake slice.", 4.7, 210,
+                                                "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 753, "Vanilla Ice Cream", 60, "Desserts", true,
+                                                "Classic smooth vanilla ice cream.", 4.6, 150,
+                                                "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=400&q=80");
+
+                                // French Dessert
+                                addMock(mocks, restaurantId, 703, "Crème Brûlée", 650, "Desserts", true,
                                                 "Rich custard with a burnt sugar top. (350 Kcal)", 4.7, 120,
                                                 "https://images.unsplash.com/photo-1676300184943-09b2a08319a3?w=400");
                                 break;
                         case 8: // Steakhouse Prime
-                                addMock(mocks, restaurantId, 801, "Ribeye Steak (12oz)", 29.99, "Recommended", false,
+                                // Recommended
+                                addMock(mocks, restaurantId, 8001, "Ribeye Steak (12oz)", 2200, "Recommended", false,
                                                 "Premium dry-aged steak grilled to order. (650 Kcal)", 4.9, 310,
-                                                "https://images.unsplash.com/photo-1546964124-0cce460f38ef?w=400");
-                                addMock(mocks, restaurantId, 802, "Mashed Potatoes", 5.50, "Recommended", true,
-                                                "Creamy potatoes with butter and garlic. (180 Kcal)", 4.3, 150,
-                                                "https://images.unsplash.com/photo-1707616954324-99c89a78a20d?w=400");
-                                addMock(mocks, restaurantId, 803, "Red Wine Sauce", 2.00, "Add-ons", false,
+                                                "https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&w=400&q=80", true, "Customer Favorite");
+                                addMock(mocks, restaurantId, 8002, "Chicken Burger", 180, "Recommended", false,
+                                                "Juicy grilled chicken patty with lettuce and mayo. (420 Kcal)", 4.6, 210,
+                                                "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80", true, "Most Ordered");
+                                addMock(mocks, restaurantId, 8003, "Grilled Chicken Steak", 280, "Recommended", false,
+                                                "Tender grilled chicken steak with pepper sauce. (420 Kcal)", 4.6, 170,
+                                                "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=400&q=80", true, "Most Ordered");
+
+                                // Main Course
+                                addMock(mocks, restaurantId, 801, "Ribeye Steak (12oz)", 2200, "Main Course", false,
+                                                "Premium dry-aged steak grilled to order. (650 Kcal)", 4.9, 310,
+                                                "https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 810, "Grilled Chicken Steak", 280, "Main Course", false,
+                                                "Tender grilled chicken steak with pepper sauce. (420 Kcal)", 4.6, 170,
+                                                "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=400&q=80", false, "Most Ordered");
+
+                                // Burgers
+                                addMock(mocks, restaurantId, 804, "Chicken Burger", 180, "Burgers", false,
+                                                "Juicy grilled chicken patty with lettuce and mayo. (420 Kcal)", 4.6, 210,
+                                                "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80", false, "Most Ordered");
+                                addMock(mocks, restaurantId, 805, "Veg Cheese Burger", 150, "Burgers", true,
+                                                "Crispy veg patty with melted cheese and fresh veggies. (380 Kcal)", 4.4, 180,
+                                                "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=400&q=80", false, "Budget Pick");
+
+                                // Sandwiches & Wraps
+                                addMock(mocks, restaurantId, 808, "Grilled Chicken Sandwich", 200, "Sandwiches & Wraps", false,
+                                                "Grilled chicken with cheese and vegetables. (390 Kcal)", 4.5, 160,
+                                                "https://images.unsplash.com/photo-1525059696034-4967a8e1dca2?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 809, "Veg Sandwich", 120, "Sandwiches & Wraps", true,
+                                                "Fresh vegetables with butter toasted bread. (260 Kcal)", 4.3, 140,
+                                                "https://images.unsplash.com/photo-1550507992-04d7c803a666?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 814, "Chicken Wrap", 170, "Sandwiches & Wraps", false,
+                                                "Soft wrap filled with grilled chicken and veggies. (350 Kcal)", 4.5, 150,
+                                                "https://images.unsplash.com/photo-1626700051175-6518a4e93fb0?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 815, "Paneer Wrap", 160, "Sandwiches & Wraps", true,
+                                                "Grilled paneer with spicy sauce in soft wrap. (340 Kcal)", 4.4, 130,
+                                                "https://images.unsplash.com/photo-1647451369325-1e42713f01b1?auto=format&fit=crop&w=400&q=80");
+
+                                // Sides & Starters
+                                addMock(mocks, restaurantId, 806, "French Fries", 120, "Sides & Starters", true,
+                                                "Golden crispy potato fries with seasoning. (300 Kcal)", 4.5, 200,
+                                                "https://images.unsplash.com/photo-1573014167391-aa4d132dd04b?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 807, "Chicken Wings (6 pcs)", 220, "Sides & Starters", false,
+                                                "Spicy crispy wings with BBQ sauce. (450 Kcal)", 4.7, 240,
+                                                "https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=400&q=80", false, "Customer Favorite");
+                                addMock(mocks, restaurantId, 811, "Mashed Potatoes", 150, "Sides & Starters", true,
+                                                "Creamy mashed potatoes with butter and garlic. (180 Kcal)", 4.3, 150,
+                                                "https://images.unsplash.com/photo-1621330716555-5cad596c4562?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 812, "Chicken Nuggets (8 pcs)", 190, "Sides & Starters", false,
+                                                "Crispy fried chicken nuggets with dip. (400 Kcal)", 4.6, 210,
+                                                "https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 816, "Garlic Bread", 110, "Sides & Starters", true,
+                                                "Toasted bread with garlic butter and herbs. (210 Kcal)", 4.3, 140,
+                                                "https://images.unsplash.com/photo-1573140247632-f8fd74997d5c?auto=format&fit=crop&w=400&q=80");
+
+                                // Salads
+                                addMock(mocks, restaurantId, 813, "Veg Caesar Salad", 160, "Salads", true,
+                                                "Fresh lettuce, croutons and creamy dressing. (220 Kcal)", 4.2, 110,
+                                                "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?auto=format&fit=crop&w=400&q=80");
+
+                                // Beverages
+                                addMock(mocks, restaurantId, 817, "Cold Coffee", 90, "Beverages", true,
+                                                "Chilled coffee blended with milk and ice cream.", 4.5, 120,
+                                                "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=400&q=80");
+
+                                // Desserts
+                                addMock(mocks, restaurantId, 818, "Brownie with Ice Cream", 130, "Desserts", true,
+                                                "Warm chocolate brownie served with vanilla ice cream.", 4.8, 160,
+                                                "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=400&q=80");
+
+                                // Add-ons
+                                addMock(mocks, restaurantId, 803, "Red Wine Sauce", 150, "Add-ons", false,
                                                 "Rich reduction sauce for steaks. (45 Kcal)", 4.5, 90,
-                                                "https://images.unsplash.com/photo-1726946972127-941225b132f2?w=400");
+                                                "https://images.unsplash.com/photo-1726946972127-941225b132f2?auto=format&fit=crop&w=400&q=80");
                                 break;
                         case 9: // Healthy Greens
-                                addMock(mocks, restaurantId, 901, "Quinoa Buddha Bowl", 14.50, "Recommended", true,
-                                                "Nutrient-dense bowl with quinoa and fresh veg. (320 Kcal)", 4.6, 210,
-                                                "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400");
-                                addMock(mocks, restaurantId, 902, "Avocado Toast", 11.99, "Recommended", true,
-                                                "Whole grain toast with smashed avo and chili flakes. (240 Kcal)", 4.5,
-                                                340,
-                                                "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400");
-                                addMock(mocks, restaurantId, 903, "Fresh Green Juice", 6.50, "Recommended", true,
-                                                "Cold-pressed juice with kale, apple and lemon. (110 Kcal)", 4.4, 180,
-                                                "https://images.unsplash.com/photo-1759006249055-8c4030a2d56a?w=400");
+                                addMock(mocks, restaurantId, 901, "Quinoa Veg Bowl", 95, "Healthy Bowls", true,
+                                                "Simple quinoa bowl with mixed vegetables and light seasoning.", 4.5, 210,
+                                                "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?w=400");
+                                addMock(mocks, restaurantId, 902, "Avocado Toast", 80, "Snacks", true,
+                                                "Whole wheat toast topped with mashed avocado and chili flakes.", 4.4, 180,
+                                                "https://images.unsplash.com/photo-1613769049987-b31b641f25b1?w=400");
+                                addMock(mocks, restaurantId, 903, "Sprouts Energy Bowl", 70, "Healthy Bowls", true,
+                                                "Protein-rich sprouts with cucumber, onion, and lemon dressing.", 4.6, 150,
+                                                "https://images.unsplash.com/photo-1622732777601-e744c3401d44?w=400");
+                                addMock(mocks, restaurantId, 904, "Veg Protein Salad", 85, "Salads", true,
+                                                "Chickpeas, carrots, and fresh greens tossed with herbs.", 4.5, 200,
+                                                "https://images.unsplash.com/photo-1688807462845-a06bc0abcadb?w=400");
+                                addMock(mocks, restaurantId, 905, "Fresh Garden Salad", 60, "Salads", true,
+                                                "Cucumber, tomato, carrot, and lettuce with lemon dressing.", 4.3, 170,
+                                                "https://images.unsplash.com/photo-1605291535126-2d71fea483c1?w=400");
+                                addMock(mocks, restaurantId, 906, "Chickpea Salad", 75, "Salads", true,
+                                                "Boiled chickpeas mixed with onion, tomato, and spices.", 4.4, 160,
+                                                "https://images.unsplash.com/photo-1568803776598-57e3cf2f90fc?w=400");
+                                addMock(mocks, restaurantId, 907, "Corn & Veg Salad", 70, "Salads", true,
+                                                "Sweet corn tossed with capsicum and light seasoning.", 4.5, 140,
+                                                "https://images.unsplash.com/photo-1768716574889-e9af8e7f7ae8?w=400");
+                                addMock(mocks, restaurantId, 908, "Brown Rice Veg Bowl", 90, "Healthy Bowls", true,
+                                                "Brown rice served with sautéed vegetables.", 4.5, 190,
+                                                "https://images.unsplash.com/photo-1666819691822-29a09f0992e5?w=400");
+                                addMock(mocks, restaurantId, 909, "Tofu Veg Bowl", 110, "Healthy Bowls", true,
+                                                "Grilled tofu with fresh veggies and light soy dressing.", 4.6, 130,
+                                                "https://images.unsplash.com/photo-1763000215238-38350d3e41ac?w=400");
+                                addMock(mocks, restaurantId, 910, "Green Detox Bowl", 85, "Healthy Bowls", true,
+                                                "Spinach, sprouts, cucumber, and seeds mix.", 4.4, 150,
+                                                "https://images.unsplash.com/photo-1622790176973-2c27952176fe?w=400");
+                                addMock(mocks, restaurantId, 911, "Banana Peanut Smoothie", 65, "Smoothies & Drinks", true,
+                                                "Banana blended with milk and peanut butter.", 4.6, 210,
+                                                "https://images.unsplash.com/photo-1685967836529-b0e8d6938227?w=400");
+                                addMock(mocks, restaurantId, 912, "Mango Smoothie", 70, "Smoothies & Drinks", true,
+                                                "Fresh mango blended with yogurt.", 4.5, 190,
+                                                "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=400");
+                                addMock(mocks, restaurantId, 913, "Green Detox Juice", 60, "Smoothies & Drinks", true,
+                                                "Spinach, apple, and lemon juice.", 4.4, 160,
+                                                "https://images.unsplash.com/photo-1610622930110-3c076902312a?w=400");
+                                addMock(mocks, restaurantId, 914, "Sweet Potato Fries", 75, "Snacks", true,
+                                                "Lightly baked sweet potato fries.", 4.5, 200,
+                                                "https://images.unsplash.com/photo-1598679253544-2c97992403ea?w=400");
+                                addMock(mocks, restaurantId, 915, "Multigrain Veg Sandwich", 80, "Snacks", true,
+                                                "Whole grain sandwich filled with fresh vegetables.", 4.4, 180,
+                                                "https://images.unsplash.com/photo-1634632071708-68d98ca65f04?w=400");
                                 break;
                         default:
                                 addMock(mocks, restaurantId, 999, "Special Dish", 10.00, "Recommended", true,
@@ -869,10 +1012,10 @@ public class FoodItemDAO {
                                                 320, "https://images.unsplash.com/photo-1546833998-877b37db8778?w=400");
                                 addMock(mocks, restaurantId, 1006, "Bisibelebath", 120, "Lunch", true,
                                                 "Spicy lentil rice with vegetables and ghee", 4.4, 180,
-                                                "https://images.unsplash.com/photo-1546833998-877b37db8778?w=400");
+                                                "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=400");
                                 addMock(mocks, restaurantId, 1007, "Curd Rice", 90, "Lunch", true,
                                                 "Comforting rice mixed with fresh yogurt and tempered spices", 4.3, 110,
-                                                "https://images.unsplash.com/photo-1546833998-877b37db8778?w=400");
+                                                "https://images.unsplash.com/photo-1444418196534-779039cfc115?w=400");
                                 addMock(mocks, restaurantId, 1008, "Onion Pakoda", 75, "Snacks", true,
                                                 "Crispy deep-fried onion fritters", 4.2, 140,
                                                 "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400");
@@ -887,18 +1030,18 @@ public class FoodItemDAO {
                                                 "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400");
                                 addMock(mocks, restaurantId, 1012, "Elaneer Payasam", 120, "Desserts", true,
                                                 "Tender coconut kheer with creamy milk", 4.7, 85,
-                                                "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400");
+                                                "https://images.unsplash.com/photo-1549203438-a7696aed4dac?w=400");
                                 break;
                         case 11: // Anjappar Chettinad Restaurant
                                 addMock(mocks, restaurantId, 1101, "Chicken 65", 210, "Snacks", false,
                                                 "Spicy deep-fried chicken cubes with curry leaves", 4.6, 320,
-                                                "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400");
+                                                "https://images.unsplash.com/photo-1765360024320-b2ab819c6f75?w=400");
                                 addMock(mocks, restaurantId, 1102, "Chettinad Chicken Masala", 280, "Dinner", false,
                                                 "Traditional spicy chicken gravy with roasted spices", 4.7, 240,
-                                                "https://images.unsplash.com/photo-1604113204910-be02422776fd?w=400");
+                                                "https://images.unsplash.com/photo-1764304733301-3a9f335f0c67?w=400");
                                 addMock(mocks, restaurantId, 1103, "Mutton Sukka", 320, "Dinner", false,
                                                 "Dry-roasted tender mutton with Chettinad masalas", 4.8, 180,
-                                                "https://images.unsplash.com/photo-1544025162-d76694265947?w=400");
+                                                "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400");
                                 addMock(mocks, restaurantId, 1104, "Chettinad Chicken Biryani", 260, "Biryani", false,
                                                 "Fragrant seeraga samba rice cooked with chicken", 4.5, 410,
                                                 "https://images.unsplash.com/photo-1563379091339-03b21bc4a6f8?w=400");
@@ -907,16 +1050,16 @@ public class FoodItemDAO {
                                                 "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=400");
                                 addMock(mocks, restaurantId, 1106, "Vanjaram Fish Fry", 350, "Lunch", false,
                                                 "King fish steak marinated and tawa fried", 4.9, 210,
-                                                "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400");
+                                                "https://images.unsplash.com/photo-1665401015549-712c0dc5ef85?w=400");
                                 addMock(mocks, restaurantId, 1107, "Idiyappam (3 pcs)", 70, "Breakfast", true,
                                                 "Steamed string hoppers", 4.3, 130,
-                                                "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=400");
+                                                "https://images.unsplash.com/photo-1569723650154-b787178cc880?w=400");
                                 addMock(mocks, restaurantId, 1108, "Chicken Salna", 140, "Tiffin", false,
                                                 "Spicy watery gravy best served with parotta", 4.4, 110,
                                                 "https://images.unsplash.com/photo-1604113204910-be02422776fd?w=400");
                                 addMock(mocks, restaurantId, 1109, "Mutton Paya", 240, "Breakfast", false,
                                                 "Traditional trotters stew served with Idiyappam", 4.6, 85,
-                                                "https://images.unsplash.com/photo-1544025162-d76694265947?w=400");
+                                                "https://images.unsplash.com/photo-1624765660252-05bb5ee87aba?w=400");
                                 addMock(mocks, restaurantId, 1110, "Nannari Sarbat", 60, "Beverages", true,
                                                 "Refreshing root extract syrup with lemon", 4.2, 55,
                                                 "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400");
@@ -927,10 +1070,10 @@ public class FoodItemDAO {
                         case 12: // Nagarjuna Chimney
                                 addMock(mocks, restaurantId, 1201, "Andhra Veg Meals", 210, "Lunch", true,
                                                 "Spicy Andhra thali featuring gunpowder and ghee", 4.8, 540,
-                                                "https://images.unsplash.com/photo-1546833998-877b37db8778?w=400");
+                                                "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=400");
                                 addMock(mocks, restaurantId, 1202, "Nagarjuna Chicken Roast", 240, "Snacks", false,
                                                 "Iconic spicy and dry chicken fry", 4.7, 320,
-                                                "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400");
+                                                "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=400");
                                 addMock(mocks, restaurantId, 1203, "Andhra Chicken Biryani", 290, "Biryani", false,
                                                 "Spicy hyderabadi style long grain rice biryani", 4.6, 450,
                                                 "https://images.unsplash.com/photo-1563379091339-03b21bc4a6f8?w=400");
@@ -959,7 +1102,7 @@ public class FoodItemDAO {
                                                 "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=400");
                                 addMock(mocks, restaurantId, 1302, "Kerala Parotta (2 pcs)", 60, "Dinner", true,
                                                 "Flaky, multi-layered flatbread", 4.8, 850,
-                                                "https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=400");
+                                                "https://images.unsplash.com/photo-1668357530437-72a12c660f94?w=400");
                                 addMock(mocks, restaurantId, 1303, "Beef Fry (Ularthiyathu)", 250, "Dinner", false,
                                                 "Traditional slow-roasted beef with coconut slices", 4.9, 320,
                                                 "https://images.unsplash.com/photo-1544025162-d76694265947?w=400");
@@ -968,10 +1111,10 @@ public class FoodItemDAO {
                                                 "https://images.unsplash.com/photo-1563379091339-03b21bc4a6f8?w=400");
                                 addMock(mocks, restaurantId, 1305, "Karimeen Pollichathu", 350, "Lunch", false,
                                                 "Pearl spot fish marinated and grilled in banana leaf", 4.8, 110,
-                                                "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400");
+                                                "https://images.unsplash.com/photo-1718942899999-b3da4177ee2a?w=400");
                                 addMock(mocks, restaurantId, 1306, "Banana Fritters (Pazham Pori)", 50, "Snacks", true,
                                                 "Sweet ripe plantains dipped in batter and fried", 4.5, 340,
-                                                "https://images.unsplash.com/photo-1563245391-744db72be3f5?w=400");
+                                                "https://images.unsplash.com/photo-1762941904142-9d91ca413e66?w=400");
                                 addMock(mocks, restaurantId, 1307, "Sulaimani Tea", 35, "Beverages", true,
                                                 "Spiced black tea with a hint of lemon", 4.4, 210,
                                                 "https://images.unsplash.com/photo-1515696423086-05c72eb845f6?w=400");
@@ -985,13 +1128,13 @@ public class FoodItemDAO {
                                                 "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=400");
                                 addMock(mocks, restaurantId, 1402, "Kesari Bath", 60, "Breakfast", true,
                                                 "Sweet semolina pudding with saffron and pineapple", 4.6, 320,
-                                                "https://images.unsplash.com/photo-1582295624795-36da0749007e?w=400");
+                                                "https://images.unsplash.com/photo-1630409349197-b733a524b24e?w=400");
                                 addMock(mocks, restaurantId, 1403, "Vangi Bath", 110, "Lunch", true,
                                                 "Brinjal rice made with special Karnataka spice mix", 4.4, 210,
-                                                "https://images.unsplash.com/photo-1546833998-877b37db8778?w=400");
+                                                "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=400");
                                 addMock(mocks, restaurantId, 1404, "Filter Kaapi", 40, "Beverages", true,
                                                 "Strong decoction coffee served in brass tumbler", 4.9, 2500,
-                                                "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=400");
+                                                "https://images.unsplash.com/photo-1668236482744-b48b28650f12?w=400");
                                 addMock(mocks, restaurantId, 1405, "Mysore Pak", 80, "Desserts", true,
                                                 "Rich gram flour sweet made with ghee", 4.8, 540,
                                                 "https://images.unsplash.com/photo-1582295624795-36da0749007e?w=400");
@@ -1014,57 +1157,223 @@ public class FoodItemDAO {
                                                 "https://images.unsplash.com/photo-1604113204910-be02422776fd?w=400");
                                 addMock(mocks, restaurantId, 1505, "Sunnundalu", 90, "Desserts", true,
                                                 "Urad dal laddu made with jaggery and ghee", 4.6, 95,
-                                                "https://images.unsplash.com/photo-1582295624795-36da0749007e?w=400");
+                                                "https://images.unsplash.com/photo-1549203438-a7696aed4dac?w=400");
                                 break;
                         case 16: // Karavalli Seafood
-                                addMock(mocks, restaurantId, 1601, "Kori Gassi", 280, "Dinner", false,
-                                                "Traditional Mangalorean chicken curry in coconut milk", 4.7, 190,
-                                                "https://images.unsplash.com/photo-1604113204910-be02422776fd?w=400");
-                                addMock(mocks, restaurantId, 1602, "Neer Dosa (3 pcs)", 75, "Tiffin", true,
-                                                "Paper-thin, lacy rice crepes", 4.6, 320,
-                                                "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=400");
-                                addMock(mocks, restaurantId, 1603, "Anjal Masala Fry", 340, "Lunch", false,
-                                                "Seer fish fried in a thick Mangalorean spice paste", 4.9, 140,
-                                                "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400");
-                                addMock(mocks, restaurantId, 1604, "Goli Baje (6 pcs)", 80, "Snacks", true,
-                                                "Mangalore bonda made with maida and yogurt", 4.4, 210,
-                                                "https://images.unsplash.com/photo-1563245391-744db72be3f5?w=400");
+                                // Lunch
+                                addMock(mocks, restaurantId, 1601, "Anjal Masala Fry", 340, "Lunch", false,
+                                                "Seer fish fried in authentic Mangalorean spice paste.", 4.9, 140,
+                                                "https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=400&q=80", true, "Must Try");
+                                addMock(mocks, restaurantId, 1602, "Fish Curry Meal", 220, "Lunch", false,
+                                                "Rice served with spicy coastal fish curry.", 4.7, 180,
+                                                "https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=400&q=80", false, "Coastal Favorite");
+                                addMock(mocks, restaurantId, 1603, "Neer Dosa (2 pcs)", 120, "Lunch", true,
+                                                "Soft rice crepes served with coconut chutney.", 4.6, 160,
+                                                "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1604, "Chicken Sukka", 240, "Lunch", false,
+                                                "Dry roasted chicken with coconut and spices.", 4.7, 170,
+                                                "https://images.unsplash.com/photo-1603894527134-8c83002f23ba?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1605, "Prawn Ghee Roast", 320, "Lunch", false,
+                                                "Juicy prawns roasted in ghee and red chilli masala.", 4.8, 150,
+                                                "https://images.unsplash.com/photo-1551248429-ac4c965ad397?auto=format&fit=crop&w=400&q=80", true, "Bestseller");
+                                addMock(mocks, restaurantId, 1606, "Fish Rava Fry", 260, "Lunch", false,
+                                                "Crispy fish coated in rava and fried.", 4.7, 130,
+                                                "https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1607, "Veg Meals (South Indian)", 180, "Lunch", true,
+                                                "Rice with sambar, rasam, vegetables and curd.", 4.5, 120,
+                                                "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=400&q=80");
+
+                                // Dinner
+                                addMock(mocks, restaurantId, 1608, "Kori Gassi", 260, "Dinner", false,
+                                                "Traditional Mangalorean chicken curry with coconut gravy.", 4.7, 190,
+                                                "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=400&q=80", true, "Customer Favorite");
+                                addMock(mocks, restaurantId, 1609, "Mangalorean Fish Curry", 240, "Dinner", false,
+                                                "Tangy fish curry with coconut and tamarind.", 4.6, 150,
+                                                "https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1610, "Chicken Ghee Roast", 300, "Dinner", false,
+                                                "Spicy roasted chicken cooked in ghee.", 4.8, 200,
+                                                "https://images.unsplash.com/photo-1603894527134-8c83002f23ba?auto=format&fit=crop&w=400&q=80", true, "Most Ordered");
+                                addMock(mocks, restaurantId, 1611, "Prawn Curry", 290, "Dinner", false,
+                                                "Fresh prawns cooked in coastal spice gravy.", 4.6, 140,
+                                                "https://images.unsplash.com/photo-1551248429-ac4c965ad397?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1612, "Crab Masala", 330, "Dinner", false,
+                                                "Spicy crab cooked in rich Mangalorean masala.", 4.7, 120,
+                                                "https://images.unsplash.com/photo-1559737558-2936770ba659?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1613, "Appam (2 pcs)", 100, "Dinner", true,
+                                                "Soft fermented rice pancakes perfect with curry.", 4.5, 110,
+                                                "https://images.unsplash.com/photo-1588633948281-54ad3605bc61?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1614, "Steamed Rice", 60, "Dinner", true,
+                                                "Freshly steamed rice served hot.", 4.4, 100,
+                                                "https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1615, "Buttermilk", 40, "Dinner", true,
+                                                "Refreshing spiced buttermilk.", 4.6, 130,
+                                                "https://images.unsplash.com/photo-1544145945-f904253db0ad?auto=format&fit=crop&w=400&q=80");
                                 break;
                         case 17: // Murugan Idli Shop
-                                addMock(mocks, restaurantId, 1701, "Malligai Idli", 45, "Breakfast", true,
-                                                "Super soft jasmine-like idlis", 4.8, 1500,
-                                                "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=400");
-                                addMock(mocks, restaurantId, 1702, "Ghee Podi Idli", 90, "Tiffin", true,
-                                                "Idlis tossed in spicy gunpowder and hot ghee", 4.7, 850,
-                                                "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=400");
+                                // Beverages
                                 addMock(mocks, restaurantId, 1703, "Jigarthanda", 85, "Beverages", true,
-                                                "Madurai's famous cold drink with almond gum", 4.9, 640,
-                                                "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400");
+                                                "Madurai\u2019s famous cold drink with milk, ice cream and almond gum.", 4.9, 640,
+                                                "https://images.unsplash.com/photo-1563729784400-d560bb3b334c?auto=format&fit=crop&w=400&q=80", false, "Madurai Special");
+                                addMock(mocks, restaurantId, 1704, "Filter Coffee", 40, "Beverages", true,
+                                                "Traditional South Indian strong filter coffee.", 4.8, 520,
+                                                "https://images.unsplash.com/photo-1544413647-b510493ea267?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1705, "Masala Tea", 25, "Beverages", true,
+                                                "Hot tea brewed with aromatic spices.", 4.6, 410,
+                                                "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=400&q=80");
+
+                                // Breakfast / Tiffin
+                                addMock(mocks, restaurantId, 1701, "Malligai Idli (2 pcs)", 60, "Breakfast", true,
+                                                "Soft jasmine idlis served with chutney and sambar.", 4.8, 1500,
+                                                "https://images.unsplash.com/photo-1668236548550-cba704559334?auto=format&fit=crop&w=400&q=80", true, "Bestseller");
+                                addMock(mocks, restaurantId, 1702, "Ghee Podi Idli", 75, "Breakfast", true,
+                                                "Idlis tossed in ghee and spicy podi powder.", 4.7, 900,
+                                                "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=400&q=80", false, "Customer Favorite");
+                                addMock(mocks, restaurantId, 1706, "Mini Idli Sambar", 70, "Breakfast", true,
+                                                "Small idlis soaked in hot sambar.", 4.7, 820,
+                                                "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1707, "Plain Dosa", 65, "Breakfast", true,
+                                                "Crispy dosa served with chutney and sambar.", 4.6, 760,
+                                                "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1708, "Masala Dosa", 90, "Breakfast", true,
+                                                "Dosa stuffed with potato masala.", 4.8, 1200,
+                                                "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=400&q=80", false, "Must Try");
+                                addMock(mocks, restaurantId, 1709, "Onion Uttapam", 80, "Breakfast", true,
+                                                "Thick dosa topped with onions.", 4.6, 620,
+                                                "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1710, "Rava Dosa", 85, "Breakfast", true,
+                                                "Crispy semolina dosa with spices.", 4.7, 700,
+                                                "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?auto=format&fit=crop&w=400&q=80");
+
+                                // Lunch / South Indian Meals
+                                addMock(mocks, restaurantId, 1711, "Sambar Rice", 90, "Lunch", true,
+                                                "Rice mixed with flavorful sambar and vegetables.", 4.6, 500,
+                                                "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1712, "Curd Rice", 70, "Lunch", true,
+                                                "Rice mixed with fresh curd and seasoning.", 4.7, 650,
+                                                "https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1713, "Lemon Rice", 75, "Lunch", true,
+                                                "Tangy rice flavored with lemon and spices.", 4.5, 450,
+                                                "https://images.unsplash.com/photo-1512058458925-59fe61ef763c?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1714, "Pongal", 85, "Lunch", true,
+                                                "Creamy rice and lentil dish with ghee and pepper.", 4.7, 780,
+                                                "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1715, "Vada (2 pcs)", 50, "Lunch", true,
+                                                "Crispy medu vada served with chutney and sambar.", 4.8, 900,
+                                                "https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=400&q=80", true, "Bestseller");
                                 break;
                         case 18: // Thalassery Kitchen
-                                addMock(mocks, restaurantId, 1801, "Chicken Dum Biryani", 260, "Biryani", false,
-                                                "Famous Thalassery biryani using Jeerakasala rice", 4.8, 920,
-                                                "https://images.unsplash.com/photo-1563379091339-03b21bc4a6f8?w=400");
-                                addMock(mocks, restaurantId, 1802, "Pathiri with Chicken Curry", 160, "Dinner", false,
-                                                "Very thin rice flatbread with spicy coconut chicken", 4.6, 210,
-                                                "https://images.unsplash.com/photo-1546833998-877b37db8778?w=400");
-                                addMock(mocks, restaurantId, 1803, "Kozhikodan Halwa", 90, "Desserts", true,
-                                                "Famous chewy jelly-like wheat halwa", 4.5, 180,
-                                                "https://images.unsplash.com/photo-1582295624795-36da0749007e?w=400");
+                                // Dinner
+                                addMock(mocks, restaurantId, 1801, "Pathiri with Chicken Curry", 160, "Dinner", false,
+                                                "Thin rice flatbread served with spicy coconut chicken curry.", 4.6, 210,
+                                                "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=400&q=80", false, "Authentic Moplah");
+                                addMock(mocks, restaurantId, 1802, "Malabar Parotta with Chicken Curry", 150, "Dinner", false,
+                                                "Flaky Kerala parotta served with rich chicken gravy.", 4.7, 320,
+                                                "https://images.unsplash.com/photo-1668357530437-72a12c660f94?auto=format&fit=crop&w=400&q=80", false, "Bestseller");
+                                addMock(mocks, restaurantId, 1803, "Kappa with Fish Curry", 140, "Dinner", false,
+                                                "Boiled tapioca served with spicy Kerala fish curry.", 4.6, 190,
+                                                "https://images.unsplash.com/photo-1718942899999-b3da4177ee2a?auto=format&fit=crop&w=400&q=80", false, "Coastal Classic");
+                                addMock(mocks, restaurantId, 1804, "Kerala Chicken Roast", 180, "Dinner", false,
+                                                "Dry roasted chicken with coconut oil and spices.", 4.7, 250,
+                                                "https://images.unsplash.com/photo-1604113204910-be02422776fd?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1805, "Fish Curry with Rice", 160, "Dinner", false,
+                                                "Traditional Kerala style fish curry served with steamed rice.", 4.5, 200,
+                                                "https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1806, "Egg Roast with Appam", 140, "Dinner", false,
+                                                "Boiled eggs cooked in spicy onion masala with soft appam.", 4.6, 210,
+                                                "https://images.unsplash.com/photo-1515696423086-05c72eb845f6?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1807, "Veg Stew with Appam", 130, "Dinner", true,
+                                                "Creamy coconut vegetable stew served with appam.", 4.5, 170,
+                                                "https://images.unsplash.com/photo-1549203438-a7696aed4dac?auto=format&fit=crop&w=400&q=80");
+
+                                // Biryani
+                                addMock(mocks, restaurantId, 1808, "Chicken Dum Biryani", 190, "Biryani", false,
+                                                "Authentic Thalassery style chicken dum biryani.", 4.8, 920,
+                                                "https://images.unsplash.com/photo-1563379091339-03b21bc4a6f8?auto=format&fit=crop&w=400&q=80", false, "Must Try");
+                                addMock(mocks, restaurantId, 1809, "Egg Biryani", 150, "Biryani", false,
+                                                "Fragrant basmati rice cooked with boiled eggs and spices.", 4.6, 340,
+                                                "https://images.unsplash.com/photo-1633321702518-7feccaf0ad44?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1810, "Veg Biryani", 140, "Biryani", true,
+                                                "Aromatic rice cooked with mixed vegetables.", 4.5, 280,
+                                                "https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1811, "Fish Biryani", 200, "Biryani", false,
+                                                "Spicy Kerala style biryani with fresh fish.", 4.7, 260,
+                                                "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=400&q=80");
+
+                                // Drinks / Sides
+                                addMock(mocks, restaurantId, 1812, "Kerala Parotta (2 pcs)", 60, "Drinks / Sides", true,
+                                                "Soft flaky layered parotta.", 4.6, 300,
+                                                "https://images.unsplash.com/photo-1668357530437-72a12c660f94?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1813, "Lime Soda", 40, "Drinks / Sides", true,
+                                                "Refreshing lemon soda drink.", 4.5, 210,
+                                                "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1814, "Buttermilk", 35, "Drinks / Sides", true,
+                                                "Cooling spiced buttermilk.", 4.6, 180,
+                                                "https://images.unsplash.com/photo-1571115177098-24ec42ed2bb4?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1815, "Payasam", 70, "Drinks / Sides", true,
+                                                "Traditional Kerala sweet dessert made with milk and vermicelli.", 4.7, 220,
+                                                "https://images.unsplash.com/photo-1582295624795-36da0749007e?auto=format&fit=crop&w=400&q=80", false, "Sweet Treat");
                                 break;
                         case 19: // Paradise Biryani Point
-                                addMock(mocks, restaurantId, 1901, "Hyderabadi Chicken Biryani", 280, "Biryani", false,
-                                                "World-famous long grain basmati rice biryani", 4.9, 2500,
-                                                "https://images.unsplash.com/photo-1563379091339-03b21bc4a6f8?w=400");
-                                addMock(mocks, restaurantId, 1902, "Mutton Dum Biryani", 340, "Biryani", false,
-                                                "Slow-cooked goat meat and rice with saffron", 4.8, 1200,
-                                                "https://images.unsplash.com/photo-1563379091339-03b21bc4a6f8?w=400");
-                                addMock(mocks, restaurantId, 1903, "Double ka Meetha", 110, "Desserts", true,
-                                                "Fried bread pudding soaked in saffron milk and nuts", 4.6, 320,
-                                                "https://images.unsplash.com/photo-1582295624795-36da0749007e?w=400");
-                                addMock(mocks, restaurantId, 1904, "Irani Chai", 35, "Beverages", true,
-                                                "Authentic Hyderabadi creamy tea", 4.7, 540,
-                                                "https://images.unsplash.com/photo-1515696423086-05c72eb845f6?w=400");
+                                // Biryani
+                                addMock(mocks, restaurantId, 1901, "Chicken Biryani (Regular)", 190, "Biryani", false,
+                                                "Hyderabadi style chicken biryani with basmati rice.", 4.8, 2100,
+                                                "https://images.unsplash.com/photo-1563379091339-03b21bc4a6f8?auto=format&fit=crop&w=400&q=80", true, "Legendary Biryani");
+                                addMock(mocks, restaurantId, 1902, "Mini Chicken Biryani", 150, "Biryani", false,
+                                                "Small portion chicken biryani served with raita.", 4.7, 1800,
+                                                "https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1903, "Egg Biryani", 120, "Biryani", false,
+                                                "Spiced basmati rice with boiled eggs.", 4.6, 1200,
+                                                "https://images.unsplash.com/photo-1633321702518-7feccaf0ad44?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1904, "Veg Biryani", 110, "Biryani", true,
+                                                "Mixed vegetables cooked with aromatic spices.", 4.4, 900,
+                                                "https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1905, "Mushroom Biryani", 130, "Biryani", true,
+                                                "Flavored biryani rice with mushroom masala.", 4.5, 700,
+                                                "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=80");
+
+                                // Tamil Favourite Starters
+                                addMock(mocks, restaurantId, 1906, "Chicken 65", 180, "Tamil Favourite Starters", false,
+                                                "Crispy spicy chicken deep fried with special masala.", 4.7, 1500,
+                                                "https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&w=400&q=80", true, "Madrasi Special");
+                                addMock(mocks, restaurantId, 1907, "Pepper Chicken", 190, "Tamil Favourite Starters", false,
+                                                "South Indian pepper style chicken fry.", 4.6, 1000,
+                                                "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1908, "Gobi 65", 140, "Tamil Favourite Starters", true,
+                                                "Crispy cauliflower tossed in spicy masala.", 4.5, 850,
+                                                "https://images.unsplash.com/photo-1601050633622-3f5ef970fd66?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1909, "Chilli Chicken", 190, "Tamil Favourite Starters", false,
+                                                "Chicken cooked with chilli sauce and capsicum.", 4.6, 900,
+                                                "https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=400&q=80");
+
+                                // Rice & Meals
+                                addMock(mocks, restaurantId, 1910, "Chicken Fried Rice", 170, "Rice & Meals", false,
+                                                "Indo-Chinese style fried rice with chicken.", 4.5, 750,
+                                                "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1911, "Egg Fried Rice", 140, "Rice & Meals", false,
+                                                "Fried rice tossed with egg and vegetables.", 4.4, 650,
+                                                "https://images.unsplash.com/photo-1623591039704-7d5686cbca30?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1912, "Veg Fried Rice", 130, "Rice & Meals", true,
+                                                "Classic fried rice with mixed vegetables.", 4.3, 600,
+                                                "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=400&q=80");
+
+                                // Parotta Items
+                                addMock(mocks, restaurantId, 1913, "Parotta (2 pcs) with Salna", 90, "Parotta Items", true,
+                                                "Soft layered parotta served with spicy gravy.", 4.6, 1000,
+                                                "https://images.unsplash.com/photo-1668357530437-72a12c660f94?auto=format&fit=crop&w=400&q=80", true, "Tamil Popular");
+                                addMock(mocks, restaurantId, 1914, "Egg Parotta", 120, "Parotta Items", false,
+                                                "Parotta mixed with egg and masala.", 4.5, 800,
+                                                "https://images.unsplash.com/photo-1668357530437-72a12c660f94?auto=format&fit=crop&w=400&q=80");
+
+                                // Add-ons
+                                addMock(mocks, restaurantId, 1915, "Boiled Egg", 25, "Add-ons", false,
+                                                "Single boiled egg.", 4.0, 100,
+                                                "https://images.unsplash.com/photo-1598965402089-897ce52e8355?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1916, "Raita", 20, "Add-ons", true,
+                                                "Cooling yogurt dip with onions and cucumbers.", 4.0, 200,
+                                                "https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 1917, "Extra Salna", 30, "Add-ons", true,
+                                                "Spicy and flavorful extra gravy.", 4.2, 150,
+                                                "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=400&q=80");
                                 break;
                         case 20: // The Cake Studio
                                 addMock(mocks, restaurantId, 2001, "Belgian Chocolate Cake", 350, "Cakes", true,
@@ -1137,30 +1446,70 @@ public class FoodItemDAO {
                                                 "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400", false);
                                 break;
                         case 22: // The Tea House
-                                addMock(mocks, restaurantId, 2201, "Masala Chai", 40, "Beverages", true,
-                                                "Strong Assam tea brewed with cardamom, ginger, and cloves", 4.8, 45,
-                                                "https://images.unsplash.com/photo-1594137260937-f59050746e36?w=400");
-                                addMock(mocks, restaurantId, 2202, "Ginger Tea", 45, "Beverages", true,
-                                                "Refreshing hot tea with a strong kick of fresh ginger", 4.7, 35,
-                                                "https://images.unsplash.com/photo-1515696423086-05c72eb845f6?w=400");
-                                addMock(mocks, restaurantId, 2203, "Saffron Tea (Kahwa)", 90, "Beverages", true,
-                                                "Premium Kashmiri style tea with saffron and crushed almonds", 4.9, 65,
-                                                "https://images.unsplash.com/photo-1613343454178-62b877b1150d?w=400");
-                                addMock(mocks, restaurantId, 2204, "Green Tea", 60, "Beverages", true,
-                                                "Delicate and healthy organic green tea leaves", 4.5, 20,
-                                                "https://images.unsplash.com/photo-1515696423086-05c72eb845f6?w=400");
+                                // Tea
+                                addMock(mocks, restaurantId, 2201, "Cutting Chai", 15, "Tea", true,
+                                                "Small strong tea served in traditional cutting style.", 4.7, 120,
+                                                "https://images.unsplash.com/photo-1594631252845-29fc458695d7?auto=format&fit=crop&w=400&q=80", true, "Traditional");
+                                addMock(mocks, restaurantId, 2202, "Masala Chai", 40, "Tea", true,
+                                                "Assam tea brewed with cardamom, ginger, and spices.", 4.8, 45,
+                                                "https://images.unsplash.com/photo-1619581073186-5b4ae1b0caad?auto=format&fit=crop&w=400&q=80", true, "Best Seller");
+                                addMock(mocks, restaurantId, 2203, "Ginger Tea", 45, "Tea", true,
+                                                "Refreshing hot tea with fresh ginger flavor.", 4.7, 35,
+                                                "https://images.unsplash.com/photo-1515696423086-05c72eb845f6?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 2204, "Lemon Tea", 35, "Tea", true,
+                                                "Light tea with lemon and mild sweetness.", 4.6, 50,
+                                                "https://images.unsplash.com/photo-1512149673953-1e251807ec1c?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 2205, "Green Tea", 50, "Tea", true,
+                                                "Healthy antioxidant-rich green tea.", 4.5, 40,
+                                                "https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?auto=format&fit=crop&w=400&q=80");
+
+                                // Coffee
+                                addMock(mocks, restaurantId, 2206, "Filter Coffee", 60, "Coffee", true,
+                                                "South Indian style strong filter coffee.", 4.8, 150,
+                                                "https://images.unsplash.com/photo-1512058458925-59fe61ef763c?auto=format&fit=crop&w=400&q=80", true, "Favorite");
+                                addMock(mocks, restaurantId, 2207, "Cappuccino", 120, "Coffee", true,
+                                                "Espresso with steamed milk and foam.", 4.6, 80,
+                                                "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 2208, "Cold Coffee", 140, "Coffee", true,
+                                                "Chilled coffee blended with milk and ice.", 4.7, 90,
+                                                "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=400&q=80");
+
+                                // Milk & Chocolate Drinks
+                                addMock(mocks, restaurantId, 2209, "Boost Milk", 70, "Milk & Chocolate Drinks", true,
+                                                "Hot milk with Boost energy drink mix.", 4.6, 60,
+                                                "https://images.unsplash.com/photo-1550507992-eb63ffee0847?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 2210, "Horlicks Milk", 65, "Milk & Chocolate Drinks", true,
+                                                "Warm milk with Horlicks malt flavor.", 4.5, 55,
+                                                "https://images.unsplash.com/photo-1550507992-eb63ffee0847?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 2211, "Hot Chocolate", 120, "Milk & Chocolate Drinks", true,
+                                                "Creamy hot chocolate drink.", 4.7, 75,
+                                                "https://images.unsplash.com/photo-1544787210-2213d64ad97d?auto=format&fit=crop&w=400&q=80", true, "Must Try");
+
+                                // Coolers & Shakes
+                                addMock(mocks, restaurantId, 2212, "Lemon Mint Cooler", 60, "Coolers & Shakes", true,
+                                                "Refreshing lemon drink with mint.", 4.6, 85,
+                                                "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 2213, "Mango Milkshake", 150, "Coolers & Shakes", true,
+                                                "Sweet mango blended with chilled milk.", 4.7, 95,
+                                                "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 2214, "Chocolate Milkshake", 160, "Coolers & Shakes", true,
+                                                "Rich chocolate shake topped with cream.", 4.6, 80,
+                                                "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80");
+                                addMock(mocks, restaurantId, 2215, "Oreo Milkshake", 180, "Coolers & Shakes", true,
+                                                "Creamy milkshake blended with Oreo biscuits.", 4.8, 110,
+                                                "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80", true, "Trending");
                                 break;
                         case 23: // Namma Karnataka
                                 addMock(mocks, restaurantId, 2301, "Bisi Bele Bath", 140, "Lunch", true,
                                                 "Traditional spicy rice dish with lentils and mixed vegetables", 4.8,
                                                 420,
-                                                "https://images.unsplash.com/photo-1546833998-877b37db8778?w=400");
+                                                "https://images.unsplash.com/photo-1630409351211-d62ab2d24da4?w=400");
                                 addMock(mocks, restaurantId, 2302, "Vangi Bath", 120, "Breakfast", true,
                                                 "Brinjal rice made with special Vangi Bath masala and spices", 4.6, 310,
-                                                "https://images.unsplash.com/photo-1546833998-877b37db8778?w=400");
+                                                "https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=400");
                                 addMock(mocks, restaurantId, 2303, "Kesari Bath", 80, "Breakfast", true,
                                                 "Sweet semolina halwa with saffron and dry fruits", 4.7, 340,
-                                                "https://images.unsplash.com/photo-1582295624795-36da0749007e?w=400");
+                                                "https://images.unsplash.com/photo-1663446783008-c34241daff22?w=400");
                                 addMock(mocks, restaurantId, 2304, "Chow Chow Bath", 180, "Breakfast", true,
                                                 "Combination of spicy Khara Bath and sweet Kesari Bath", 4.9, 650,
                                                 "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=400");
@@ -1169,48 +1518,71 @@ public class FoodItemDAO {
                                                 "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=400");
                                 addMock(mocks, restaurantId, 2306, "Maddur Vada (2 pcs)", 70, "Snacks", true,
                                                 "Famous crispy onion and semolina snack from Maddur", 4.5, 210,
-                                                "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400");
+                                                "https://images.unsplash.com/photo-1683533678033-f5d60f0a3437?w=400");
                                 break;
                 }
 
                 // Sort by requested order
                 Map<String, Integer> categoryOrder = new HashMap<>();
                 categoryOrder.put("Recommended", 0);
-                categoryOrder.put("Breakfast", 1);
-                categoryOrder.put("Lunch", 2);
-                categoryOrder.put("Dinner", 3);
-                categoryOrder.put("Snacks", 4);
-                categoryOrder.put("Biryani", 5);
-                categoryOrder.put("Tiffin", 6);
-                categoryOrder.put("Beverages", 7);
-                categoryOrder.put("Starters", 8);
-                categoryOrder.put("Noodles", 9);
-                categoryOrder.put("Ramen / Noodles", 9);
-                categoryOrder.put("Fried Rice", 10);
-                categoryOrder.put("Gravy Items", 11);
-                categoryOrder.put("Soups", 12);
-                categoryOrder.put("Drinks", 13);
-                categoryOrder.put("Veg Burgers", 14);
-                categoryOrder.put("Non-Veg Burgers", 15);
-                categoryOrder.put("Fast Food", 16);
-                categoryOrder.put("Milkshakes", 17);
-                categoryOrder.put("Combo Meals", 18);
-                categoryOrder.put("Sushi Rolls", 19);
-                categoryOrder.put("Tempura", 20);
-                categoryOrder.put("Japanese Chicken Dishes", 21);
-                categoryOrder.put("Rice Bowls", 22);
-                categoryOrder.put("Small Bites", 23);
-                categoryOrder.put("Desserts", 24);
-                categoryOrder.put("Cakes", 25);
-                categoryOrder.put("Cheesecakes", 26);
-                categoryOrder.put("Brownies", 27);
-                categoryOrder.put("Dessert Cups", 28);
+                categoryOrder.put("Main Course", 1);
+                categoryOrder.put("Breakfast", 2);
+                categoryOrder.put("Lunch", 3);
+                categoryOrder.put("Dinner", 4);
+                categoryOrder.put("Main Dishes", 5);
+                categoryOrder.put("Quick Meals", 6);
+                categoryOrder.put("Biryani", 7);
+                categoryOrder.put("Tiffin", 8);
+                categoryOrder.put("Starters", 9);
+                categoryOrder.put("Burgers", 10);
+                categoryOrder.put("Sandwiches & Wraps", 11);
+                categoryOrder.put("Sides & Starters", 12);
+                categoryOrder.put("Salads", 13);
+                categoryOrder.put("Beverages", 14);
+                categoryOrder.put("Drinks", 15);
+                categoryOrder.put("Drinks / Sides", 16);
+                categoryOrder.put("Desserts", 17);
+                categoryOrder.put("Add-ons", 18);
+                categoryOrder.put("Snacks", 19);
+                categoryOrder.put("Noodles", 20);
+                categoryOrder.put("Ramen / Noodles", 21);
+                categoryOrder.put("Fried Rice", 22);
+                categoryOrder.put("Gravy Items", 23);
+                categoryOrder.put("Soups", 24);
+                categoryOrder.put("Veg Burgers", 25);
+                categoryOrder.put("Non-Veg Burgers", 26);
+                categoryOrder.put("Fast Food", 27);
+                categoryOrder.put("Milkshakes", 28);
+                categoryOrder.put("Combo Meals", 29);
+                categoryOrder.put("Sushi Rolls", 30);
+                categoryOrder.put("Tempura", 31);
+                categoryOrder.put("Japanese Chicken Dishes", 32);
+                categoryOrder.put("Rice Bowls", 33);
+                categoryOrder.put("Small Bites", 34);
+                categoryOrder.put("Cakes", 35);
+                categoryOrder.put("Cheesecakes", 36);
+                categoryOrder.put("Brownies", 37);
+                categoryOrder.put("Dessert Cups", 38);
+                categoryOrder.put("Tamil Favourite Starters", 39);
+                categoryOrder.put("Rice & Meals", 40);
+                categoryOrder.put("Parotta Items", 41);
+                categoryOrder.put("Healthy Bowls", 42);
+                categoryOrder.put("Smoothies & Drinks", 43);
+                categoryOrder.put("Tacos", 44);
+                categoryOrder.put("Burritos", 45);
+                categoryOrder.put("Quesadillas", 46);
+                categoryOrder.put("Tea", 47);
+                categoryOrder.put("Coffee", 48);
+                categoryOrder.put("Milk & Chocolate Drinks", 49);
+                categoryOrder.put("Coolers & Shakes", 50);
 
                 mocks.sort((a, b) -> {
-                        int orderA = categoryOrder.getOrDefault(a.getCategory(), 99);
-                        int orderB = categoryOrder.getOrDefault(b.getCategory(), 99);
-                        if (orderA != orderB)
-                                return orderA - orderB;
+                        String catA = a.getCategory() != null ? a.getCategory().trim() : "";
+                        String catB = b.getCategory() != null ? b.getCategory().trim() : "";
+                        int rankA = categoryOrder.getOrDefault(catA, 99);
+                        int rankB = categoryOrder.getOrDefault(catB, 99);
+                        if (rankA != rankB)
+                                return rankA - rankB;
                         return Integer.compare(a.getFoodId(), b.getFoodId());
                 });
 
@@ -1219,11 +1591,18 @@ public class FoodItemDAO {
 
         private void addMock(List<FoodItem> list, int resId, int foodId, String name, double price, String category,
                         boolean isVeg, String description, double rating, int ratingCount, String url) {
-                addMock(list, resId, foodId, name, price, category, isVeg, description, rating, ratingCount, url, false);
+                addMock(list, resId, foodId, name, price, category, isVeg, description, rating, ratingCount, url, false, null);
         }
 
         private void addMock(List<FoodItem> list, int resId, int foodId, String name, double price, String category,
                         boolean isVeg, String description, double rating, int ratingCount, String url, boolean isBestseller) {
+                addMock(list, resId, foodId, name, price, category, isVeg, description, rating, ratingCount, url,
+                                isBestseller, null);
+        }
+
+        private void addMock(List<FoodItem> list, int resId, int foodId, String name, double price, String category,
+                        boolean isVeg, String description, double rating, int ratingCount, String url,
+                        boolean isBestseller, String itemTag) {
                 FoodItem f = new FoodItem();
                 f.setFoodId(foodId);
                 f.setRestaurantId(resId);
@@ -1236,6 +1615,8 @@ public class FoodItemDAO {
                 f.setRatingCount(ratingCount);
                 f.setAvailable(true);
                 f.setImageUrl(url);
+                f.setBestseller(isBestseller);
+                f.setItemTag(itemTag);
                 list.add(f);
         }
 
@@ -1378,6 +1759,11 @@ public class FoodItemDAO {
                 f.setCategory(rs.getString("category"));
                 f.setVegetarian(rs.getBoolean("is_vegetarian"));
                 f.setAvailable(rs.getBoolean("is_available"));
+                try {
+                        f.setItemTag(rs.getString("item_tag"));
+                } catch (Exception e) {
+                        // Column might not exist in old schema
+                }
                 f.setCreatedAt(rs.getTimestamp("created_at"));
                 return f;
         }

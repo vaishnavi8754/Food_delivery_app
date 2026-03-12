@@ -21,6 +21,7 @@ public class FoodItem {
     private double rating;
     private int ratingCount;
     private boolean isBestseller;
+    private String itemTag;
 
     public FoodItem() {
     }
@@ -153,5 +154,13 @@ public class FoodItem {
 
     public void setBestseller(boolean bestseller) {
         isBestseller = bestseller;
+    }
+
+    public String getItemTag() {
+        return itemTag;
+    }
+
+    public void setItemTag(String itemTag) {
+        this.itemTag = itemTag;
     }
 }

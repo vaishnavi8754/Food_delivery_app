@@ -17,12 +17,15 @@ CREATE TABLE IF NOT EXISTS user (
     password VARCHAR(255) NOT NULL,
     phone VARCHAR(15) NOT NULL,
     address TEXT,
-    role ENUM('user', 'admin') DEFAULT 'user',
+    role ENUM('customer', 'admin', 'delivery_partner') DEFAULT 'customer',
+    status ENUM('active', 'blocked', 'suspended') DEFAULT 'active',
+    last_login TIMESTAMP NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     
     INDEX idx_email (email),
-    INDEX idx_role (role)
+    INDEX idx_role (role),
+    INDEX idx_status (status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- =====================================================

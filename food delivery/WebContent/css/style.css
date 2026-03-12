@@ -536,7 +536,137 @@ h6 { font-size: 1rem; }
     height: 20px;
 }
 
-/* Auth Footer */
+/* Modern Role Slider - Pro Design */
+.role-slider-wrapper {
+    margin-bottom: var(--space-2xl);
+    perspective: 1000px;
+}
+
+.role-slider {
+    display: flex;
+    background: var(--gray-100);
+    padding: 6px;
+    border-radius: var(--radius-2xl);
+    position: relative;
+    border: 1px solid var(--gray-200);
+    width: 100%;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.role-slider-btn {
+    flex: 1;
+    padding: 0.875rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--gray-500);
+    cursor: pointer;
+    border-radius: var(--radius-xl);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 2;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.role-slider-btn.active {
+    color: var(--primary-600);
+}
+
+.admin-active .role-slider-btn.active {
+    color: var(--gray-900);
+}
+
+.role-slider-pill {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    bottom: 6px;
+    width: calc(50% - 6px);
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0,0,0,0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.admin-active .role-slider-pill {
+    transform: translateX(100%);
+    background: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.role-indicator-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 0.625rem 1.25rem;
+    background: white;
+    color: var(--primary-600);
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: var(--space-xl);
+    border: 1px solid var(--primary-100);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.4s ease;
+}
+
+.admin-active .role-indicator-badge {
+    background: var(--gray-900);
+    color: white;
+    border-color: var(--gray-800);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Auth Card Transitions */
+.auth-card {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--gray-200);
+}
+
+.auth-card.admin-active {
+    border-color: var(--gray-800);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    background: white;
+}
+
+.admin-active .btn-primary {
+    background: var(--gradient-dark);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Remove old segmented control styles */
+.role-selection, .segmented-control { display: none; }
+
+/* Enhanced Google Button */
+.btn-google {
+    width: 100%;
+    grid-column: span 2;
+    border: 1px solid var(--gray-300);
+    background: white;
+    transition: all var(--transition-normal);
+}
+
+.btn-google:hover {
+    background: var(--gray-50);
+    border-color: var(--gray-400);
+    box-shadow: var(--shadow-md);
+}
+
+.google-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
 .auth-footer {
     text-align: center;
     margin-top: var(--space-xl);

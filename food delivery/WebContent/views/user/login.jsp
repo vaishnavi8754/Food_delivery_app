@@ -18,7 +18,7 @@
                 rel="stylesheet">
 
             <!-- Stylesheet -->
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css?v=1.1">
 
             <!-- Favicon -->
             <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon.png">
@@ -94,6 +94,31 @@
 
                             <!-- Login Form -->
                             <form action="${pageContext.request.contextPath}/login" method="POST" id="loginForm">
+                                <!-- Role Slider Toggle -->
+                                <div class="role-slider-wrapper">
+                                    <div class="role-slider" id="roleSlider">
+                                        <div class="role-slider-pill"></div>
+                                        <button type="button" class="role-slider-btn active" data-role="user"
+                                            onclick="updateRole('user')">
+                                            <span>🍕</span> User
+                                        </button>
+                                        <button type="button" class="role-slider-btn" data-role="admin"
+                                            onclick="updateRole('admin')">
+                                            <span>🛡️</span> Admin
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic Role Indicator -->
+                                <div class="text-center" style="text-align: center;">
+                                    <div class="role-indicator-badge" id="roleIndicator">
+                                        <span>✨</span>
+                                        <span id="roleText">Premium User Access</span>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="role" id="roleInput" value="user">
+
                                 <!-- Email Field -->
                                 <div class="form-group">
                                     <label class="form-label" for="email">Email Address</label>
@@ -141,13 +166,9 @@
 
                             <!-- Social Login Buttons -->
                             <div class="social-buttons">
-                                <button type="button" class="btn-social">
-                                    <span>🔵</span>
-                                    <span>Google</span>
-                                </button>
-                                <button type="button" class="btn-social">
-                                    <span>📘</span>
-                                    <span>Facebook</span>
+                                <button type="button" class="btn btn-social btn-google">
+                                    <span>🌐</span>
+                                    <span>Continue with Google</span>
                                 </button>
                             </div>
                         </div>
@@ -163,6 +184,34 @@
 
             <!-- JavaScript -->
             <script>
+                // Modern Role Update Function
+                function updateRole(role) {
+                    const card = document.querySelector('.auth-card');
+                    const input = document.getElementById('roleInput');
+                    const indicator = document.getElementById('roleIndicator');
+                    const roleText = document.getElementById('roleText');
+                    const btns = document.querySelectorAll('.role-slider-btn');
+
+                    input.value = role;
+
+                    // Update UI State
+                    btns.forEach(btn => {
+                        if (btn.getAttribute('data-role') === role) {
+                            btn.classList.add('active');
+                        } else {
+                            btn.classList.remove('active');
+                        }
+                    });
+
+                    if (role === 'admin') {
+                        card.classList.add('admin-active');
+                        indicator.innerHTML = '<span>💎</span><span>Admin Console Access</span>';
+                    } else {
+                        card.classList.remove('admin-active');
+                        indicator.innerHTML = '<span>✨</span><span>Premium User Access</span>';
+                    }
+                }
+
                 // Toggle Password Visibility
                 function togglePassword(inputId, iconElement) {
                     const input = document.getElementById(inputId);

@@ -72,8 +72,18 @@ public class LoginServlet extends HttpServlet {
 
         // Validate credentials
         User user = userDAO.validateUser(email.trim().toLowerCase(), password);
+        String selectedRole = request.getParameter("role");
 
         if (user != null) {
+            // Validate if user has the selected role
+            if (selectedRole != null && !selectedRole.equals(user.getRole())) {
+                String roleDisplay = "admin".equals(selectedRole) ? "Admin" : "User";
+                request.setAttribute("error", "The account does not have " + roleDisplay + " privileges.");
+                request.setAttribute("email", email);
+                request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
+                return;
+            }
+
             // Create session
             HttpSession session = request.getSession();
             session.setAttribute("user", user);

@@ -10,13 +10,17 @@ import java.util.List;
  */
 public class RestaurantDAO {
 
+    private static final List<Restaurant> customRestaurants = new ArrayList<>();
+
     public List<Restaurant> getAllRestaurants() {
         String sql = "SELECT * FROM restaurant WHERE is_active = TRUE ORDER BY rating DESC";
-        List<Restaurant> restaurants = new ArrayList<>();
+        List<Restaurant> restaurants = new ArrayList<>(customRestaurants);
 
         Connection conn = DBConnection.getConnection();
-        if (conn == null)
-            return getMockRestaurants();
+        if (conn == null) {
+            restaurants.addAll(getMockRestaurants());
+            return restaurants;
+        }
 
         try (PreparedStatement stmt = conn.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery()) {
@@ -260,6 +264,13 @@ public class RestaurantDAO {
     }
 
     public Restaurant getRestaurantById(int id) {
+        // Check memory first
+        for (Restaurant r : customRestaurants) {
+            if (r.getRestaurantId() == id) {
+                return r;
+            }
+        }
+
         Connection conn = DBConnection.getConnection();
         if (conn == null) {
             for (Restaurant r : getMockRestaurants()) {
@@ -288,6 +299,14 @@ public class RestaurantDAO {
     public List<Restaurant> getRestaurantsByCuisine(String cuisineType) {
         String sql = "SELECT * FROM restaurant WHERE cuisine_type = ? AND is_active = TRUE";
         List<Restaurant> restaurants = new ArrayList<>();
+
+        // Add from memory
+        for (Restaurant r : customRestaurants) {
+            if (r.getCuisineType().equalsIgnoreCase(cuisineType)) {
+                restaurants.add(r);
+            }
+        }
+
         Connection conn = DBConnection.getConnection();
         if (conn == null) {
             for (Restaurant r : getMockRestaurants()) {
@@ -316,11 +335,19 @@ public class RestaurantDAO {
             return getAllRestaurants();
         }
 
-        Connection conn = DBConnection.getConnection();
         List<Restaurant> restaurants = new ArrayList<>();
+        String lowerKeyword = keyword.toLowerCase().trim();
 
+        // Search memory
+        for (Restaurant r : customRestaurants) {
+            if (r.getName().toLowerCase().contains(lowerKeyword) ||
+                    r.getCuisineType().toLowerCase().contains(lowerKeyword)) {
+                restaurants.add(r);
+            }
+        }
+
+        Connection conn = DBConnection.getConnection();
         if (conn == null) {
-            String lowerKeyword = keyword.toLowerCase().trim();
             for (Restaurant r : getMockRestaurants()) {
                 if (r.getName().toLowerCase().contains(lowerKeyword) ||
                         r.getCuisineType().toLowerCase().contains(lowerKeyword)) {
@@ -348,10 +375,16 @@ public class RestaurantDAO {
     }
 
     public boolean addRestaurant(Restaurant r) {
+        // Set temp ID for demo purposes
+        r.setRestaurantId(100 + customRestaurants.size());
+        customRestaurants.add(r);
+
         String sql = "INSERT INTO restaurant (name, description, address, phone, email, image_url, cuisine_type, rating) VALUES (?,?,?,?,?,?,?,?)";
         Connection conn = DBConnection.getConnection();
-        if (conn == null)
-            return false;
+        if (conn == null) {
+            System.out.println("DEMO MODE: Added restaurant to memory: " + r.getName());
+            return true;
+        }
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, r.getName());
@@ -372,10 +405,19 @@ public class RestaurantDAO {
     }
 
     public boolean updateRestaurant(Restaurant r) {
+        // Update memory
+        for (int i = 0; i < customRestaurants.size(); i++) {
+            if (customRestaurants.get(i).getRestaurantId() == r.getRestaurantId()) {
+                customRestaurants.set(i, r);
+                break;
+            }
+        }
+
         String sql = "UPDATE restaurant SET name=?, description=?, address=?, phone=?, cuisine_type=?, is_active=? WHERE restaurant_id=?";
         Connection conn = DBConnection.getConnection();
-        if (conn == null)
-            return false;
+        if (conn == null) {
+            return true;
+        }
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, r.getName());
@@ -395,10 +437,14 @@ public class RestaurantDAO {
     }
 
     public boolean deleteRestaurant(int id) {
+        // Remove from memory
+        customRestaurants.removeIf(r -> r.getRestaurantId() == id);
+
         String sql = "DELETE FROM restaurant WHERE restaurant_id = ?";
         Connection conn = DBConnection.getConnection();
-        if (conn == null)
-            return false;
+        if (conn == null) {
+            return true;
+        }
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);

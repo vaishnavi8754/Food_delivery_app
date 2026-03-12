@@ -12,13 +12,25 @@ import java.util.Map;
  */
 public class FoodItemDAO {
 
-        public List<FoodItem> getFoodByRestaurant(int restaurantId) {
-                String sql = "SELECT f.*, r.name as restaurant_name FROM food_item f JOIN restaurant r ON f.restaurant_id = r.restaurant_id WHERE f.restaurant_id = ? AND f.is_available = TRUE ORDER BY f.category, f.name";
-                List<FoodItem> items = new ArrayList<>();
-                Connection conn = DBConnection.getConnection();
-                // Force mock data for specified restaurants to ensure new items/tags are visible
-                if (conn == null || restaurantId == 3 || restaurantId == 7 || restaurantId == 8 || restaurantId == 16 || restaurantId == 17 || restaurantId == 18 || restaurantId == 19 || restaurantId == 22)
-                        return getMockFoodItems(restaurantId);
+	private static final List<FoodItem> customDishes = new ArrayList<>();
+
+	public List<FoodItem> getFoodByRestaurant(int restaurantId) {
+		String sql = "SELECT f.*, r.name as restaurant_name FROM food_item f JOIN restaurant r ON f.restaurant_id = r.restaurant_id WHERE f.restaurant_id = ? AND f.is_available = TRUE ORDER BY f.category, f.name";
+		List<FoodItem> items = new ArrayList<>();
+		
+		// Add custom added dishes for this restaurant
+		for (FoodItem f : customDishes) {
+			if (f.getRestaurantId() == restaurantId) {
+				items.add(f);
+			}
+		}
+
+		Connection conn = DBConnection.getConnection();
+		// Force mock data for specified restaurants to ensure new items/tags are visible
+		if (conn == null || restaurantId == 3 || restaurantId == 7 || restaurantId == 8 || restaurantId == 16 || restaurantId == 17 || restaurantId == 18 || restaurantId == 19 || restaurantId == 22) {
+			items.addAll(getMockFoodItems(restaurantId));
+			return items;
+		}
                 try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                         stmt.setInt(1, restaurantId);
                         ResultSet rs = stmt.executeQuery();
@@ -1679,14 +1691,14 @@ public class FoodItemDAO {
                 return items;
         }
 
-        public List<FoodItem> getAllFoodItems() {
-                List<FoodItem> items = new ArrayList<>();
-                Connection conn = DBConnection.getConnection();
-                if (conn == null)
-                        return items;
+	public List<FoodItem> getAllFoodItems() {
+		List<FoodItem> items = new ArrayList<>(customDishes);
+		Connection conn = DBConnection.getConnection();
+		if (conn == null)
+			return items;
 
-                String sql = "SELECT f.*, r.name as restaurant_name FROM food_item f JOIN restaurant r ON f.restaurant_id = r.restaurant_id WHERE f.is_available = TRUE ORDER BY r.name, f.category";
-                try (PreparedStatement stmt = conn.prepareStatement(sql);
+		String sql = "SELECT f.*, r.name as restaurant_name FROM food_item f JOIN restaurant r ON f.restaurant_id = r.restaurant_id WHERE f.is_available = TRUE ORDER BY r.name, f.category";
+		try (PreparedStatement stmt = conn.prepareStatement(sql);
                                 ResultSet rs = stmt.executeQuery()) {
                         while (rs.next()) {
                                 items.add(extractFoodItem(rs));
@@ -1699,53 +1711,87 @@ public class FoodItemDAO {
                 return items;
         }
 
-        public boolean addFoodItem(FoodItem f) {
-                String sql = "INSERT INTO food_item (restaurant_id, name, description, price, image_url, category, is_vegetarian) VALUES (?,?,?,?,?,?,?)";
-                try (Connection conn = DBConnection.getConnection();
-                                PreparedStatement stmt = conn.prepareStatement(sql)) {
-                        stmt.setInt(1, f.getRestaurantId());
-                        stmt.setString(2, f.getName());
-                        stmt.setString(3, f.getDescription());
-                        stmt.setDouble(4, f.getPrice());
-                        stmt.setString(5, f.getImageUrl());
-                        stmt.setString(6, f.getCategory());
-                        stmt.setBoolean(7, f.isVegetarian());
-                        return stmt.executeUpdate() > 0;
-                } catch (SQLException e) {
-                        e.printStackTrace();
-                }
-                return false;
-        }
+	public boolean addFoodItem(FoodItem f) {
+		// Maintain in memory for demo purposes
+		f.setFoodId(2000 + customDishes.size());
+		customDishes.add(f);
 
-        public boolean updateFoodItem(FoodItem f) {
-                String sql = "UPDATE food_item SET name=?, description=?, price=?, category=?, is_vegetarian=?, is_available=? WHERE food_id=?";
-                try (Connection conn = DBConnection.getConnection();
-                                PreparedStatement stmt = conn.prepareStatement(sql)) {
-                        stmt.setString(1, f.getName());
-                        stmt.setString(2, f.getDescription());
-                        stmt.setDouble(3, f.getPrice());
-                        stmt.setString(4, f.getCategory());
-                        stmt.setBoolean(5, f.isVegetarian());
-                        stmt.setBoolean(6, f.isAvailable());
-                        stmt.setInt(7, f.getFoodId());
-                        return stmt.executeUpdate() > 0;
-                } catch (SQLException e) {
-                        e.printStackTrace();
-                }
-                return false;
-        }
+		Connection conn = DBConnection.getConnection();
+		if (conn == null) {
+			System.out.println("DEMO MODE: Added food item to memory: " + f.getName());
+			return true;
+		}
 
-        public boolean deleteFoodItem(int foodId) {
-                String sql = "DELETE FROM food_item WHERE food_id = ?";
-                try (Connection conn = DBConnection.getConnection();
-                                PreparedStatement stmt = conn.prepareStatement(sql)) {
-                        stmt.setInt(1, foodId);
-                        return stmt.executeUpdate() > 0;
-                } catch (SQLException e) {
-                        e.printStackTrace();
-                }
-                return false;
-        }
+		String sql = "INSERT INTO food_item (restaurant_id, name, description, price, image_url, category, is_vegetarian) VALUES (?,?,?,?,?,?,?)";
+		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setInt(1, f.getRestaurantId());
+			stmt.setString(2, f.getName());
+			stmt.setString(3, f.getDescription());
+			stmt.setDouble(4, f.getPrice());
+			stmt.setString(5, f.getImageUrl());
+			stmt.setString(6, f.getCategory());
+			stmt.setBoolean(7, f.isVegetarian());
+			return stmt.executeUpdate() > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.closeConnection(conn);
+		}
+		return false;
+	}
+
+	public boolean updateFoodItem(FoodItem f) {
+		// Update in memory for demo purposes
+		for (int i = 0; i < customDishes.size(); i++) {
+			if (customDishes.get(i).getFoodId() == f.getFoodId()) {
+				customDishes.set(i, f);
+				break;
+			}
+		}
+
+		Connection conn = DBConnection.getConnection();
+		if (conn == null) {
+			return true;
+		}
+
+		String sql = "UPDATE food_item SET name=?, description=?, price=?, category=?, is_vegetarian=?, is_available=? WHERE food_id=?";
+		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, f.getName());
+			stmt.setString(2, f.getDescription());
+			stmt.setDouble(3, f.getPrice());
+			stmt.setString(4, f.getCategory());
+			stmt.setBoolean(5, f.isVegetarian());
+			stmt.setBoolean(6, f.isAvailable());
+			stmt.setInt(7, f.getFoodId());
+			return stmt.executeUpdate() > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.closeConnection(conn);
+		}
+		return false;
+	}
+
+	public boolean deleteFoodItem(int foodId) {
+		// Remove from memory for demo purposes
+		customDishes.removeIf(f -> f.getFoodId() == foodId);
+
+		Connection conn = DBConnection.getConnection();
+		if (conn == null) {
+			return true;
+		}
+
+		String sql = "DELETE FROM food_item WHERE food_id = ?";
+		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setInt(1, foodId);
+			return stmt.executeUpdate() > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.closeConnection(conn);
+		}
+		return false;
+	}
 
         private FoodItem extractFoodItem(ResultSet rs) throws SQLException {
                 FoodItem f = new FoodItem();

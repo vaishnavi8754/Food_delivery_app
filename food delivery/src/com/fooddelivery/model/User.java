@@ -12,10 +12,15 @@ public class User {
     private String password;
     private String phone;
     private String address;
-    private String role; // "user" or "admin"
+    private String role; // "customer", "admin", "delivery_partner"
+    private String status; // "active", "blocked", "suspended"
+    private Timestamp lastLogin;
     private Timestamp createdAt;
-    private Timestamp updatedAt; 
-
+    private Timestamp updatedAt;
+    
+    // Derived/Transient fields for statistics
+    private int totalOrders;
+    private double totalSpent;
     // Default Constructor
     public User() {
     }
@@ -32,7 +37,8 @@ public class User {
 
     // Full Constructor
     public User(int userId, String fullName, String email, String password, String phone, 
-                String address, String role, Timestamp createdAt, Timestamp updatedAt) {
+                String address, String role, String status, Timestamp lastLogin, 
+                Timestamp createdAt, Timestamp updatedAt) {
         this.userId = userId;
         this.fullName = fullName;
         this.email = email;
@@ -40,6 +46,8 @@ public class User {
         this.phone = phone;
         this.address = address;
         this.role = role;
+        this.status = status;
+        this.lastLogin = lastLogin;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -115,6 +123,38 @@ public class User {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Timestamp getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Timestamp lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public int getTotalOrders() {
+        return totalOrders;
+    }
+
+    public void setTotalOrders(int totalOrders) {
+        this.totalOrders = totalOrders;
+    }
+
+    public double getTotalSpent() {
+        return totalSpent;
+    }
+
+    public void setTotalSpent(double totalSpent) {
+        this.totalSpent = totalSpent;
     }
 
     @Override

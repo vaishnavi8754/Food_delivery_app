@@ -23,17 +23,45 @@ public class UserDAO {
         defaultUser.setFullName("Demo User");
         defaultUser.setEmail("demo@example.com");
         defaultUser.setPassword("demo123");
-        defaultUser.setRole("user");
+        defaultUser.setPhone("9876543210");
+        defaultUser.setRole("customer");
+        defaultUser.setStatus("active");
+        defaultUser.setTotalOrders(5);
+        defaultUser.setTotalSpent(1250.00);
         demoUsers.add(defaultUser);
 
-        // Recovered user account (fallback for DB connection issues)
+        // Recovered user account
         User recoveredUser = new User();
         recoveredUser.setUserId(1001);
         recoveredUser.setFullName("Vaishnavi Dhivakar");
         recoveredUser.setEmail("vaishnavi.dhivakar@gmail.com");
         recoveredUser.setPassword("vaish@03");
-        recoveredUser.setRole("user");
+        recoveredUser.setPhone("1234567890");
+        recoveredUser.setRole("customer");
+        recoveredUser.setStatus("active");
         demoUsers.add(recoveredUser);
+
+        // Default demo admin
+        User defaultAdmin = new User();
+        defaultAdmin.setUserId(998);
+        defaultAdmin.setFullName("Admin User");
+        defaultAdmin.setEmail("admin@foodexpress.com");
+        defaultAdmin.setPassword("admin123");
+        defaultAdmin.setPhone("9999999999");
+        defaultAdmin.setRole("admin");
+        defaultAdmin.setStatus("active");
+        demoUsers.add(defaultAdmin);
+
+        // Demo Delivery Partner
+        User deliveryPartner = new User();
+        deliveryPartner.setUserId(997);
+        deliveryPartner.setFullName("Ravi Kumar");
+        deliveryPartner.setEmail("ravi@delivery.com");
+        deliveryPartner.setPassword("ravi123");
+        deliveryPartner.setPhone("8888888888");
+        deliveryPartner.setRole("delivery_partner");
+        deliveryPartner.setStatus("active");
+        demoUsers.add(deliveryPartner);
     }
 
     /**
@@ -70,7 +98,7 @@ public class UserDAO {
             stmt.setString(3, user.getPassword());
             stmt.setString(4, user.getPhone());
             stmt.setString(5, user.getAddress());
-            stmt.setString(6, user.getRole() != null ? user.getRole() : "user");
+            stmt.setString(6, user.getRole() != null ? user.getRole() : "customer");
 
             int rowsAffected = stmt.executeUpdate();
             stmt.close();
@@ -257,33 +285,131 @@ public class UserDAO {
      * @return List of all users
      */
     public List<User> getAllUsers() {
-        String sql = "SELECT * FROM user ORDER BY created_at DESC";
+        String sql = "SELECT u.*, COUNT(o.order_id) as total_orders, SUM(o.total_amount) as total_spent " +
+                     "FROM user u LEFT JOIN `order` o ON u.user_id = o.user_id " +
+                     "GROUP BY u.user_id ORDER BY u.created_at DESC";
         List<User> users = new ArrayList<>();
 
-        try {
-            connection = DBConnection.getConnection();
-            if (connection == null)
-                return users;
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
+        Connection conn = DBConnection.getConnection();
+        if (conn == null) {
+            return new ArrayList<>(demoUsers);
+        }
 
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 users.add(extractUserFromResultSet(rs));
             }
-
-            rs.close();
-            stmt.close();
-
         } catch (SQLException e) {
             System.err.println("Error getting all users: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            if (connection != null) {
-                DBConnection.closeConnection(connection);
+            DBConnection.closeConnection(conn);
+        }
+        return users;
+    }
+
+    public List<User> searchUsers(String keyword) {
+        String sql = "SELECT u.*, COUNT(o.order_id) as total_orders, SUM(o.total_amount) as total_spent " +
+                     "FROM user u LEFT JOIN `order` o ON u.user_id = o.user_id " +
+                     "WHERE u.full_name LIKE ? OR u.email LIKE ? OR u.phone LIKE ? " +
+                     "GROUP BY u.user_id ORDER BY u.created_at DESC";
+        List<User> users = new ArrayList<>();
+        String pattern = "%" + keyword + "%";
+
+        Connection conn = DBConnection.getConnection();
+        if (conn == null) {
+            for (User u : demoUsers) {
+                if (u.getFullName().toLowerCase().contains(keyword.toLowerCase()) || 
+                    u.getEmail().toLowerCase().contains(keyword.toLowerCase()) ||
+                    u.getPhone().contains(keyword)) {
+                    users.add(u);
+                }
+            }
+            return users;
+        }
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, pattern);
+            stmt.setString(2, pattern);
+            stmt.setString(3, pattern);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                users.add(extractUserFromResultSet(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.closeConnection(conn);
+        }
+        return users;
+    }
+
+    public List<User> getUsersByFilter(String role, String status) {
+        StringBuilder sql = new StringBuilder("SELECT u.*, COUNT(o.order_id) as total_orders, SUM(o.total_amount) as total_spent ")
+                .append("FROM user u LEFT JOIN `order` o ON u.user_id = o.user_id WHERE 1=1 ");
+        
+        List<Object> params = new ArrayList<>();
+        if (role != null && !"all".equalsIgnoreCase(role)) {
+            sql.append("AND u.role = ? ");
+            params.add(role);
+        }
+        if (status != null && !"all".equalsIgnoreCase(status)) {
+            sql.append("AND u.status = ? ");
+            params.add(status);
+        }
+        sql.append("GROUP BY u.user_id ORDER BY u.created_at DESC");
+
+        List<User> users = new ArrayList<>();
+        Connection conn = DBConnection.getConnection();
+        if (conn == null) {
+            for (User u : demoUsers) {
+                boolean roleMatch = role == null || "all".equalsIgnoreCase(role) || role.equalsIgnoreCase(u.getRole());
+                boolean statusMatch = status == null || "all".equalsIgnoreCase(status) || status.equalsIgnoreCase(u.getStatus());
+                if (roleMatch && statusMatch) users.add(u);
+            }
+            return users;
+        }
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+            for (int i = 0; i < params.size(); i++) {
+                stmt.setObject(i + 1, params.get(i));
+            }
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                users.add(extractUserFromResultSet(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBConnection.closeConnection(conn);
+        }
+        return users;
+    }
+
+    public boolean updateUserStatus(int userId, String status) {
+        // Update demo if no DB
+        for (User u : demoUsers) {
+            if (u.getUserId() == userId) {
+                u.setStatus(status);
+                // In demo mode we still return true
             }
         }
 
-        return users;
+        String sql = "UPDATE user SET status = ? WHERE user_id = ?";
+        Connection conn = DBConnection.getConnection();
+        if (conn == null) return true;
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, status);
+            stmt.setInt(2, userId);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            DBConnection.closeConnection(conn);
+        }
     }
 
     /**
@@ -403,6 +529,17 @@ public class UserDAO {
         user.setPhone(rs.getString("phone"));
         user.setAddress(rs.getString("address"));
         user.setRole(rs.getString("role"));
+        
+        try {
+            user.setStatus(rs.getString("status"));
+            user.setLastLogin(rs.getTimestamp("last_login"));
+            user.setTotalOrders(rs.getInt("total_orders"));
+            user.setTotalSpent(rs.getDouble("total_spent"));
+        } catch (SQLException e) {
+            // Columns might not exist yet if migration hasn't run
+            if (user.getStatus() == null) user.setStatus("active");
+        }
+
         user.setCreatedAt(rs.getTimestamp("created_at"));
         user.setUpdatedAt(rs.getTimestamp("updated_at"));
         return user;

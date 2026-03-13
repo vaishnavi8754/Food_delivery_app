@@ -13,7 +13,7 @@
                     rel="stylesheet">
                 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
                 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pages.css">
-                <link rel="stylesheet" href="${pageContext.request.contextPath}/css/payment.css">
+                <link rel="stylesheet" href="${pageContext.request.contextPath}/css/payment.css?v=${System.currentTimeMillis()}">
                 <!-- Leaflet Map Dependencies -->
                 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
                 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -57,114 +57,125 @@
                     </div>
                 </nav>
 
-                <section class="section">
-                    <div class="container">
-                        <h1 class="page-title">📦 Checkout</h1>
-
+                <section class="section" style="background: #f8fafc; min-height: calc(100vh - 80px);">
+                    <div class="container" style="max-width: 1100px; padding: 2rem 1rem;">
+                        <h1 class="page-title" style="text-align: center; margin-bottom: 3rem; font-family: 'Outfit', sans-serif; font-weight: 800; color: #1e293b;">Finalize Your Order</h1>
                         <div class="checkout-layout">
+                            <!-- Left: Checkout Details -->
                             <div class="checkout-form-section">
-                                <form action="${pageContext.request.contextPath}/checkout" method="POST"
-                                    id="checkoutForm">
-                                    <div class="form-card">
-                                        <h3>Delivery Address</h3>
-                                        <div class="form-group">
-                                            <label class="form-label">Full Name</label>
-                                            <input type="text" name="fullName" class="form-input" value="${user.fullName}" required>
+                                <form action="${pageContext.request.contextPath}/checkout" method="POST" id="checkoutForm">
+                                    <input type="hidden" name="paymentMethod" id="finalPaymentMethod" value="cod">
+                                    
+                                    <!-- Delivery Section -->
+                                    <div class="form-card modern-card">
+                                        <div class="card-section">
+                                            <div class="form-group">
+                                                <input type="text" name="fullName" class="form-input-minimal" value="${user.fullName}" placeholder="Enter Name" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label-small">Phone</label>
+                                                <input type="text" name="phone" class="form-input-minimal" value="${user.phone}" placeholder="Phone Number" required>
+                                            </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="form-label">Phone</label>
-                                            <input type="text" name="phone" class="form-input" value="${user.phone}" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">Delivery Address</label>
-                                            
+
+                                        <div class="card-section">
+                                            <label class="form-label-small">Delivery Address</label>
                                             <div class="map-controls">
                                                 <button type="button" class="btn-map" id="btnPickLocation">
-                                                    📍 Pick on Map
+                                                    <span class="icon-pin">📍</span> Pick on Map
                                                 </button>
                                                 <button type="button" class="btn-map" id="btnLocateMe">
-                                                    🎯 Locate Me
+                                                    <span class="icon-locate">🎯</span> Locate Me
                                                 </button>
                                             </div>
                                             
                                             <div id="map"></div>
                                             <div id="locationStatus" class="location-status"></div>
 
-                                            <textarea name="address" id="addressField" class="form-input" rows="3" required
+                                            <textarea name="address" id="addressField" class="form-input-minimal textarea-minimal" rows="3" required
                                                 placeholder="Enter full delivery address">${user.address}</textarea>
                                         </div>
                                     </div>
 
-                                    <div class="form-card">
-                                        <h3>Payment Method</h3>
-                                        <div class="payment-options">
-                                            <label class="payment-option">
+                                    <!-- Payment Method Section -->
+                                    <div class="form-card modern-card">
+                                        <h2 class="section-title">Payment Method</h2>
+                                        <div class="payment-selection-groups">
+                                            <label class="payment-selection-item">
                                                 <input type="radio" name="paymentOption" value="cod" checked onchange="togglePayBtn()">
-                                                <span class="payment-label">💵 Cash on Delivery</span>
+                                                <div class="selection-box">
+                                                    <div class="selection-indicator"></div>
+                                                    <span class="selection-icon">💵</span>
+                                                    <span class="selection-text">Cash on Delivery</span>
+                                                </div>
                                             </label>
-                                            <label class="payment-option">
+                                            <label class="payment-selection-item">
                                                 <input type="radio" name="paymentOption" value="online" onchange="togglePayBtn()">
-                                                <span class="payment-label">💳 Online Payment (Cards, UPI, Wallets)</span>
+                                                <div class="selection-box">
+                                                    <div class="selection-indicator"></div>
+                                                    <span class="selection-icon">💳</span>
+                                                    <span class="selection-text">Online Payment (Cards, UPI, Wallets)</span>
+                                                </div>
                                             </label>
                                         </div>
-                                        <input type="hidden" name="paymentMethod" id="finalPaymentMethod" value="cod">
                                     </div>
 
-                                    <div class="form-card">
-                                        <h3>Special Instructions</h3>
-                                        <div class="form-group">
-                                            <textarea name="instructions" class="form-input" rows="2"
-                                                placeholder="Any special instructions for your order?"></textarea>
-                                        </div>
+                                    <!-- Special Instructions -->
+                                    <div class="form-card modern-card">
+                                        <h2 class="section-title">Special Instructions</h2>
+                                        <textarea name="instructions" class="form-input-minimal textarea-minimal" rows="2"
+                                            placeholder="Any special instructions for your order?"></textarea>
                                     </div>
 
-                                    <button type="button" id="submitOrderBtn" class="btn btn-primary btn-lg btn-block" onclick="handleCheckout()">Place Order</button>
+                                    <button type="button" id="submitOrderBtn" class="btn-primary-large" onclick="handleCheckout()">
+                                        Place Order
+                                    </button>
                                 </form>
                             </div>
 
+                            <!-- Right: Order Summary -->
                             <div class="order-summary-section">
-                                <div class="order-summary-card">
-                                    <h3>Order Summary</h3>
-                                    <div class="order-items">
+                                <div class="order-summary-card modern-card sticky-summary">
+                                    <h2 class="section-title">Order Summary</h2>
+                                    <div class="order-items-list">
                                         <c:forEach var="item" items="${cartItems}">
-                                            <div class="order-item">
-                                                <span class="item-name">${item.foodName} x${item.quantity}</span>
-                                                <span class="item-price">₹
-                                                    <fmt:formatNumber value="${item.subtotal}" pattern="#,##0.00" />
-                                                </span>
+                                            <div class="summary-item">
+                                                <span class="item-desc">${item.foodName} x${item.quantity}</span>
+                                                <span class="item-val">₹<fmt:formatNumber value="${item.subtotal}" pattern="#,##0" /></span>
                                             </div>
                                         </c:forEach>
                                     </div>
-                                    <hr>
-                                    <div class="summary-row">
-                                        <span>Subtotal</span>
-                                        <span>₹
-                                            <fmt:formatNumber value="${cartTotal}" pattern="#,##0.00" />
-                                        </span>
-                                    </div>
-                                    <div class="summary-row">
-                                        <span>Delivery Fee</span>
-                                        <span>₹20.00</span>
-                                    </div>
-                                    <div class="summary-row total">
-                                        <span>Total</span>
-                                        <span>₹
-                                            <fmt:formatNumber value="${cartTotal + 20}" pattern="#,##0.00" />
-                                        </span>
+                                    
+                                    <div class="summary-divider"></div>
+                                    
+                                    <div class="summary-rows">
+                                        <div class="summary-row">
+                                            <span>Subtotal</span>
+                                            <span>₹<fmt:formatNumber value="${cartTotal}" pattern="#,##0" /></span>
+                                        </div>
+                                        <div class="summary-row">
+                                            <span>Delivery Fee</span>
+                                            <span>₹20</span>
+                                        </div>
+                                        <div class="summary-row total-row">
+                                            <span>Total</span>
+                                            <span class="total-amount">₹<fmt:formatNumber value="${cartTotal + 20}" pattern="#,##0" /></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
+
                 <!-- Razorpay Style Payment Modal -->
                 <div class="payment-modal-overlay" id="paymentModal">
                     <div class="payment-modal-container">
-                        <!-- Sidebar -->
+                        <!-- Left Panel: Price & Branding -->
                         <div class="payment-sidebar">
                             <div class="sidebar-header">
-                                <div class="store-initial">F</div>
-                                <div class="store-name">FoodExpress</div>
+                                <div class="store-initial" style="background: rgba(255,255,255,0.2) !important;">F</div>
+                                <div class="store-name" style="font-size: 1.25rem !important;">FoodExpress</div>
                             </div>
                             
                             <div class="price-summary-box">
@@ -173,77 +184,94 @@
                             </div>
 
                             <div class="user-info-bar">
-                                <span>Using as +91 ${user.phone}</span>
-                                <span style="font-size: 0.7rem; opacity: 0.7;">❯</span>
+                                <div class="user-id">
+                                    <span class="user-icon">👤</span>
+                                    <span>Using as +91 ${user.phone}</span>
+                                </div>
+                                <span class="chevron">❯</span>
                             </div>
 
-                            <div class="sidebar-graphic">
-                                <svg width="100%" height="150" viewBox="0 0 200 100">
-                                    <rect x="20" y="50" width="30" height="30" fill="rgba(255,255,255,0.2)" rx="4"/>
-                                    <rect x="60" y="30" width="30" height="50" fill="rgba(255,255,255,0.2)" rx="4"/>
-                                    <rect x="100" y="60" width="30" height="20" fill="rgba(255,255,255,0.2)" rx="4"/>
-                                </svg>
+                            <div class="sidebar-graphics">
+                                <div class="graphic-stack">
+                                    <div class="graphic-rect rect-1"></div>
+                                    <div class="graphic-rect rect-2"></div>
+                                    <div class="graphic-rect rect-3"></div>
+                                </div>
                             </div>
 
                             <div class="secured-by">
-                                <span style="opacity: 0.7;">Secured by</span>
-                                <span style="font-weight: 800; font-family: 'Outfit';">Razorpay</span>
+                                <span class="secured-text">Secured by</span>
+                                <span class="razorpay-logo">Razorpay</span>
                             </div>
                         </div>
 
-                        <!-- Main -->
+                        <!-- Right Panel: Options -->
                         <div class="payment-main">
                             <div class="main-header">
-                                <h3>Payment Options</h3>
-                                <button class="modal-close-btn" onclick="closePaymentModal()">&times;</button>
+                                <span class="header-title">Payment Options</span>
+                                <div class="header-controls">
+                                    <span class="header-dots">•••</span>
+                                    <button class="modal-close-btn" onclick="closePaymentModal()">&times;</button>
+                                </div>
                             </div>
 
                             <div class="payment-options-layout">
                                 <div class="options-sidebar">
-                                    <div class="option-item active" onclick="switchPaymentView('upi', this)">
-                                        <span class="option-name">UPI</span>
-                                        <div class="option-icons">
-                                            <span style="font-size: 8px;">GPay | PhonePe | Paytm</span>
+                                    <button type="button" class="option-nav-item active" onclick="switchPaymentView('upi', this)">
+                                        <span class="option-label">UPI</span>
+                                        <div class="option-logos">
+                                            <span class="mini-icons">📱 💳 📲</span>
                                         </div>
-                                    </div>
-                                    <div class="option-item" onclick="switchPaymentView('cards', this)">
-                                        <span class="option-name">Cards</span>
-                                        <div class="option-icons">
-                                            <span style="font-size: 8px;">Visa | Master | RuPay</span>
+                                    </button>
+                                    <button type="button" class="option-nav-item" onclick="switchPaymentView('cards', this)">
+                                        <span class="option-label">Cards</span>
+                                        <div class="option-logos">
+                                            <span class="mini-icons">Visa • Master • Maestro</span>
                                         </div>
-                                    </div>
-                                    <div class="option-item" onclick="switchPaymentView('netbanking', this)">
-                                        <span class="option-name">Netbanking</span>
-                                        <div class="option-icons">
-                                            <span style="font-size: 8px;">All Indian Banks</span>
+                                    </button>
+                                    <button type="button" class="option-nav-item" onclick="switchPaymentView('emi', this)">
+                                        <span class="option-label">EMI</span>
+                                        <div class="option-logos">
+                                            <span class="mini-icons">ZestMoney • EarlySalary</span>
                                         </div>
-                                    </div>
-                                    <div class="option-item" onclick="switchPaymentView('wallet', this)">
-                                        <span class="option-name">Wallet</span>
-                                        <div class="option-icons">
-                                            <span style="font-size: 8px;">Amazon Pay | Mobikwik</span>
+                                    </button>
+                                    <button type="button" class="option-nav-item" onclick="switchPaymentView('netbanking', this)">
+                                        <span class="option-label">Netbanking</span>
+                                        <div class="option-logos">
+                                            <span class="mini-icons">SBI • ICICI • HDFC • AXIS</span>
                                         </div>
-                                    </div>
+                                    </button>
+                                    <button type="button" class="option-nav-item" onclick="switchPaymentView('wallet', this)">
+                                        <span class="option-label">Wallet</span>
+                                        <div class="option-logos">
+                                            <span class="mini-icons">Mobikwik • Freecharge</span>
+                                        </div>
+                                    </button>
                                 </div>
 
                                 <div class="content-area" id="paymentContentArea">
-                                    <!-- UPI View (Default) -->
-                                    <div id="view-upi" class="qr-section">
-                                        <div class="qr-header">
-                                            <span style="font-weight: 600; font-size: 0.9rem;">UPI QR</span>
-                                            <div class="qr-timer">
-                                                <span>⏳</span>
+                                    <!-- UPI QR View -->
+                                    <div id="view-upi" class="upi-qr-view">
+                                        <div class="qr-header-row">
+                                            <span class="qr-title">UPI QR</span>
+                                            <div class="qr-timer-box">
+                                                <span class="timer-icon">⏳</span>
                                                 <span id="paymentTimer">09:59</span>
                                             </div>
                                         </div>
-                                        <div class="qr-box">
-                                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=foodexpress-payment-mock" alt="Payment QR">
+                                        
+                                        <div class="qr-main-box">
+                                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=foodexpress-payment-mock" alt="Payment QR" class="qr-image">
                                         </div>
-                                        <div class="scan-text">Scan the QR using any UPI App</div>
-                                        <div class="upi-logos">
-                                            <span style="font-size: 1.5rem;">📱 💳 📲</span>
+                                        
+                                        <p class="scan-instructions">Scan the QR using any UPI App</p>
+                                        <div class="upi-app-logos">
+                                            <span class="app-logo-text">Google Pay | PhonePe | Paytm | Amazon Pay</span>
                                         </div>
-                                        <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="processOrder('UPI')">I've Scanned and Paid</button>
+                                        
+                                        <button class="btn-payment-confirm" onclick="processOrder('UPI')">
+                                            I have completed the payment
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -273,34 +301,41 @@
                         document.getElementById('paymentModal').style.display = 'none';
                     }
 
-                    function switchPaymentView(view, element) {
-                        document.querySelectorAll('.option-item').forEach(i => i.classList.remove('active'));
-                        element.classList.add('active');
+                    function switchPaymentView(method, element) {
+                        const allNavItems = document.querySelectorAll('.option-nav-item');
+                        allNavItems.forEach(item => item.classList.remove('active'));
+                        if(element) element.classList.add('active');
                         
                         const contentArea = document.getElementById('paymentContentArea');
-                        if(view === 'upi') {
-                            contentArea.innerHTML = `
-                                <div class="qr-section">
-                                    <div class="qr-header">
-                                        <span style="font-weight: 600; font-size: 0.9rem;">UPI QR</span>
-                                        <div class="qr-timer"><span>⏳</span><span>09:59</span></div>
-                                    </div>
-                                    <div class="qr-box">
-                                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=foodexpress-pay" alt="QR">
-                                    </div>
-                                    <div class="scan-text">Scan the QR using any UPI App</div>
-                                    <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="processOrder('UPI')">Paid via App</button>
-                                </div>
-                            `;
+                        if (method === 'upi') {
+                            contentArea.innerHTML = 
+                                '<div class="upi-qr-view">' +
+                                    '<div class="qr-header-row">' +
+                                        '<span class="qr-title">UPI QR SCANNER</span>' +
+                                        '<div class="qr-timer-box">⏳ <span id="paymentTimer">09:59</span></div>' +
+                                    '</div>' +
+                                    '<div class="qr-main-box">' +
+                                        '<img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=foodexpress-pay&color=ea580c" class="qr-image" alt="Scan to Pay">' +
+                                    '</div>' +
+                                    '<div style="text-align:center; margin-top:0.5rem;">' +
+                                        '<p style="font-weight:700; color:#333; margin:0;">Scan QR using any UPI App</p>' +
+                                        '<p style="font-size:0.75rem; color:#666; margin:2px 0;">Google Pay | PhonePe | Paytm | Amazon Pay</p>' +
+                                    '</div>' +
+                                    '<button type="button" class="btn-payment-confirm" onclick="processOrder(\'UPI\')">I have completed the payment</button>' +
+                                '</div>';
                         } else {
-                            contentArea.innerHTML = `
-                                <div style="display:flex; flex-direction:column; gap:1.5rem; justify-content:center; height:100%; text-align:center;">
-                                    <div style="font-size: 3rem;">🔐</div>
-                                    <h4 style="margin:0; color:#333;">Secure ${view.toUpperCase()} Integration</h4>
-                                    <p style="font-size:0.9rem; color:#666;">Redirecting to secure gateway...</p>
-                                    <button class="btn btn-primary" onclick="processOrder('${view.toUpperCase()}')">Complete Payment</button>
-                                </div>
-                            `;
+                            const iconMap = { 'cards': '💳', 'emi': '💎', 'netbanking': '🏦', 'wallet': '👛' };
+                            const displayName = method.charAt(0).toUpperCase() + method.slice(1);
+                            const icon = iconMap[method] || '🔐';
+                            contentArea.innerHTML = 
+                                '<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; gap:1.5rem; text-align:center;">' +
+                                    '<div style="font-size: 4rem;">' + icon + '</div>' +
+                                    '<div>' +
+                                        '<h3 style="margin:0; color:#333;">Secure ' + displayName + ' Gateway</h3>' +
+                                        '<p style="color:#666; font-size:0.9rem; margin-top:0.5rem;">Redirecting to encrypted payment channel...</p>' +
+                                    '</div>' +
+                                    '<button type="button" class="btn-payment-confirm" style="max-width:300px;" onclick="processOrder(\'' + method.toUpperCase() + '\')">Continue with ' + displayName + '</button>' +
+                                '</div>';
                         }
                     }
 
@@ -308,7 +343,7 @@
                         document.getElementById('finalPaymentMethod').value = method;
                         document.getElementById('paymentModal').innerHTML = `
                             <div class="payment-modal-container" style="justify-content:center; align-items:center; flex-direction:column; gap:1.5rem;">
-                                <div style="font-size: 4rem; color:#00845a;">✅</div>
+                                <div style="font-size: 4rem; color:#ea580c;">✅</div>
                                 <h2 style="margin:0;">Payment Successful</h2>
                                 <p>Processing your order...</p>
                             </div>

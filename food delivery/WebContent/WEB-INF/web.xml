@@ -26,6 +26,15 @@
     </servlet-mapping>
     
     <servlet>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <servlet-class>com.fooddelivery.controller.user.ForgotPasswordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <url-pattern>/forgot-password</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>com.fooddelivery.controller.user.RegisterServlet</servlet-class>
     </servlet>

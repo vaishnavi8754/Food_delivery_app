@@ -248,6 +248,13 @@ public class UserDAO {
      * @return User object or null
      */
     public User getUserByEmail(String email) {
+        // DEMO BYPASS: Check our temporary memory
+        for (User u : demoUsers) {
+            if (u.getEmail().equalsIgnoreCase(email)) {
+                return u;
+            }
+        }
+
         String sql = "SELECT * FROM user WHERE email = ?";
         User user = null;
 
@@ -455,6 +462,14 @@ public class UserDAO {
      * @return true if update successful
      */
     public boolean updatePassword(int userId, String newPassword) {
+        // DEMO BYPASS: Update in memory
+        for (User u : demoUsers) {
+            if (u.getUserId() == userId) {
+                u.setPassword(newPassword);
+                return true; 
+            }
+        }
+
         String sql = "UPDATE user SET password = ?, updated_at = CURRENT_TIMESTAMP WHERE user_id = ?";
 
         try {

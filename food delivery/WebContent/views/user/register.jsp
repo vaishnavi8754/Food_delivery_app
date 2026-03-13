@@ -17,7 +17,7 @@
                 rel="stylesheet">
 
             <!-- Stylesheet -->
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css?v=1.2">
 
             <!-- Favicon -->
             <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon.png">
@@ -179,18 +179,14 @@
 
                             <!-- Social Login Divider -->
                             <div class="social-divider">
-                                <span>Or sign up with</span>
+                                <span>Or continue with</span>
                             </div>
 
                             <!-- Social Login Buttons -->
-                            <div class="social-buttons">
-                                <button type="button" class="btn-social">
-                                    <span>🔵</span>
-                                    <span>Google</span>
-                                </button>
-                                <button type="button" class="btn-social">
-                                    <span>📘</span>
-                                    <span>Facebook</span>
+                            <div class="social-buttons" style="grid-template-columns: 1fr;">
+                                <button type="button" class="btn btn-social btn-google" style="grid-column: span 1;">
+                                    <span>🌐</span>
+                                    <span>Continue with Google</span>
                                 </button>
                             </div>
                         </div>

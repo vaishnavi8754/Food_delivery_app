@@ -12,7 +12,7 @@
                     rel="stylesheet">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
                 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-                <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css">
+                <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin.css?v=${System.currentTimeMillis()}">
             </head>
             
             <body class="admin-body">
@@ -53,11 +53,53 @@
                     </aside>
                     <main class="admin-main">
                         <header class="admin-header">
-                            <h1>Manage Users</h1>
+                            <h1>User Management</h1>
                             <div class="admin-user">${sessionScope.userName}</div>
                         </header>
+                        
                         <div class="dashboard-content">
-                            <!-- Filter Bar -->
+                            <!-- Stats Briefing -->
+                            <div class="stats-grid">
+                                <c:set var="custCount" value="0" />
+                                <c:set var="adminCount" value="0" />
+                                <c:set var="partnerCount" value="0" />
+                                <c:forEach var="u" items="${users}">
+                                    <c:if test="${u.role == 'customer'}"><c:set var="custCount" value="${custCount + 1}" /></c:if>
+                                    <c:if test="${u.role == 'admin'}"><c:set var="adminCount" value="${adminCount + 1}" /></c:if>
+                                    <c:if test="${u.role == 'delivery_partner'}"><c:set var="partnerCount" value="${partnerCount + 1}" /></c:if>
+                                </c:forEach>
+                                
+                                <div class="stat-card stat-users">
+                                    <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                                    <div class="stat-info">
+                                        <h3>${users.size()}</h3>
+                                        <p>Total Users</p>
+                                    </div>
+                                </div>
+                                <div class="stat-card stat-restaurants">
+                                    <div class="stat-icon"><i class="fa-solid fa-user-tag"></i></div>
+                                    <div class="stat-info">
+                                        <h3>${custCount}</h3>
+                                        <p>Customers</p>
+                                    </div>
+                                </div>
+                                <div class="stat-card stat-revenue">
+                                    <div class="stat-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                                    <div class="stat-info">
+                                        <h3>${partnerCount}</h3>
+                                        <p>Partners</p>
+                                    </div>
+                                </div>
+                                <div class="stat-card stat-orders">
+                                    <div class="stat-icon"><i class="fa-solid fa-user-shield"></i></div>
+                                    <div class="stat-info">
+                                        <h3>${adminCount}</h3>
+                                        <p>Admins</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Search & Filter Control Hub -->
                             <div class="filter-bar">
                                 <form action="${pageContext.request.contextPath}/admin/users" method="GET" class="search-box">
                                     <input type="text" name="search" placeholder="Search by name, email or phone..." value="${currentSearch}">
@@ -67,33 +109,32 @@
                                     </button>
                                 </form>
                                 <div class="filter-group">
-                                    <form action="${pageContext.request.contextPath}/admin/users" method="GET" style="display: flex; gap: 0.75rem;">
+                                    <form action="${pageContext.request.contextPath}/admin/users" method="GET" id="filterForm" style="display: flex; gap: 0.75rem;">
                                         <select name="role" onchange="this.form.submit()">
                                             <option value="all" ${currentRole == 'all' ? 'selected' : ''}>All Roles</option>
                                             <option value="customer" ${currentRole == 'customer' ? 'selected' : ''}>Customer</option>
+                                            <option value="delivery_partner" ${currentRole == 'delivery_partner' ? 'selected' : ''}>Partner</option>
                                             <option value="admin" ${currentRole == 'admin' ? 'selected' : ''}>Admin</option>
-                                            <option value="delivery_partner" ${currentRole == 'delivery_partner' ? 'selected' : ''}>Delivery Partner</option>
                                         </select>
                                         <select name="status" onchange="this.form.submit()">
                                             <option value="all" ${currentStatus == 'all' ? 'selected' : ''}>All Status</option>
-                                            <option value="active" ${currentStatus == 'active' ? 'selected' : ''}>Active Only</option>
-                                            <option value="blocked" ${currentStatus == 'blocked' ? 'selected' : ''}>Blocked Only</option>
-                                            <option value="suspended" ${currentStatus == 'suspended' ? 'selected' : ''}>Suspended</option>
+                                            <option value="active" ${currentStatus == 'active' ? 'selected' : ''}>Active</option>
+                                            <option value="blocked" ${currentStatus == 'blocked' ? 'selected' : ''}>Blocked</option>
                                         </select>
                                     </form>
                                 </div>
                             </div>
                             
+                            <!-- Users Table -->
                             <div class="table-container">
                                 <table class="admin-table">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>User Info</th>
+                                            <th>User</th>
                                             <th>Role</th>
                                             <th>Status</th>
                                             <th style="text-align: center;">Orders</th>
-                                            <th>Spent</th>
+                                            <th>Total Spent</th>
                                             <th>Joined</th>
                                             <th style="text-align: right;">Actions</th>
                                         </tr>
@@ -103,23 +144,27 @@
                                             <c:when test="${not empty users}">
                                                 <c:forEach var="user" items="${users}">
                                                     <tr>
-                                                        <td style="color: var(--text-muted); font-weight: 500;">#${user.userId}</td>
                                                         <td>
-                                                            <div class="user-info-cell">
-                                                                <span class="user-name">${user.fullName}</span>
-                                                                <div class="user-meta">
-                                                                    <i class="fa-regular fa-envelope"></i> ${user.email}
+                                                            <div class="user-avatar-wrapper">
+                                                                <div class="user-avatar">
+                                                                    ${user.fullName.substring(0,1)}${user.fullName.contains(' ') ? user.fullName.split(' ')[1].substring(0,1) : ''}
                                                                 </div>
-                                                                <div class="user-meta">
-                                                                    <i class="fa-solid fa-phone-flip" style="font-size: 0.7rem;"></i> ${user.phone}
+                                                                <div class="user-info-cell">
+                                                                    <span class="user-name">${user.fullName}</span>
+                                                                    <div class="user-meta">
+                                                                        <span><i class="fa-regular fa-envelope"></i> ${user.email}</span>
+                                                                        <span style="margin-left: 10px;"><i class="fa-solid fa-phone" style="font-size: 0.7rem;"></i> ${user.phone}</span>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td><span class="role-badge role-${user.role}">${user.role.replace('_', ' ')}</span></td>
                                                         <td><span class="status-badge status-${user.status != null ? user.status : 'active'}">${user.status != null ? user.status : 'Active'}</span></td>
                                                         <td style="text-align: center; font-weight: 600;">${user.totalOrders}</td>
-                                                        <td style="font-weight: 600; color: var(--text-main);">₹<fmt:formatNumber value="${user.totalSpent}" pattern="#,##0.00" /></td>
-                                                        <td style="color: var(--text-muted); font-size: 0.8rem;">
+                                                        <td style="font-weight: 600; color: var(--text-main);">
+                                                            ₹<fmt:formatNumber value="${user.totalSpent}" pattern="#,##0.00" />
+                                                        </td>
+                                                        <td style="color: var(--text-muted); font-size: 0.85rem;">
                                                             <fmt:formatDate value="${user.createdAt}" pattern="dd MMM yyyy" />
                                                         </td>
                                                         <td>
@@ -135,9 +180,8 @@
                                                                         data-joined="<fmt:formatDate value="${user.createdAt}" pattern="dd MMM yyyy" />"
                                                                         data-orders="${user.totalOrders}"
                                                                         data-spent="₹<fmt:formatNumber value="${user.totalSpent}" pattern="#,##0.00" />"
-                                                                        onclick="showProfile(this)">
-                                                                    <i class="fa-solid fa-user-gear"></i>
-                                                                    Profile
+                                                                        onclick="showProfile(this)" title="View Profile">
+                                                                    <i class="fa-solid fa-eye"></i>
                                                                 </button>
                                                                 
                                                                 <c:if test="${user.role != 'admin'}">
@@ -146,22 +190,20 @@
                                                                         <c:choose>
                                                                             <c:when test="${user.status == 'blocked'}">
                                                                                 <input type="hidden" name="status" value="active">
-                                                                                <button type="submit" class="btn-sm btn-status-toggle btn-status-active">
+                                                                                <button type="submit" class="btn-sm btn-status-toggle btn-status-active" title="Unblock User">
                                                                                     <i class="fa-solid fa-user-check"></i>
-                                                                                    Unblock
                                                                                 </button>
                                                                             </c:when>
                                                                             <c:otherwise>
                                                                                 <input type="hidden" name="status" value="blocked">
-                                                                                <button type="submit" class="btn-sm btn-status-toggle btn-status-blocked">
+                                                                                <button type="submit" class="btn-sm btn-status-toggle btn-status-blocked" title="Block User">
                                                                                     <i class="fa-solid fa-user-slash"></i>
-                                                                                    Block
                                                                                 </button>
                                                                             </c:otherwise>
                                                                         </c:choose>
                                                                     </form>
                                                                     
-                                                                    <form action="${pageContext.request.contextPath}/admin/users/delete" method="POST" style="display:inline" onsubmit="return confirm('Absolutely delete this user account?')">
+                                                                    <form action="${pageContext.request.contextPath}/admin/users/delete" method="POST" style="display:inline" onsubmit="return confirm('Delete this user account permanently?')">
                                                                         <input type="hidden" name="id" value="${user.userId}">
                                                                         <button type="submit" class="btn-sm btn-delete" title="Delete Account">
                                                                             <i class="fa-solid fa-trash-can"></i>
@@ -175,7 +217,7 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <tr>
-                                                    <td colspan="8">
+                                                    <td colspan="7">
                                                         <div class="empty-state">
                                                             <i class="fa-solid fa-user-astronaut"></i>
                                                             <h2>No Users Found</h2>

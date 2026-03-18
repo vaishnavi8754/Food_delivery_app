@@ -102,14 +102,18 @@
                                             </c:if>
                                             <c:if test="${not empty item.itemTag}">
                                                 <div class="bestseller-tag <c:choose>
-                                                    <c:when test="${item.itemTag.contains('Favorite')}">favorite</c:when>
+                                                    <c:when test=" ${item.itemTag.contains('Favorite')}">favorite
+                                                    </c:when>
                                                     <c:when test="${item.itemTag.contains('Ordered')}">ordered</c:when>
                                                     <c:when test="${item.itemTag.contains('Budget')}">budget</c:when>
-                                                </c:choose>">
+                                                    </c:choose>">
                                                     <c:choose>
-                                                        <c:when test="${item.itemTag.contains('Favorite')}">&#x2B50;</c:when>
-                                                        <c:when test="${item.itemTag.contains('Ordered')}">&#x1F525;</c:when>
-                                                        <c:when test="${item.itemTag.contains('Budget')}">&#x1F4B0;</c:when>
+                                                        <c:when test="${item.itemTag.contains('Favorite')}">&#x2B50;
+                                                        </c:when>
+                                                        <c:when test="${item.itemTag.contains('Ordered')}">&#x1F525;
+                                                        </c:when>
+                                                        <c:when test="${item.itemTag.contains('Budget')}">&#x1F4B0;
+                                                        </c:when>
                                                         <c:otherwise>&#x2728;</c:otherwise>
                                                     </c:choose>
                                                     ${item.itemTag}

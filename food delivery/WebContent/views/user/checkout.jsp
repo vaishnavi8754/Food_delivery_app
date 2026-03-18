@@ -13,16 +13,52 @@
                     rel="stylesheet">
                 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
                 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pages.css">
-                <link rel="stylesheet" href="${pageContext.request.contextPath}/css/payment.css?v=${System.currentTimeMillis()}">
+                <link rel="stylesheet"
+                    href="${pageContext.request.contextPath}/css/payment.css?v=${System.currentTimeMillis()}">
                 <!-- Leaflet Map Dependencies -->
-                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-                <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+                    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+                <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+                    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
                 <style>
-                    #map { height: 300px; border-radius: 12px; margin-bottom: 1rem; display: none; border: 2px solid var(--primary-100); }
-                    .map-controls { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
-                    .btn-map { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; font-size: 0.9rem; background: #fff; border: 1px solid var(--primary-500); color: var(--primary-600); border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
-                    .btn-map:hover { background: var(--primary-50); }
-                    .location-status { font-size: 0.8rem; color: var(--gray-500); margin-top: 0.25rem; }
+                    #map {
+                        height: 300px;
+                        border-radius: 12px;
+                        margin-bottom: 1rem;
+                        display: none;
+                        border: 2px solid var(--primary-100);
+                    }
+
+                    .map-controls {
+                        display: flex;
+                        gap: 0.5rem;
+                        margin-bottom: 1rem;
+                    }
+
+                    .btn-map {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.5rem 1rem;
+                        font-size: 0.9rem;
+                        background: #fff;
+                        border: 1px solid var(--primary-500);
+                        color: var(--primary-600);
+                        border-radius: 8px;
+                        cursor: pointer;
+                        font-weight: 600;
+                        transition: all 0.2s;
+                    }
+
+                    .btn-map:hover {
+                        background: var(--primary-50);
+                    }
+
+                    .location-status {
+                        font-size: 0.8rem;
+                        color: var(--gray-500);
+                        margin-top: 0.25rem;
+                    }
                 </style>
             </head>
 
@@ -59,22 +95,27 @@
 
                 <section class="section" style="background: #f8fafc; min-height: calc(100vh - 80px);">
                     <div class="container" style="max-width: 1100px; padding: 2rem 1rem;">
-                        <h1 class="page-title" style="text-align: center; margin-bottom: 3rem; font-family: 'Outfit', sans-serif; font-weight: 800; color: #1e293b;">Finalize Your Order</h1>
+                        <h1 class="page-title"
+                            style="text-align: center; margin-bottom: 3rem; font-family: 'Outfit', sans-serif; font-weight: 800; color: #1e293b;">
+                            Finalize Your Order</h1>
                         <div class="checkout-layout">
                             <!-- Left: Checkout Details -->
                             <div class="checkout-form-section">
-                                <form action="${pageContext.request.contextPath}/checkout" method="POST" id="checkoutForm">
+                                <form action="${pageContext.request.contextPath}/checkout" method="POST"
+                                    id="checkoutForm">
                                     <input type="hidden" name="paymentMethod" id="finalPaymentMethod" value="cod">
-                                    
+
                                     <!-- Delivery Section -->
                                     <div class="form-card modern-card">
                                         <div class="card-section">
                                             <div class="form-group">
-                                                <input type="text" name="fullName" class="form-input-minimal" value="${user.fullName}" placeholder="Enter Name" required>
+                                                <input type="text" name="fullName" class="form-input-minimal"
+                                                    value="${user.fullName}" placeholder="Enter Name" required>
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-label-small">Phone</label>
-                                                <input type="text" name="phone" class="form-input-minimal" value="${user.phone}" placeholder="Phone Number" required>
+                                                <input type="text" name="phone" class="form-input-minimal"
+                                                    value="${user.phone}" placeholder="Phone Number" required>
                                             </div>
                                         </div>
 
@@ -88,11 +129,12 @@
                                                     <span class="icon-locate">🎯</span> Locate Me
                                                 </button>
                                             </div>
-                                            
+
                                             <div id="map"></div>
                                             <div id="locationStatus" class="location-status"></div>
 
-                                            <textarea name="address" id="addressField" class="form-input-minimal textarea-minimal" rows="3" required
+                                            <textarea name="address" id="addressField"
+                                                class="form-input-minimal textarea-minimal" rows="3" required
                                                 placeholder="Enter full delivery address">${user.address}</textarea>
                                         </div>
                                     </div>
@@ -102,7 +144,8 @@
                                         <h2 class="section-title">Payment Method</h2>
                                         <div class="payment-selection-groups">
                                             <label class="payment-selection-item">
-                                                <input type="radio" name="paymentOption" value="cod" checked onchange="togglePayBtn()">
+                                                <input type="radio" name="paymentOption" value="cod" checked
+                                                    onchange="togglePayBtn()">
                                                 <div class="selection-box">
                                                     <div class="selection-indicator"></div>
                                                     <span class="selection-icon">💵</span>
@@ -110,11 +153,13 @@
                                                 </div>
                                             </label>
                                             <label class="payment-selection-item">
-                                                <input type="radio" name="paymentOption" value="online" onchange="togglePayBtn()">
+                                                <input type="radio" name="paymentOption" value="online"
+                                                    onchange="togglePayBtn()">
                                                 <div class="selection-box">
                                                     <div class="selection-indicator"></div>
                                                     <span class="selection-icon">💳</span>
-                                                    <span class="selection-text">Online Payment (Cards, UPI, Wallets)</span>
+                                                    <span class="selection-text">Online Payment (Cards, UPI,
+                                                        Wallets)</span>
                                                 </div>
                                             </label>
                                         </div>
@@ -123,11 +168,12 @@
                                     <!-- Special Instructions -->
                                     <div class="form-card modern-card">
                                         <h2 class="section-title">Special Instructions</h2>
-                                        <textarea name="instructions" class="form-input-minimal textarea-minimal" rows="2"
-                                            placeholder="Any special instructions for your order?"></textarea>
+                                        <textarea name="instructions" class="form-input-minimal textarea-minimal"
+                                            rows="2" placeholder="Any special instructions for your order?"></textarea>
                                     </div>
 
-                                    <button type="button" id="submitOrderBtn" class="btn-primary-large" onclick="handleCheckout()">
+                                    <button type="button" id="submitOrderBtn" class="btn-primary-large"
+                                        onclick="handleCheckout()">
                                         Place Order
                                     </button>
                                 </form>
@@ -141,17 +187,21 @@
                                         <c:forEach var="item" items="${cartItems}">
                                             <div class="summary-item">
                                                 <span class="item-desc">${item.foodName} x${item.quantity}</span>
-                                                <span class="item-val">₹<fmt:formatNumber value="${item.subtotal}" pattern="#,##0" /></span>
+                                                <span class="item-val">₹
+                                                    <fmt:formatNumber value="${item.subtotal}" pattern="#,##0" />
+                                                </span>
                                             </div>
                                         </c:forEach>
                                     </div>
-                                    
+
                                     <div class="summary-divider"></div>
-                                    
+
                                     <div class="summary-rows">
                                         <div class="summary-row">
                                             <span>Subtotal</span>
-                                            <span>₹<fmt:formatNumber value="${cartTotal}" pattern="#,##0" /></span>
+                                            <span>₹
+                                                <fmt:formatNumber value="${cartTotal}" pattern="#,##0" />
+                                            </span>
                                         </div>
                                         <div class="summary-row">
                                             <span>Delivery Fee</span>
@@ -159,7 +209,9 @@
                                         </div>
                                         <div class="summary-row total-row">
                                             <span>Total</span>
-                                            <span class="total-amount">₹<fmt:formatNumber value="${cartTotal + 20}" pattern="#,##0" /></span>
+                                            <span class="total-amount">₹
+                                                <fmt:formatNumber value="${cartTotal + 20}" pattern="#,##0" />
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -177,10 +229,12 @@
                                 <div class="store-initial" style="background: rgba(255,255,255,0.2) !important;">F</div>
                                 <div class="store-name" style="font-size: 1.25rem !important;">FoodExpress</div>
                             </div>
-                            
+
                             <div class="price-summary-box">
                                 <div class="summary-label">Price Summary</div>
-                                <div class="summary-amount">₹<fmt:formatNumber value="${cartTotal + 20}" pattern="#,##0" /></div>
+                                <div class="summary-amount">₹
+                                    <fmt:formatNumber value="${cartTotal + 20}" pattern="#,##0" />
+                                </div>
                             </div>
 
                             <div class="user-info-bar">
@@ -217,31 +271,36 @@
 
                             <div class="payment-options-layout">
                                 <div class="options-sidebar">
-                                    <button type="button" class="option-nav-item active" onclick="switchPaymentView('upi', this)">
+                                    <button type="button" class="option-nav-item active"
+                                        onclick="switchPaymentView('upi', this)">
                                         <span class="option-label">UPI</span>
                                         <div class="option-logos">
                                             <span class="mini-icons">📱 💳 📲</span>
                                         </div>
                                     </button>
-                                    <button type="button" class="option-nav-item" onclick="switchPaymentView('cards', this)">
+                                    <button type="button" class="option-nav-item"
+                                        onclick="switchPaymentView('cards', this)">
                                         <span class="option-label">Cards</span>
                                         <div class="option-logos">
                                             <span class="mini-icons">Visa • Master • Maestro</span>
                                         </div>
                                     </button>
-                                    <button type="button" class="option-nav-item" onclick="switchPaymentView('emi', this)">
+                                    <button type="button" class="option-nav-item"
+                                        onclick="switchPaymentView('emi', this)">
                                         <span class="option-label">EMI</span>
                                         <div class="option-logos">
                                             <span class="mini-icons">ZestMoney • EarlySalary</span>
                                         </div>
                                     </button>
-                                    <button type="button" class="option-nav-item" onclick="switchPaymentView('netbanking', this)">
+                                    <button type="button" class="option-nav-item"
+                                        onclick="switchPaymentView('netbanking', this)">
                                         <span class="option-label">Netbanking</span>
                                         <div class="option-logos">
                                             <span class="mini-icons">SBI • ICICI • HDFC • AXIS</span>
                                         </div>
                                     </button>
-                                    <button type="button" class="option-nav-item" onclick="switchPaymentView('wallet', this)">
+                                    <button type="button" class="option-nav-item"
+                                        onclick="switchPaymentView('wallet', this)">
                                         <span class="option-label">Wallet</span>
                                         <div class="option-logos">
                                             <span class="mini-icons">Mobikwik • Freecharge</span>
@@ -259,16 +318,18 @@
                                                 <span id="paymentTimer">09:59</span>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="qr-main-box">
-                                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=foodexpress-payment-mock" alt="Payment QR" class="qr-image">
+                                            <c:set var="totalAmount" value="${cartTotal + 20}" />
+                                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=vaishnavi8754@okaxis%26pn=FoodExpress%26am=${totalAmount}%26cu=INR%26tn=FoodExpress_Order&color=ea580c"
+                                                alt="Payment QR" class="qr-image">
                                         </div>
-                                        
+
                                         <p class="scan-instructions">Scan the QR using any UPI App</p>
                                         <div class="upi-app-logos">
                                             <span class="app-logo-text">Google Pay | PhonePe | Paytm | Amazon Pay</span>
                                         </div>
-                                        
+
                                         <button class="btn-payment-confirm" onclick="processOrder('UPI')">
                                             I have completed the payment
                                         </button>
@@ -304,37 +365,37 @@
                     function switchPaymentView(method, element) {
                         const allNavItems = document.querySelectorAll('.option-nav-item');
                         allNavItems.forEach(item => item.classList.remove('active'));
-                        if(element) element.classList.add('active');
-                        
+                        if (element) element.classList.add('active');
+
                         const contentArea = document.getElementById('paymentContentArea');
                         if (method === 'upi') {
-                            contentArea.innerHTML = 
+                            contentArea.innerHTML =
                                 '<div class="upi-qr-view">' +
-                                    '<div class="qr-header-row">' +
-                                        '<span class="qr-title">UPI QR SCANNER</span>' +
-                                        '<div class="qr-timer-box">⏳ <span id="paymentTimer">09:59</span></div>' +
-                                    '</div>' +
-                                    '<div class="qr-main-box">' +
-                                        '<img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=foodexpress-pay&color=ea580c" class="qr-image" alt="Scan to Pay">' +
-                                    '</div>' +
-                                    '<div style="text-align:center; margin-top:0.5rem;">' +
-                                        '<p style="font-weight:700; color:#333; margin:0;">Scan QR using any UPI App</p>' +
-                                        '<p style="font-size:0.75rem; color:#666; margin:2px 0;">Google Pay | PhonePe | Paytm | Amazon Pay</p>' +
-                                    '</div>' +
-                                    '<button type="button" class="btn-payment-confirm" onclick="processOrder(\'UPI\')">I have completed the payment</button>' +
+                                '<div class="qr-header-row">' +
+                                '<span class="qr-title">UPI QR SCANNER</span>' +
+                                '<div class="qr-timer-box">⏳ <span id="paymentTimer">09:59</span></div>' +
+                                '</div>' +
+                                '<div class="qr-main-box">' +
+                                '<img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=vaishnavi8754@okaxis%26pn=FoodExpress%26am=${cartTotal + 20}%26cu=INR%26tn=FoodExpress_Order&color=ea580c" class="qr-image" alt="Scan to Pay">' +
+                                '</div>' +
+                                '<div style="text-align:center; margin-top:0.5rem;">' +
+                                '<p style="font-weight:700; color:#333; margin:0;">Scan QR using any UPI App</p>' +
+                                '<p style="font-size:0.75rem; color:#666; margin:2px 0;">Google Pay | PhonePe | Paytm | Amazon Pay</p>' +
+                                '</div>' +
+                                '<button type="button" class="btn-payment-confirm" onclick="processOrder(\'UPI\')">I have completed the payment</button>' +
                                 '</div>';
                         } else {
                             const iconMap = { 'cards': '💳', 'emi': '💎', 'netbanking': '🏦', 'wallet': '👛' };
                             const displayName = method.charAt(0).toUpperCase() + method.slice(1);
                             const icon = iconMap[method] || '🔐';
-                            contentArea.innerHTML = 
+                            contentArea.innerHTML =
                                 '<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; gap:1.5rem; text-align:center;">' +
-                                    '<div style="font-size: 4rem;">' + icon + '</div>' +
-                                    '<div>' +
-                                        '<h3 style="margin:0; color:#333;">Secure ' + displayName + ' Gateway</h3>' +
-                                        '<p style="color:#666; font-size:0.9rem; margin-top:0.5rem;">Redirecting to encrypted payment channel...</p>' +
-                                    '</div>' +
-                                    '<button type="button" class="btn-payment-confirm" style="max-width:300px;" onclick="processOrder(\'' + method.toUpperCase() + '\')">Continue with ' + displayName + '</button>' +
+                                '<div style="font-size: 4rem;">' + icon + '</div>' +
+                                '<div>' +
+                                '<h3 style="margin:0; color:#333;">Secure ' + displayName + ' Gateway</h3>' +
+                                '<p style="color:#666; font-size:0.9rem; margin-top:0.5rem;">Redirecting to encrypted payment channel...</p>' +
+                                '</div>' +
+                                '<button type="button" class="btn-payment-confirm" style="max-width:300px;" onclick="processOrder(\'' + method.toUpperCase() + '\')">Continue with ' + displayName + '</button>' +
                                 '</div>';
                         }
                     }
@@ -377,22 +438,22 @@
 
                     function initMap(lat = 12.9716, lng = 77.5946) { // Default to Bangalore
                         if (map) return;
-                        
+
                         mapDiv.style.display = 'block';
                         map = L.map('map').setView([lat, lng], 13);
-                        
+
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                             attribution: '© OpenStreetMap contributors'
                         }).addTo(map);
 
                         marker = L.marker([lat, lng], { draggable: true }).addTo(map);
 
-                        marker.on('dragend', function(e) {
+                        marker.on('dragend', function (e) {
                             const position = marker.getLatLng();
                             reverseGeocode(position.lat, position.lng);
                         });
 
-                        map.on('click', function(e) {
+                        map.on('click', function (e) {
                             marker.setLatLng(e.latlng);
                             reverseGeocode(e.latlng.lat, e.latlng.lng);
                         });
@@ -434,7 +495,7 @@
                         navigator.geolocation.getCurrentPosition((position) => {
                             const lat = position.coords.latitude;
                             const lng = position.coords.longitude;
-                            
+
                             initMap(lat, lng);
                             map.setView([lat, lng], 16);
                             marker.setLatLng([lat, lng]);

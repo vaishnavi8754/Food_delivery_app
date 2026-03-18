@@ -76,7 +76,16 @@ public class LoginServlet extends HttpServlet {
 
         if (user != null) {
             // Validate if user has the selected role
-            if (selectedRole != null && !selectedRole.equals(user.getRole())) {
+            boolean isValidRole = true;
+            if (selectedRole != null) {
+                if (selectedRole.equals("user") && ("user".equals(user.getRole()) || "customer".equals(user.getRole()))) {
+                    isValidRole = true;
+                } else {
+                    isValidRole = selectedRole.equals(user.getRole());
+                }
+            }
+
+            if (!isValidRole) {
                 String roleDisplay = "admin".equals(selectedRole) ? "Admin" : "User";
                 request.setAttribute("error", "The account does not have " + roleDisplay + " privileges.");
                 request.setAttribute("email", email);

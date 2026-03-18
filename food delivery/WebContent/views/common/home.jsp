@@ -13,28 +13,172 @@
             <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pages.css">
             <!-- Leaflet Map Dependencies -->
-            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+                integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+                integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
             <style>
-                .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
-                .modal-content { background: white; width: 90%; max-width: 600px; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-2xl); position: relative; animation: modalIn 0.3s ease-out; }
-                @keyframes modalIn { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-                .modal-header { padding: 1.5rem; border-bottom: 1px solid var(--gray-100); display: flex; justify-content: space-between; align-items: center; }
-                .modal-header h3 { font-family: 'Outfit', sans-serif; font-size: 1.25rem; }
-                .close-modal { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-400); }
-                .modal-body { padding: 1.5rem; }
-                #homeMap { height: 350px; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid var(--gray-200); }
-                .modal-footer { padding: 1rem 1.5rem; background: var(--gray-50); display: flex; justify-content: flex-end; gap: 1rem; }
-                .selected-address-box { margin-bottom: 1rem; padding: 1rem; background: var(--primary-50); border-radius: 10px; font-size: 0.9rem; color: var(--gray-700); border-left: 4px solid var(--primary-500); }
-                .address-textarea { width: 100%; border: none; background: transparent; font-family: inherit; font-size: 0.9rem; color: var(--gray-800); resize: none; outline: none; }
-                .map-search-container { position: relative; margin-bottom: 1rem; }
-                .map-search-input { width: 100%; padding: 0.875rem 1rem 0.875rem 2.5rem; border: 1px solid var(--gray-200); border-radius: 12px; font-size: 0.95rem; transition: all 0.2s; }
-                .map-search-input:focus { outline: none; border-color: var(--primary-500); box-shadow: 0 0 0 4px var(--primary-50); }
-                .search-icon-inside { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--gray-400); font-size: 0.9rem; }
-                .search-results-dropdown { position: absolute; top: 100%; left: 0; width: 100%; background: white; border-radius: 12px; box-shadow: var(--shadow-xl); z-index: 2100; margin-top: 0.5rem; max-height: 250px; overflow-y: auto; display: none; border: 1px solid var(--gray-100); }
-                .search-result-item { padding: 0.75rem 1rem; cursor: pointer; border-bottom: 1px solid var(--gray-50); font-size: 0.9rem; display: flex; align-items: flex-start; gap: 0.75rem; }
-                .search-result-item:hover { background: var(--primary-25); }
-                .search-result-item i { margin-top: 2px; color: var(--gray-400); }
+                .modal-overlay {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.6);
+                    z-index: 2000;
+                    align-items: center;
+                    justify-content: center;
+                    backdrop-filter: blur(4px);
+                }
+
+                .modal-content {
+                    background: white;
+                    width: 90%;
+                    max-width: 600px;
+                    border-radius: 20px;
+                    overflow: hidden;
+                    box-shadow: var(--shadow-2xl);
+                    position: relative;
+                    animation: modalIn 0.3s ease-out;
+                }
+
+                @keyframes modalIn {
+                    from {
+                        transform: translateY(30px);
+                        opacity: 0;
+                    }
+
+                    to {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+                }
+
+                .modal-header {
+                    padding: 1.5rem;
+                    border-bottom: 1px solid var(--gray-100);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                .modal-header h3 {
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 1.25rem;
+                }
+
+                .close-modal {
+                    background: none;
+                    border: none;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    color: var(--gray-400);
+                }
+
+                .modal-body {
+                    padding: 1.5rem;
+                }
+
+                #homeMap {
+                    height: 350px;
+                    border-radius: 12px;
+                    margin-bottom: 1.5rem;
+                    border: 1px solid var(--gray-200);
+                }
+
+                .modal-footer {
+                    padding: 1rem 1.5rem;
+                    background: var(--gray-50);
+                    display: flex;
+                    justify-content: flex-end;
+                    gap: 1rem;
+                }
+
+                .selected-address-box {
+                    margin-bottom: 1rem;
+                    padding: 1rem;
+                    background: var(--primary-50);
+                    border-radius: 10px;
+                    font-size: 0.9rem;
+                    color: var(--gray-700);
+                    border-left: 4px solid var(--primary-500);
+                }
+
+                .address-textarea {
+                    width: 100%;
+                    border: none;
+                    background: transparent;
+                    font-family: inherit;
+                    font-size: 0.9rem;
+                    color: var(--gray-800);
+                    resize: none;
+                    outline: none;
+                }
+
+                .map-search-container {
+                    position: relative;
+                    margin-bottom: 1rem;
+                }
+
+                .map-search-input {
+                    width: 100%;
+                    padding: 0.875rem 1rem 0.875rem 2.5rem;
+                    border: 1px solid var(--gray-200);
+                    border-radius: 12px;
+                    font-size: 0.95rem;
+                    transition: all 0.2s;
+                }
+
+                .map-search-input:focus {
+                    outline: none;
+                    border-color: var(--primary-500);
+                    box-shadow: 0 0 0 4px var(--primary-50);
+                }
+
+                .search-icon-inside {
+                    position: absolute;
+                    left: 1rem;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    color: var(--gray-400);
+                    font-size: 0.9rem;
+                }
+
+                .search-results-dropdown {
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    width: 100%;
+                    background: white;
+                    border-radius: 12px;
+                    box-shadow: var(--shadow-xl);
+                    z-index: 2100;
+                    margin-top: 0.5rem;
+                    max-height: 250px;
+                    overflow-y: auto;
+                    display: none;
+                    border: 1px solid var(--gray-100);
+                }
+
+                .search-result-item {
+                    padding: 0.75rem 1rem;
+                    cursor: pointer;
+                    border-bottom: 1px solid var(--gray-50);
+                    font-size: 0.9rem;
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 0.75rem;
+                }
+
+                .search-result-item:hover {
+                    background: var(--primary-25);
+                }
+
+                .search-result-item i {
+                    margin-top: 2px;
+                    color: var(--gray-400);
+                }
             </style>
         </head>
 
@@ -147,7 +291,8 @@
                         onclick="location.href='${pageContext.request.contextPath}/restaurants?search=bath'">
                         <div class="scroller-image">
                             <!-- Corrected: South Indian Bath (Upma/Chow-Chow Bath) -->
-                            <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=200&h=200&fit=crop" alt="Bath">
+                            <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=200&h=200&fit=crop"
+                                alt="Bath">
                         </div>
                         <span>Bath</span>
                     </div>
@@ -161,7 +306,8 @@
                     <div class="scroller-item"
                         onclick="location.href='${pageContext.request.contextPath}/restaurants?search=pongal'">
                         <div class="scroller-image">
-                            <img src="https://images.unsplash.com/photo-1621658537360-dfcb008fe19f?w=200&h=200&fit=crop" alt="Pongal">
+                            <img src="https://images.unsplash.com/photo-1621658537360-dfcb008fe19f?w=200&h=200&fit=crop"
+                                alt="Pongal">
                         </div>
                         <span>Pongal</span>
                     </div>
@@ -284,11 +430,13 @@
                     <div class="modal-body">
                         <div class="map-search-container">
                             <span class="search-icon-inside">🔍</span>
-                            <input type="text" id="mapSearchInput" class="map-search-input" placeholder="Type your area or building name...">
+                            <input type="text" id="mapSearchInput" class="map-search-input"
+                                placeholder="Type your area or building name...">
                             <div id="searchResultsDropdown" class="search-results-dropdown"></div>
                         </div>
                         <div class="selected-address-box">
-                            <textarea id="modalAddressBox" class="address-textarea" rows="2" placeholder="Searching for address..."></textarea>
+                            <textarea id="modalAddressBox" class="address-textarea" rows="2"
+                                placeholder="Searching for address..."></textarea>
                         </div>
                         <div id="homeMap"></div>
                         <div class="map-controls">
@@ -321,23 +469,23 @@
                         homeMarker.setLatLng([lat, lng]);
                         return;
                     }
-                    
+
                     homeMap = L.map('homeMap').setView([lat, lng], 13);
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         attribution: '© OpenStreetMap contributors'
                     }).addTo(homeMap);
 
                     homeMarker = L.marker([lat, lng], { draggable: true }).addTo(homeMap);
-                    
-                    homeMarker.on('dragend', function(e) {
+
+                    homeMarker.on('dragend', function (e) {
                         updateHomeAddress(homeMarker.getLatLng().lat, homeMarker.getLatLng().lng);
                     });
 
-                    homeMap.on('click', function(e) {
+                    homeMap.on('click', function (e) {
                         homeMarker.setLatLng(e.latlng);
                         updateHomeAddress(e.latlng.lat, e.latlng.lng);
                     });
-                    
+
                     updateHomeAddress(lat, lng);
                 }
 

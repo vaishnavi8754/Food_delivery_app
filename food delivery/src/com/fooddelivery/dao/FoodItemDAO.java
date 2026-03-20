@@ -1552,19 +1552,19 @@ public class FoodItemDAO {
                         case 21: // Sweet Temptations
                                 addMock(mocks, restaurantId, 2101, "Triple Chocolate Muffin", 85, "Cakes", true,
                                                 "Soft and moist chocolate muffin with Belgian chocolate chunks", 4.5, 180,
-                                                "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400", true);
+                                                "https://images.unsplash.com/photo-1527904324834-3bda86da6771?auto=format&fit=crop&w=400&q=80", true);
                                 addMock(mocks, restaurantId, 2102, "Warm Apple Pie", 150, "Cakes", true,
                                                 "Traditional crusty pie with cinnamon spiced apple filling", 4.7, 250,
-                                                "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?w=400", false);
+                                                "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?auto=format&fit=crop&w=400&q=80", false);
                                 addMock(mocks, restaurantId, 2103, "Classic Plum Cake", 220, "Cakes", true,
                                                 "Rich fruit cake soaked with juices and premium dry fruits", 4.6, 320,
-                                                "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400", false);
+                                                "https://images.unsplash.com/photo-1512418490979-92798cec1380?auto=format&fit=crop&w=400&q=80", false);
                                 addMock(mocks, restaurantId, 2104, "Pineapple Pastry", 95, "Cakes", true,
                                                 "Tropical pineapple flavored cake with buttery cream", 4.4, 190,
-                                                "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400", false);
+                                                "https://images.unsplash.com/photo-1571115177098-24ec42ed204d?auto=format&fit=crop&w=400&q=80", false);
                                 addMock(mocks, restaurantId, 2105, "Choco Chip Brownie", 110, "Brownies", true,
                                                 "Chewy brownie loaded with dark chocolate chips", 4.8, 310,
-                                                "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400", true);
+                                                "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=400&q=80", true);
                                 addMock(mocks, restaurantId, 2106, "Vanilla Bean Cupcake", 70, "Cakes", true,
                                                 "Light vanilla sponge topped with silky buttercream frosting", 4.6, 215,
                                                 "https://images.unsplash.com/photo-1519869325930-281384150729?w=400", false);

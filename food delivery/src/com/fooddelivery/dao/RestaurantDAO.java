@@ -44,6 +44,7 @@ public class RestaurantDAO {
         r1.setRating(4.8);
         r1.setAddress("45 Gourmet Avenue, Indiranagar, Bangalore");
         r1.setImageUrl("https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800");
+        r1.setLatitude(12.9716); r1.setLongitude(77.6412);
         mocks.add(r1);
 
         Restaurant r2 = new Restaurant();
@@ -53,6 +54,7 @@ public class RestaurantDAO {
         r2.setRating(4.6);
         r2.setAddress("12 Woodfire Lane, Koramangala, Bangalore");
         r2.setImageUrl("https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800");
+        r2.setLatitude(12.9352); r2.setLongitude(77.6245);
         mocks.add(r2);
 
         Restaurant r3 = new Restaurant();
@@ -62,6 +64,7 @@ public class RestaurantDAO {
         r3.setRating(4.7);
         r3.setAddress("88 Curry Road, HSR Layout, Bangalore");
         r3.setImageUrl("https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800");
+        r3.setLatitude(12.9116); r3.setLongitude(77.6389);
         mocks.add(r3);
 
         Restaurant r4 = new Restaurant();
@@ -71,6 +74,7 @@ public class RestaurantDAO {
         r4.setRating(4.5);
         r4.setAddress("22 Silk Street, Whitefield, Bangalore");
         r4.setImageUrl("https://images.unsplash.com/photo-1585032226651-759b368d7246?w=800");
+        r4.setLatitude(12.9698); r4.setLongitude(77.7499);
         mocks.add(r4);
 
         Restaurant r5 = new Restaurant();
@@ -80,6 +84,7 @@ public class RestaurantDAO {
         r5.setRating(4.9);
         r5.setAddress("10 Sakura Lane, Jayanagar, Bangalore");
         r5.setImageUrl("https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800");
+        r5.setLatitude(12.9252); r5.setLongitude(77.5938);
         mocks.add(r5);
 
         Restaurant r6 = new Restaurant();
@@ -89,6 +94,7 @@ public class RestaurantDAO {
         r6.setRating(4.4);
         r6.setAddress("45 Fiesta Square, JP Nagar, Bangalore");
         r6.setImageUrl("https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800");
+        r6.setLatitude(12.9015); r6.setLongitude(77.5849);
         mocks.add(r6);
 
         Restaurant r7 = new Restaurant();
@@ -98,6 +104,7 @@ public class RestaurantDAO {
         r7.setRating(4.7);
         r7.setAddress("12 Eiffel Street, Lavelle Road, Bangalore");
         r7.setImageUrl("https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800");
+        r7.setLatitude(12.9716); r7.setLongitude(77.5946);
         mocks.add(r7);
 
         Restaurant r8 = new Restaurant();
@@ -107,6 +114,7 @@ public class RestaurantDAO {
         r8.setRating(4.6);
         r8.setAddress("99 Grill Road, Malleshwaram, Bangalore");
         r8.setImageUrl("https://images.unsplash.com/photo-1544025162-d76694265947?w=800");
+        r8.setLatitude(13.0035); r8.setLongitude(77.5709);
         mocks.add(r8);
 
         Restaurant r9 = new Restaurant();
@@ -116,6 +124,7 @@ public class RestaurantDAO {
         r9.setRating(4.5);
         r9.setAddress("5 Vegan Valley, Sadashivanagar, Bangalore");
         r9.setImageUrl("https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800");
+        r9.setLatitude(13.0094); r9.setLongitude(77.5799);
         mocks.add(r9);
 
         Restaurant r10 = new Restaurant();
@@ -126,6 +135,7 @@ public class RestaurantDAO {
         r10.setAddress("12 Gandhi Road, Jayanagar, Bangalore");
         r10.setPhone("9876501234");
         r10.setImageUrl("https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800");
+        r10.setLatitude(12.9252); r10.setLongitude(77.5938);
         mocks.add(r10);
 
         Restaurant r11 = new Restaurant();
@@ -136,6 +146,7 @@ public class RestaurantDAO {
         r11.setAddress("45 Residency Road, Bangalore");
         r11.setPhone("9840123456");
         r11.setImageUrl("https://images.unsplash.com/photo-1516714435131-44d6b64dc6a2?w=800");
+        r11.setLatitude(12.9716); r11.setLongitude(77.6099);
         mocks.add(r11);
 
         Restaurant r12 = new Restaurant();
@@ -146,6 +157,7 @@ public class RestaurantDAO {
         r12.setAddress("Residency Road, Bangalore");
         r12.setPhone("8023456789");
         r12.setImageUrl("https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?w=800");
+        r12.setLatitude(12.9716); r12.setLongitude(77.6099);
         mocks.add(r12);
 
         Restaurant r13 = new Restaurant();
@@ -156,6 +168,7 @@ public class RestaurantDAO {
         r13.setAddress("MG Road, Bangalore");
         r13.setPhone("9447012345");
         r13.setImageUrl("https://images.unsplash.com/photo-1567337710282-00832b415979?w=800");
+        r13.setLatitude(12.9768); r13.setLongitude(77.6033);
         mocks.add(r13);
 
         Restaurant r14 = new Restaurant();
@@ -166,6 +179,7 @@ public class RestaurantDAO {
         r14.setAddress("Gandhi Bazaar, Basavanagudi, Bangalore");
         r14.setPhone("8026677451");
         r14.setImageUrl("https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=800");
+        r14.setLatitude(12.9424); r14.setLongitude(77.5762);
         mocks.add(r14);
 
         Restaurant r15 = new Restaurant();
@@ -176,6 +190,7 @@ public class RestaurantDAO {
         r15.setAddress("Indiranagar, Bangalore");
         r15.setPhone("4023556789");
         r15.setImageUrl("https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=800");
+        r15.setLatitude(12.9716); r15.setLongitude(77.6412);
         mocks.add(r15);
 
         Restaurant r16 = new Restaurant();
@@ -186,6 +201,7 @@ public class RestaurantDAO {
         r16.setAddress("Brigade Road, Bangalore");
         r16.setPhone("8025585858");
         r16.setImageUrl("https://images.unsplash.com/photo-1765265432607-cdc1060294ba?w=800");
+        r16.setLatitude(12.9716); r16.setLongitude(77.6099);
         mocks.add(r16);
 
         Restaurant r17 = new Restaurant();
@@ -196,6 +212,7 @@ public class RestaurantDAO {
         r17.setAddress("Commercial Street, Bangalore");
         r17.setPhone("4522341234");
         r17.setImageUrl("https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800");
+        r17.setLatitude(12.9833); r17.setLongitude(77.6079);
         mocks.add(r17);
 
         Restaurant r18 = new Restaurant();
@@ -206,6 +223,7 @@ public class RestaurantDAO {
         r18.setAddress("Majestic Station Road, Bangalore");
         r18.setPhone("4902322334");
         r18.setImageUrl("https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?w=800");
+        r18.setLatitude(12.9767); r18.setLongitude(77.5713);
         mocks.add(r18);
 
         Restaurant r19 = new Restaurant();
@@ -216,6 +234,7 @@ public class RestaurantDAO {
         r19.setAddress("Electronic City, Bangalore");
         r19.setPhone("4023411122");
         r19.setImageUrl("https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=800");
+        r19.setLatitude(12.8445); r19.setLongitude(77.6667);
         mocks.add(r19);
 
         Restaurant r20 = new Restaurant();
@@ -226,6 +245,7 @@ public class RestaurantDAO {
         r20.setAddress("Indiranagar, Bangalore");
         r20.setPhone("8041235566");
         r20.setImageUrl("https://images.unsplash.com/photo-1739132124985-6c9277e268b5?w=800");
+        r20.setLatitude(12.9716); r20.setLongitude(77.6412);
         mocks.add(r20);
 
         Restaurant r21 = new Restaurant();
@@ -236,6 +256,7 @@ public class RestaurantDAO {
         r21.setAddress("Koramangala, Bangalore");
         r21.setPhone("4428223344");
         r21.setImageUrl("https://images.unsplash.com/photo-1648596799000-646ec880d4e7?w=800");
+        r21.setLatitude(12.9352); r21.setLongitude(77.6245);
         mocks.add(r21);
 
         Restaurant r22 = new Restaurant();
@@ -246,6 +267,7 @@ public class RestaurantDAO {
         r22.setAddress("Cunningham Road, Bangalore");
         r22.setPhone("4023112233");
         r22.setImageUrl("https://images.unsplash.com/photo-1765809330985-a59b80931d12?w=800");
+        r22.setLatitude(12.9845); r22.setLongitude(77.5990);
         mocks.add(r22);
 
         Restaurant r23 = new Restaurant();
@@ -255,9 +277,8 @@ public class RestaurantDAO {
         r23.setRating(4.5);
         r23.setAddress("Jayanagar, Bangalore");
         r23.setPhone("8026633445");
-        r23.setImageUrl("https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800"); // Standard South Indian
-                                                                                               // meal image to
-                                                                                               // represent variety
+        r23.setImageUrl("https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800");
+        r23.setLatitude(12.9252); r23.setLongitude(77.5938);
         mocks.add(r23);
 
         return mocks;
@@ -543,5 +564,33 @@ public class RestaurantDAO {
         r.setActive(rs.getBoolean("is_active"));
         r.setCreatedAt(rs.getTimestamp("created_at"));
         return r;
+    }
+
+    /**
+     * Calculate the Haversine distance in kilometers between two lat/lng points.
+     */
+    public static double haversineDistance(double lat1, double lon1, double lat2, double lon2) {
+        final double R = 6371.0; // Earth radius in km
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
+
+    /**
+     * Check if two restaurants (by ID) are within maxKm of each other.
+     */
+    public boolean areRestaurantsNearby(int restaurantId1, int restaurantId2, double maxKm) {
+        if (restaurantId1 == restaurantId2) return true;
+        Restaurant r1 = getRestaurantById(restaurantId1);
+        Restaurant r2 = getRestaurantById(restaurantId2);
+        if (r1 == null || r2 == null) return false;
+        if (r1.getLatitude() == 0 || r2.getLatitude() == 0) return true; // unknown = allow
+        double dist = haversineDistance(r1.getLatitude(), r1.getLongitude(),
+                                        r2.getLatitude(), r2.getLongitude());
+        return dist <= maxKm;
     }
 }

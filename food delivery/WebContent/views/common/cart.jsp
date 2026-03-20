@@ -13,6 +13,69 @@
                     rel="stylesheet">
                 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
                 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pages.css">
+                <style>
+                    /* ── Multi-Restaurant Cart Grouping ─────────── */
+                    .restaurant-group {
+                        background: #fff;
+                        border-radius: 16px;
+                        border: 1.5px solid #f0f0f0;
+                        overflow: hidden;
+                        margin-bottom: 20px;
+                        box-shadow: 0 2px 12px rgba(0,0,0,.06);
+                    }
+                    .restaurant-group-header {
+                        background: linear-gradient(135deg, #fff8f2, #fff3e6);
+                        padding: 14px 22px;
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        border-bottom: 1px solid #ffe5cc;
+                    }
+                    .restaurant-group-header .rest-icon { font-size: 1.4rem; }
+                    .restaurant-group-header .rest-name {
+                        font-weight: 700;
+                        font-size: 1rem;
+                        color: #1a1a1a;
+                    }
+                    .restaurant-group-header .rest-badge {
+                        margin-left: auto;
+                        background: #e67e22;
+                        color: #fff;
+                        border-radius: 20px;
+                        padding: 3px 12px;
+                        font-size: .75rem;
+                        font-weight: 600;
+                    }
+                    .restaurant-group .cart-item {
+                        border-bottom: 1px solid #f5f5f5;
+                        border-radius: 0;
+                        padding: 16px 22px;
+                    }
+                    .restaurant-group .cart-item:last-child { border-bottom: none; }
+
+                    /* ── Multi-restaurant info banner ─────────────── */
+                    .multi-rest-info {
+                        background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+                        border: 1.5px solid #a5d6a7;
+                        border-radius: 12px;
+                        padding: 14px 20px;
+                        margin-bottom: 22px;
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 12px;
+                        font-size: .9rem;
+                        color: #2e7d32;
+                    }
+                    .multi-rest-info .info-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+                    /* ── Cart summary delivery breakdown ──────────── */
+                    .delivery-breakdown {
+                        font-size: .82rem;
+                        color: #888;
+                        margin-top: 2px;
+                        margin-left: 4px;
+                    }
+                </style>
             </head>
 
             <body>
@@ -66,13 +129,45 @@
                                 </div>
                             </c:when>
                             <c:otherwise>
+                                <%-- Multi-restaurant info banner (show only if > 1 restaurant) --%>
+                                <c:if test="${restaurantCount > 1}">
+                                    <div class="multi-rest-info">
+                                        <span class="info-icon">✅</span>
+                                        <div>
+                                            <strong>Multi-Restaurant Order Active</strong><br>
+                                            You're ordering from <strong>${restaurantCount} nearby restaurants</strong> (within 3 km of each other).
+                                            All items will be delivered together in one order!
+                                        </div>
+                                    </div>
+                                </c:if>
+
                                 <div class="cart-layout">
                                     <div class="cart-items">
+                                        <%-- Group items by restaurant using JSTL --%>
+                                        <c:set var="currentRestId" value="-1" />
+                                        <c:set var="currentRestName" value="" />
+
                                         <c:forEach var="item" items="${cartItems}">
+                                            <%-- Open a new group when restaurant changes --%>
+                                            <c:if test="${item.restaurantId != currentRestId}">
+                                                <%-- Close previous group div (skip on first) --%>
+                                                <c:if test="${currentRestId != -1}">
+                                                    </div><%-- close .restaurant-group --%>
+                                                </c:if>
+                                                <c:set var="currentRestId" value="${item.restaurantId}" />
+                                                <c:set var="currentRestName" value="${item.restaurantName}" />
+                                                <div class="restaurant-group">
+                                                    <div class="restaurant-group-header">
+                                                        <span class="rest-icon">🍽️</span>
+                                                        <span class="rest-name">${item.restaurantName}</span>
+                                                        <span class="rest-badge">Restaurant</span>
+                                                    </div>
+                                            </c:if>
+
+                                            <%-- Cart item row --%>
                                             <div class="cart-item">
                                                 <div class="cart-item-info">
                                                     <h4>${item.foodName}</h4>
-                                                    <p class="cart-item-restaurant">${item.restaurantName}</p>
                                                     <p class="cart-item-price">₹
                                                         <fmt:formatNumber value="${item.price}" pattern="#,##0.00" />
                                                         each
@@ -99,6 +194,11 @@
                                                 </div>
                                             </div>
                                         </c:forEach>
+
+                                        <%-- Close the last open group --%>
+                                        <c:if test="${currentRestId != -1}">
+                                            </div><%-- close .restaurant-group --%>
+                                        </c:if>
                                     </div>
 
                                     <div class="cart-summary">
@@ -110,13 +210,18 @@
                                             </span>
                                         </div>
                                         <div class="summary-row">
-                                            <span>Delivery Fee</span>
-                                            <span>₹20.00</span>
+                                            <span>
+                                                Delivery Fee
+                                                <c:if test="${restaurantCount > 1}">
+                                                    <span class="delivery-breakdown">(₹20 × ${restaurantCount} restaurants)</span>
+                                                </c:if>
+                                            </span>
+                                            <span>₹<fmt:formatNumber value="${restaurantCount * 20}" pattern="#,##0.00" /></span>
                                         </div>
                                         <div class="summary-row total">
                                             <span>Total</span>
                                             <span>₹
-                                                <fmt:formatNumber value="${cartTotal + 20}" pattern="#,##0.00" />
+                                                <fmt:formatNumber value="${cartTotal + (restaurantCount * 20)}" pattern="#,##0.00" />
                                             </span>
                                         </div>
                                         <div class="payment-methods-summary">

@@ -20,6 +20,8 @@ public class Restaurant {
     private String closingTime;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private double latitude;
+    private double longitude;
 
     public Restaurant() {
     }
@@ -143,5 +145,21 @@ public class Restaurant {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

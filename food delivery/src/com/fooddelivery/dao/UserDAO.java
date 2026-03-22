@@ -28,7 +28,7 @@ public class UserDAO {
         defaultUser.setStatus("active");
         defaultUser.setTotalOrders(5);
         defaultUser.setTotalSpent(1250.00);
-        demoUsers.add(defaultUser);
+        demoUsers.add(defaultUser); 
 
         // Recovered user account
         User recoveredUser = new User();

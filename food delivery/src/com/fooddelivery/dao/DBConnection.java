@@ -22,9 +22,18 @@ public class DBConnection {
      * @return Connection object
      */
     public static Connection getConnection() {
-        String[] commonPasswords = { DB_PASSWORD, "root", "password", "1234", "123456", "admin", "foodexpress" };
+        // Read from environment variables first (used in deployment like Render/Railway)
+        String envDbUrl = System.getenv("DATABASE_URL");
+        String envDbUser = System.getenv("DATABASE_USER");
+        String envDbPassword = System.getenv("DATABASE_PASSWORD");
 
-        System.out.println("Attempting to connect to: " + DB_URL + " as " + DB_USER);
+        String currentUrl = (envDbUrl != null && !envDbUrl.isEmpty()) ? envDbUrl : DB_URL;
+        String currentUser = (envDbUser != null && !envDbUser.isEmpty()) ? envDbUser : DB_USER;
+        String currentPassword = (envDbPassword != null && !envDbPassword.isEmpty()) ? envDbPassword : DB_PASSWORD;
+
+        String[] commonPasswords = { currentPassword, "root", "password", "1234", "123456", "admin", "foodexpress" };
+
+        System.out.println("Attempting to connect to: " + currentUrl + " as " + currentUser);
 
         // Prefer environment variable if it exists
         String envPwd = System.getenv("FOODEXPRESS_DB_PASSWORD");
@@ -35,7 +44,7 @@ public class DBConnection {
         for (String password : commonPasswords) {
             try {
                 Class.forName(DB_DRIVER);
-                Connection conn = DriverManager.getConnection(DB_URL, DB_USER, password);
+                Connection conn = DriverManager.getConnection(currentUrl, currentUser, password);
                 if (conn != null) {
                     System.out.println("DATABASE CONNECTED SUCCESSFULLY with password: "
                             + (password.isEmpty() ? "(empty)" : "********"));
